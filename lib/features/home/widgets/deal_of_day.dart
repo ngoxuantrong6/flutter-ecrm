@@ -60,21 +60,21 @@ class _DealOfDayState extends State<DealOfDay> {
                     Container(
                       padding: const EdgeInsets.only(left: 15),
                       alignment: Alignment.topLeft,
-                      child: const Text(
-                        '\$100',
-                        style: TextStyle(fontSize: 18),
+                      child: Text(
+                        '\$${product!.price}',
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding:
-                          const EdgeInsets.only(left: 15, top: 5, right: 40),
-                      child: const Text(
-                        'Rivaan',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                    // Container(
+                    //   alignment: Alignment.topLeft,
+                    //   padding:
+                    //       const EdgeInsets.only(left: 15, top: 5, right: 40),
+                    //   child: const Text(
+                    //     'Rivaan',
+                    //     maxLines: 2,
+                    //     overflow: TextOverflow.ellipsis,
+                    //   ),
+                    // ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -96,10 +96,10 @@ class _DealOfDayState extends State<DealOfDay> {
                         vertical: 15,
                       ).copyWith(left: 15),
                       alignment: Alignment.topLeft,
-                      child: Text(
+                      child: const Text(
                         'See all deals',
                         style: TextStyle(
-                          color: Colors.cyan[800],
+                          color: Color.fromARGB(255, 96, 158, 230),
                         ),
                       ),
                     ),
