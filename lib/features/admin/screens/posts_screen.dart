@@ -72,7 +72,96 @@ class _PostsScreenState extends State<PostsScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => deleteProduct(productData, index),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (mContext) {
+                                return AlertDialog(
+                                    insetPadding: const EdgeInsets.all(48),
+                                    contentPadding: const EdgeInsets.all(0),
+                                    scrollable: true,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(12))),
+                                    content: Column(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.only(
+                                              top: 20, left: 20, right: 20),
+                                          child: Text(
+                                            "Are you sure you want to delete ${productData.name}?",
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                const TextStyle(fontSize: 14),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 40,
+                                          margin:
+                                              const EdgeInsets.only(top: 20),
+                                          decoration: const BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(
+                                                width: 1,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                    flex: 5,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        deleteProduct(
+                                                            productData, index);
+                                                      },
+                                                      child: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: const Center(
+                                                          child: Text(
+                                                            "Agree",
+                                                            style: TextStyle(
+                                                                fontSize: 14),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )),
+                                                Container(
+                                                  width: 1,
+                                                  color: Colors.black,
+                                                  height: 39,
+                                                ),
+                                                Expanded(
+                                                    flex: 5,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.of(context)
+                                                            .pop(true);
+                                                      },
+                                                      child: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: const Center(
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: TextStyle(
+                                                                fontSize: 14),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )),
+                                              ]),
+                                        )
+                                      ],
+                                    ));
+                              },
+                            );
+                          },
                           icon: const Icon(
                             Icons.delete_outline,
                           ),
@@ -84,10 +173,10 @@ class _PostsScreenState extends State<PostsScreen> {
               },
             ),
             floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: navigateToAddProduct,
-              tooltip: 'Add a Product',
-            ),
+                child: const Icon(Icons.add),
+                onPressed: navigateToAddProduct,
+                tooltip: 'Add a Product',
+                backgroundColor: const Color.fromARGB(255, 96, 158, 230)),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );
