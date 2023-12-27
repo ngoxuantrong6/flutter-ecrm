@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_tutorial/features/auth/services/auth_service.dart';
+import 'package:amazon_clone_tutorial/models/user.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:amazon_clone_tutorial/router.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:one_context/one_context.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -29,14 +35,50 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    authService.getUserData(context);
+    checkLogin();
+  }
+
+  Future<void> checkLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('x-auth-token');
+    String? userString = prefs.getString('user');
+    User? user = User(
+      id: "",
+      name: "",
+      email: "",
+      password: "",
+      address: "",
+      type: "",
+      token: "",
+      cart: [],
+    );
+    if (userString != null) {
+      user = User.fromJson(jsonDecode(userString));
+      var userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.setUser(jsonDecode(userString));
+    }
+    if (token == null || token == '') {
+      prefs.setString('x-auth-token', '');
+    } else {
+      if (user.type == 'user') {
+        OneContext.instance.navigator.pushNamedAndRemoveUntil(
+          BottomBar.routeName,
+          (route) => false,
+        );
+      } else {
+        OneContext.instance.navigator.pushNamedAndRemoveUntil(
+          AdminScreen.routeName,
+          (route) => false,
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Amazon Clone',
+      title: 'eCRM Pro',
       theme: ThemeData(
         scaffoldBackgroundColor: GlobalVariables.backgroundColor,
         colorScheme: const ColorScheme.light(
@@ -51,11 +93,10 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true, // can remove this line
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? Provider.of<UserProvider>(context).user.type == 'user'
-              ? const BottomBar()
-              : const AdminScreen()
-          : const AuthScreen(),
+      navigatorKey: OneContext().navigator.key,
+      home: const AuthScreen(),
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
     );
   }
 }

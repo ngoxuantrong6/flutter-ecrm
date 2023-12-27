@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
@@ -176,7 +177,7 @@ class _PostsScreenState extends State<PostsScreen> {
                 child: const Icon(Icons.add),
                 onPressed: navigateToAddProduct,
                 tooltip: 'Add a Product',
-                backgroundColor: const Color.fromARGB(255, 96, 158, 230)),
+                backgroundColor: GlobalVariables.primaryColor),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
           );

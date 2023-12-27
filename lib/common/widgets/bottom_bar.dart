@@ -40,7 +40,7 @@ class _BottomBarState extends State<BottomBar> {
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
+        selectedItemColor: GlobalVariables.primaryColor,
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
         iconSize: 28,
@@ -54,7 +54,7 @@ class _BottomBarState extends State<BottomBar> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
@@ -74,7 +74,7 @@ class _BottomBarState extends State<BottomBar> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
@@ -94,7 +94,7 @@ class _BottomBarState extends State<BottomBar> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),

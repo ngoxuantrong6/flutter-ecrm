@@ -53,10 +53,10 @@ class _OrdersState extends State<Orders> {
                     padding: const EdgeInsets.only(
                       right: 15,
                     ),
-                    child: Text(
+                    child: const Text(
                       'See all',
                       style: TextStyle(
-                        color: GlobalVariables.selectedNavBarColor,
+                        color: GlobalVariables.primaryColor,
                       ),
                     ),
                   ),

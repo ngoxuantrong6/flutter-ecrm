@@ -6,6 +6,7 @@ import 'package:amazon_clone_tutorial/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {
+  static const String routeName = '/admin';
   const AdminScreen({Key? key}) : super(key: key);
 
   @override
@@ -80,7 +81,7 @@ class _AdminScreenState extends State<AdminScreen> {
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
-        selectedItemColor: GlobalVariables.selectedNavBarColor,
+        selectedItemColor: GlobalVariables.primaryColor,
         unselectedItemColor: GlobalVariables.unselectedNavBarColor,
         backgroundColor: GlobalVariables.backgroundColor,
         iconSize: 28,
@@ -94,7 +95,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 0
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
@@ -114,7 +115,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 1
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
@@ -134,7 +135,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 2
-                        ? GlobalVariables.selectedNavBarColor
+                        ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),

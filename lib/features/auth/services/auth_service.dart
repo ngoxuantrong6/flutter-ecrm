@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
+import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone_tutorial/models/user.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +63,7 @@ class AuthService {
     required String password,
   }) async {
     try {
+      LoadingShowAble.showLoading();
       http.Response res = await http.post(
         Uri.parse('$uri/api/signin'),
         body: jsonEncode({
@@ -75,17 +78,29 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
+          LoadingShowAble.forceHide();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            BottomBar.routeName,
-            (route) => false,
-          );
+          await prefs.setString('user', jsonEncode(res.body));
+          User user = Provider.of<UserProvider>(context, listen: false).user;
+          if (user.type == 'admin') {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AdminScreen.routeName,
+              (route) => false,
+            );
+          } else {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              BottomBar.routeName,
+              (route) => false,
+            );
+          }
         },
       );
     } catch (e) {
+      LoadingShowAble.forceHide();
       showSnackBar(context, e.toString());
     }
   }

@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,7 @@ class SearchedProduct extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       product.name,
@@ -44,17 +45,18 @@ class SearchedProduct extends StatelessWidget {
                         fontSize: 16,
                       ),
                       maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Stars(
                       rating: avgRating,
                     ),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Text(
                       '\$${product.price}',
@@ -66,17 +68,17 @@ class SearchedProduct extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10),
                     child: const Text('Eligible for FREE Shipping'),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: const Text(
                       'In Stock',
                       style: TextStyle(
-                        color: Colors.teal,
+                        color: GlobalVariables.primaryColor,
                       ),
                       maxLines: 2,
                     ),

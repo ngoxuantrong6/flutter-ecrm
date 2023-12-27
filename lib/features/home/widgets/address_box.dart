@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class AddressBox extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color.fromARGB(255, 96, 158, 230),
+            GlobalVariables.primaryColor,
             Color.fromARGB(255, 204, 210, 218),
           ],
           stops: [0.5, 1.0],
