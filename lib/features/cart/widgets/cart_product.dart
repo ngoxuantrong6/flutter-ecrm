@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/cart/services/cart_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
@@ -56,9 +57,10 @@ class _CartProductState extends State<CartProduct> {
                 width: 135,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       product.name,
@@ -66,10 +68,11 @@ class _CartProductState extends State<CartProduct> {
                         fontSize: 16,
                       ),
                       maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Text(
                       '\$${product.price}',
@@ -81,17 +84,17 @@ class _CartProductState extends State<CartProduct> {
                     ),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10),
                     child: const Text('Eligible for FREE Shipping'),
                   ),
                   Container(
-                    width: 235,
+                    width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: const Text(
                       'In Stock',
                       style: TextStyle(
-                        color: Colors.teal,
+                        color: GlobalVariables.primaryColor,
                       ),
                       maxLines: 2,
                     ),

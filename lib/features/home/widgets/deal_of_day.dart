@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/home/services/home_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
@@ -99,7 +100,7 @@ class _DealOfDayState extends State<DealOfDay> {
                       child: const Text(
                         'See all deals',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 96, 158, 230),
+                          color: GlobalVariables.primaryColor,
                         ),
                       ),
                     ),
