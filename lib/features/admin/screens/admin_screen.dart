@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/common/widgets/custom_dialog.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/analtyics_screen.dart';
@@ -42,37 +43,35 @@ class _AdminScreenState extends State<AdminScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                // child: Image.asset(
-                //   'assets/images/amazon_in.png',
-                //   width: 120,
-                //   height: 45,
-                //   color: Colors.black,
-                // ),
-                child: const Text(
-                  "ECRM PRO",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+          title: Container(
+            alignment: Alignment.topLeft,
+            // child: Image.asset(
+            //   'assets/images/amazon_in.png',
+            //   width: 120,
+            //   height: 45,
+            //   color: Colors.black,
+            // ),
+            child: const Text(
+              "ECRM PRO",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
-              const Text(
-                'Admin',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
+            ),
           ),
           actions: [
             IconButton(
-              onPressed: () => AccountServices().logOut(context),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (mContext) {
+                    return CustomDialog(
+                      title: "Bạn có chắc muốn đăng xuất?",
+                      pressAgreeButton: () => AccountServices().logOut(context),
+                    );
+                  },
+                );
+              },
               icon: const Icon(Icons.logout),
             ),
           ],

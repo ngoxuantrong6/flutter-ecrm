@@ -1,19 +1,21 @@
 import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
+import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const String routeName = '/order-details';
-  final Order order;
+  final String orderId;
   const OrderDetailScreen({
     Key? key,
-    required this.order,
+    required this.orderId,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,7 @@ class OrderDetailScreen extends StatefulWidget {
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int currentStep = 0;
   final AdminServices adminServices = AdminServices();
+  Order? order;
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
@@ -31,7 +34,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   void initState() {
     super.initState();
-    currentStep = widget.order.status;
+    initializeDateFormatting();
+    getOderDetail();
+    // currentStep = order!.status;
+  }
+
+  getOderDetail() async {
+    order = await adminServices.getOderDetail(context, widget.orderId);
+    setState(() {});
   }
 
   // !!! ONLY FOR ADMIN!!!
@@ -39,18 +49,28 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     adminServices.changeOrderStatus(
       context: context,
       status: status + 1,
-      order: widget.order,
+      order: order!,
       onSuccess: () {
         setState(() {
           currentStep += 1;
         });
+        print("currentSteppppppppp trong change $currentStep");
+        print("order status trong change ${order!.status}");
       },
     );
   }
 
   @override
+  void didChangeDependencies() {
+    // currentStep = order?.status ?? 0;
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    currentStep = order?.status ?? 0;
+    print("currentSteppppppppp $currentStep");
 
     return Scaffold(
       appBar: PreferredSize(
@@ -105,7 +125,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Search',
+                        hintText: 'Tìm kiếm',
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -125,162 +145,192 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'View order details',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
-                  ),
-                ),
+      body: order == null
+          ? const Loader()
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Order Date:      ${DateFormat().format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          widget.order.orderedAt),
-                    )}'),
-                    Text('Order ID:          ${widget.order.id}'),
-                    Text('Order Total:      \$${widget.order.totalPrice}'),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Purchase Details',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    for (int i = 0; i < widget.order.products.length; i++)
-                      Row(
+                    const Text(
+                      'Xem chi tiết đơn hàng',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black12,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.network(
-                            widget.order.products[i].images[0],
-                            height: 120,
-                            width: 120,
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          Text(
+                              'Ngày đặt hàng:      ${DateFormat.Hms('vi').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                order!.orderedAt),
+                          )} - ${DateFormat.yMMMMd('vi').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                order!.orderedAt),
+                          )}'),
+                          Text('ID đơn hàng:          ${order!.id}'),
+                          Text(
+                              'Tổng:                       \$${order!.totalPrice}'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // const Text(
+                    //   'Chi tiết mua hàng',
+                    //   style: TextStyle(
+                    //     fontSize: 22,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black12,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          for (int i = 0; i < order!.products.length; i++)
+                            Row(
                               children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                Image.network(
+                                  order!.products[i].images[0],
+                                  height: 120,
+                                  width: 120,
                                 ),
-                                Text(
-                                  'Qty: ${widget.order.quantity[i]}',
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        order!.products[i].name,
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        'Số lượng: ${order!.quantity[i]}',
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Theo dõi',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black12,
+                        ),
+                      ),
+                      child: Stepper(
+                        currentStep: currentStep,
+                        controlsBuilder: (context, details) {
+                          if (user.type == 'admin' && currentStep < 5) {
+                            print("details.currentStep ${details.currentStep}");
+                            return CustomButton(
+                              text: 'Xong',
+                              onTap: () =>
+                                  changeOrderStatus(details.currentStep),
+                            );
+                          }
+                          return const SizedBox();
+                        },
+                        steps: [
+                          Step(
+                            title: const Text('Đơn hàng đã được đặt'),
+                            content: const Text(
+                              'Đơn hàng của bạn đã được đặt.',
+                            ),
+                            isActive: currentStep > 0,
+                            state: currentStep > 0
+                                ? StepState.complete
+                                : StepState.indexed,
+                          ),
+                          Step(
+                            title: const Text('Sẵn sàng để vận chuyển'),
+                            content: const Text(
+                              'Đơn hàng của bạn đã được đóng gói và đang chờ hãng vận chuyển đến lấy.',
+                            ),
+                            isActive: currentStep > 1,
+                            state: currentStep > 1
+                                ? StepState.complete
+                                : StepState.indexed,
+                          ),
+                          Step(
+                            title: const Text('Đã lấy'),
+                            content: const Text(
+                              'Kiện hàng của bạn đã được lấy.',
+                            ),
+                            isActive: currentStep > 2,
+                            state: currentStep > 2
+                                ? StepState.complete
+                                : StepState.indexed,
+                          ),
+                          Step(
+                            title: const Text('Đang trên đường giao'),
+                            content: const Text(
+                              'Kiện hàng của bạn đang trên đường giao.',
+                            ),
+                            isActive: currentStep >= 3,
+                            state: currentStep >= 3
+                                ? StepState.complete
+                                : StepState.indexed,
+                          ),
+                          Step(
+                            title: const Text('Tiến hành giao hàng'),
+                            content: const Text(
+                              'Kiện hàng của bạn sẽ sớm được giao, vui lòng chú ý đến thông tin giao hàng.',
+                            ),
+                            isActive: currentStep >= 4,
+                            state: currentStep >= 4
+                                ? StepState.complete
+                                : StepState.indexed,
+                          ),
+                          Step(
+                            title: const Text('Đã giao'),
+                            content: const Text(
+                              'Kiện hàng của bạn đã được giao! Người nhận: Khách hàng.',
+                            ),
+                            isActive: currentStep >= 5,
+                            state: currentStep >= 5
+                                ? StepState.complete
+                                : StepState.indexed,
                           ),
                         ],
                       ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Tracking',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
-                  ),
-                ),
-                child: Stepper(
-                  currentStep: currentStep,
-                  controlsBuilder: (context, details) {
-                    if (user.type == 'admin' && currentStep < 3) {
-                      return CustomButton(
-                        text: 'Done',
-                        onTap: () => changeOrderStatus(details.currentStep),
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                  steps: [
-                    Step(
-                      title: const Text('Pending'),
-                      content: const Text(
-                        'Your order is yet to be delivered',
-                      ),
-                      isActive: currentStep > 0,
-                      state: currentStep > 0
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Completed'),
-                      content: const Text(
-                        'Your order has been delivered, you are yet to sign.',
-                      ),
-                      isActive: currentStep > 1,
-                      state: currentStep > 1
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Received'),
-                      content: const Text(
-                        'Your order has been delivered and signed by you.',
-                      ),
-                      isActive: currentStep > 2,
-                      state: currentStep > 2
-                          ? StepState.complete
-                          : StepState.indexed,
-                    ),
-                    Step(
-                      title: const Text('Delivered'),
-                      content: const Text(
-                        'Your order has been delivered and signed by you!',
-                      ),
-                      isActive: currentStep >= 3,
-                      state: currentStep >= 3
-                          ? StepState.complete
-                          : StepState.indexed,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

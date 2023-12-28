@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/common/widgets/custom_dialog.dart';
 import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,17 @@ class TopButtons extends StatelessWidget {
           children: [
             AccountButton(
               text: 'Log Out',
-              onTap: () => AccountServices().logOut(context),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (mContext) {
+                    return CustomDialog(
+                      title: "Bạn có chắc muốn đăng xuất?",
+                      pressAgreeButton: () => AccountServices().logOut(context),
+                    );
+                  },
+                );
+              },
             ),
             AccountButton(
               text: 'Your Wish List',
