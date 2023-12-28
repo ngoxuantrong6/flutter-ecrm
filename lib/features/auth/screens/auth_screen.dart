@@ -62,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Welcome',
+                'Xin chào bạn',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -73,7 +73,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ? GlobalVariables.backgroundColor
                     : GlobalVariables.greyBackgroundCOlor,
                 title: const Text(
-                  'Create Account',
+                  'Tạo tài khoản',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -99,7 +99,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       children: [
                         CustomTextField(
                           controller: _nameController,
-                          hintText: 'Name',
+                          hintText: 'Tên',
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
@@ -109,11 +109,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 10),
                         CustomTextField(
                           controller: _passwordController,
-                          hintText: 'Password',
+                          hintText: 'Mật khẩu',
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
-                          text: 'Sign Up',
+                          text: 'Đăng Ký',
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()) {
                               signUpUser();
@@ -129,7 +129,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ? GlobalVariables.backgroundColor
                     : GlobalVariables.greyBackgroundCOlor,
                 title: const Text(
-                  'Sign-In.',
+                  'Đăng nhập',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -160,11 +160,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 10),
                         CustomTextField(
                           controller: _passwordController,
-                          hintText: 'Password',
+                          hintText: 'Mật khẩu',
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
-                          text: 'Sign In',
+                          text: 'Đăng Nhập',
                           onTap: () {
                             if (_signInFormKey.currentState!.validate()) {
                               signInUser();

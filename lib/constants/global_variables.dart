@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String uri = 'https://ecrm-server.onrender.com';
+String uri = 'http://192.168.0.91:3000';
 
 class GlobalVariables {
   // COLORS
@@ -29,23 +29,23 @@ class GlobalVariables {
 
   static const List<Map<String, String>> categoryImages = [
     {
-      'title': 'Mobiles',
+      'title': 'Điện thoại',
       'image': 'assets/images/mobiles.jpeg',
     },
     {
-      'title': 'Essentials',
+      'title': 'Đồ dùng thiết yếu',
       'image': 'assets/images/essentials.jpeg',
     },
     {
-      'title': 'Appliances',
+      'title': 'Thiết bị gia dụng',
       'image': 'assets/images/appliances.jpeg',
     },
     {
-      'title': 'Books',
+      'title': 'Sách',
       'image': 'assets/images/books.jpeg',
     },
     {
-      'title': 'Fashion',
+      'title': 'Thời trang',
       'image': 'assets/images/fashion.jpeg',
     },
   ];

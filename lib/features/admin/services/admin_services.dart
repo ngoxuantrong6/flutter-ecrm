@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
@@ -26,6 +27,7 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      LoadingShowAble.showLoading();
       final cloudinary = CloudinaryPublic('denfgaxvg', 'uszbstnu');
       List<String> imageUrls = [];
 
@@ -58,8 +60,8 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Product Added Successfully!');
-          Navigator.pop(context);
+          showSnackBar(context, 'Đã thêm sản phẩm thành công!');
+          Navigator.of(context).pop(true);
         },
       );
     } catch (e) {
@@ -161,6 +163,44 @@ class AdminServices {
     return orderList;
   }
 
+  Future<Order> getOderDetail(BuildContext context, String orderId) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Order order = Order(
+      id: "",
+      products: [],
+      quantity: [],
+      address: "",
+      userId: "",
+      orderedAt: 0,
+      status: 0,
+      totalPrice: 0,
+    );
+    try {
+      http.Response res = await http.post(
+          Uri.parse(
+            '$uri/admin/get-order-detail',
+          ),
+          body: jsonEncode({
+            'id': orderId,
+          }),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          order = Order.fromJson(res.body);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return order;
+  }
+
   void changeOrderStatus({
     required BuildContext context,
     required int status,
@@ -170,6 +210,7 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      LoadingShowAble.showLoading();
       http.Response res = await http.post(
         Uri.parse('$uri/admin/change-order-status'),
         headers: {
@@ -210,11 +251,11 @@ class AdminServices {
           var response = jsonDecode(res.body);
           totalEarning = response['totalEarnings'];
           sales = [
-            Sales('Mobiles', response['mobileEarnings']),
-            Sales('Essentials', response['essentialEarnings']),
-            Sales('Books', response['booksEarnings']),
-            Sales('Appliances', response['applianceEarnings']),
-            Sales('Fashion', response['fashionEarnings']),
+            Sales('Điện thoại', response['mobileEarnings']),
+            Sales('ĐDTY', response['essentialEarnings']),
+            Sales('TBGD', response['applianceEarnings']),
+            Sales('Sách', response['booksEarnings']),
+            Sales('Thời trang', response['fashionEarnings']),
           ];
         },
       );

@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/common/widgets/custom_dialog.dart';
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
@@ -37,10 +38,15 @@ class _PostsScreenState extends State<PostsScreen> {
         setState(() {});
       },
     );
+    Navigator.of(context).pop();
   }
 
   void navigateToAddProduct() {
-    Navigator.pushNamed(context, AddProductScreen.routeName);
+    Navigator.pushNamed(context, AddProductScreen.routeName).then((value) {
+      if (value != null) {
+        fetchAllProducts();
+      }
+    });
   }
 
   @override
@@ -77,89 +83,12 @@ class _PostsScreenState extends State<PostsScreen> {
                             showDialog(
                               context: context,
                               builder: (mContext) {
-                                return AlertDialog(
-                                    insetPadding: const EdgeInsets.all(48),
-                                    contentPadding: const EdgeInsets.all(0),
-                                    scrollable: true,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(12))),
-                                    content: Column(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          margin: const EdgeInsets.only(
-                                              top: 20, left: 20, right: 20),
-                                          child: Text(
-                                            "Are you sure you want to delete ${productData.name}?",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 40,
-                                          margin:
-                                              const EdgeInsets.only(top: 20),
-                                          decoration: const BoxDecoration(
-                                            border: Border(
-                                              top: BorderSide(
-                                                width: 1,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                    flex: 5,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        deleteProduct(
-                                                            productData, index);
-                                                      },
-                                                      child: Container(
-                                                        color:
-                                                            Colors.transparent,
-                                                        child: const Center(
-                                                          child: Text(
-                                                            "Agree",
-                                                            style: TextStyle(
-                                                                fontSize: 14),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                                Container(
-                                                  width: 1,
-                                                  color: Colors.black,
-                                                  height: 39,
-                                                ),
-                                                Expanded(
-                                                    flex: 5,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.of(context)
-                                                            .pop(true);
-                                                      },
-                                                      child: Container(
-                                                        color:
-                                                            Colors.transparent,
-                                                        child: const Center(
-                                                          child: Text(
-                                                            "Cancel",
-                                                            style: TextStyle(
-                                                                fontSize: 14),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )),
-                                              ]),
-                                        )
-                                      ],
-                                    ));
+                                return CustomDialog(
+                                  title:
+                                      "Bạn có chắc muốn xóa ${productData.name}?",
+                                  pressAgreeButton: () =>
+                                      deleteProduct(productData, index),
+                                );
                               },
                             );
                           },

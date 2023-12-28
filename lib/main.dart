@@ -52,14 +52,14 @@ class _MyAppState extends State<MyApp> {
       token: "",
       cart: [],
     );
-    if (userString != null) {
-      user = User.fromJson(jsonDecode(userString));
-      var userProvider = Provider.of<UserProvider>(context, listen: false);
-      userProvider.setUser(jsonDecode(userString));
-    }
     if (token == null || token == '') {
       prefs.setString('x-auth-token', '');
     } else {
+      if (userString != null || userString != '') {
+        user = User.fromJson(jsonDecode(userString!));
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(jsonDecode(userString));
+      }
       if (user.type == 'user') {
         OneContext.instance.navigator.pushNamedAndRemoveUntil(
           BottomBar.routeName,
@@ -94,9 +94,9 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
       navigatorKey: OneContext().navigator.key,
-      home: const AuthScreen(),
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
+      home: const AuthScreen(),
     );
   }
 }

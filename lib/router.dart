@@ -73,7 +73,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => OrderDetailScreen(
-          order: order,
+          orderId: order.id,
         ),
       );
     case AdminScreen.routeName:

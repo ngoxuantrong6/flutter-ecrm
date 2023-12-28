@@ -25,7 +25,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController quantityController = TextEditingController();
   final AdminServices adminServices = AdminServices();
 
-  String category = 'Mobiles';
+  String category = 'Điện thoại';
   List<XFile> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
 
@@ -39,11 +39,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   List<String> productCategories = [
-    'Mobiles',
-    'Essentials',
-    'Appliances',
-    'Books',
-    'Fashion'
+    'Điện thoại',
+    'Đồ dùng thiết yếu',
+    'Thiết bị gia dụng',
+    'Sách',
+    'Thời trang'
   ];
 
   void sellProduct() {
@@ -79,7 +79,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ),
           title: const Text(
-            'Add Product',
+            'Thêm sản phẩm',
             style: TextStyle(
               color: Colors.black,
             ),
@@ -134,7 +134,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ),
                                 const SizedBox(height: 15),
                                 Text(
-                                  'Select Product Images',
+                                  'Chọn hình ảnh sản phẩm',
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.grey.shade400,
@@ -148,23 +148,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 30),
                 CustomTextField(
                   controller: productNameController,
-                  hintText: 'Product Name',
+                  hintText: 'Tên sản phẩm',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: descriptionController,
-                  hintText: 'Description',
+                  hintText: 'Chi tiết',
                   maxLines: 7,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: priceController,
-                  hintText: 'Price',
+                  hintText: 'Giá',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
                   controller: quantityController,
-                  hintText: 'Quantity',
+                  hintText: 'Số lượng',
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -187,7 +187,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 const SizedBox(height: 10),
                 CustomButton(
-                  text: 'Sell',
+                  text: 'Bán',
                   onTap: sellProduct,
                 ),
               ],
