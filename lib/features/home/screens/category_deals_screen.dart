@@ -63,7 +63,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Keep shopping for ${widget.category}',
+                    'Tiếp tục mua sắm với ${widget.category}',
                     style: const TextStyle(
                       fontSize: 20,
                     ),

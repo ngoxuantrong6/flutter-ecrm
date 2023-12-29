@@ -145,7 +145,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      'OR',
+                      'HOẶC',
                       style: TextStyle(
                         fontSize: 18,
                       ),
@@ -159,22 +159,22 @@ class _AddressScreenState extends State<AddressScreen> {
                   children: [
                     CustomTextField(
                       controller: flatBuildingController,
-                      hintText: 'Flat, House no, Building',
+                      hintText: 'Căn hộ, Số nhà, Tòa nhà',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                       controller: areaController,
-                      hintText: 'Area, Street',
+                      hintText: 'Đường, Khu vực',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                       controller: pincodeController,
-                      hintText: 'Pincode',
+                      hintText: 'Mã PIN',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
                       controller: cityController,
-                      hintText: 'Town/City',
+                      hintText: 'Tỉnh/Thành phố',
                     ),
                     const SizedBox(height: 10),
                   ],

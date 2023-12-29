@@ -42,7 +42,7 @@ class _OrdersState extends State<Orders> {
                       left: 15,
                     ),
                     child: const Text(
-                      'Your Orders',
+                      'Đơn hàng của bạn',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -54,7 +54,7 @@ class _OrdersState extends State<Orders> {
                       right: 15,
                     ),
                     child: const Text(
-                      'See all',
+                      'Xem tất cả',
                       style: TextStyle(
                         color: GlobalVariables.primaryColor,
                       ),
