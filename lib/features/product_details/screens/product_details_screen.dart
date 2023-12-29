@@ -217,7 +217,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: CustomButton(
-                text: 'Buy Now',
+                text: 'Mua ngay',
                 onTap: () {},
               ),
             ),
@@ -225,7 +225,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: CustomButton(
-                text: 'Add to Cart',
+                text: 'Thêm vào giỏ hàng',
                 onTap: addToCart,
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
@@ -238,7 +238,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
-                'Rate The Product',
+                'Đánh giá sản phẩm',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

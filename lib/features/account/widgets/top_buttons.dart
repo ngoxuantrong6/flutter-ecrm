@@ -13,7 +13,7 @@ class TopButtons extends StatelessWidget {
         Row(
           children: [
             AccountButton(
-              text: 'Your Orders',
+              text: 'Đơn hàng của bạn',
               onTap: () {},
             ),
             AccountButton(
@@ -26,7 +26,7 @@ class TopButtons extends StatelessWidget {
         Row(
           children: [
             AccountButton(
-              text: 'Log Out',
+              text: 'Đăng xuất',
               onTap: () {
                 showDialog(
                   context: context,
@@ -40,7 +40,7 @@ class TopButtons extends StatelessWidget {
               },
             ),
             AccountButton(
-              text: 'Your Wish List',
+              text: 'Danh sách của bạn',
               onTap: () {},
             ),
           ],

@@ -86,13 +86,13 @@ class _CartProductState extends State<CartProduct> {
                   Container(
                     width: 225,
                     padding: const EdgeInsets.only(left: 10),
-                    child: const Text('Eligible for FREE Shipping'),
+                    child: const Text('Đủ điều kiện FREE Ship'),
                   ),
                   Container(
                     width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: const Text(
-                      'In Stock',
+                      'Trong kho',
                       style: TextStyle(
                         color: GlobalVariables.primaryColor,
                       ),
