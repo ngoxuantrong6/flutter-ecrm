@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
@@ -14,10 +15,12 @@ class ProductDetailsServices {
   void addToCart({
     required BuildContext context,
     required Product product,
+    required bool fromProductDetailScreen,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      LoadingShowAble.showLoading();
       http.Response res = await http.post(
         Uri.parse('$uri/api/add-to-cart'),
         headers: {
@@ -36,6 +39,9 @@ class ProductDetailsServices {
           User user =
               userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
           userProvider.setUserFromModel(user);
+          if (fromProductDetailScreen) {
+            showSnackBar(context, 'Thêm vào giỏ hàng thành công!');
+          }
         },
       );
     } catch (e) {

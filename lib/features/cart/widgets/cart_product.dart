@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/cart/services/cart_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
@@ -26,6 +27,7 @@ class _CartProductState extends State<CartProduct> {
     productDetailsServices.addToCart(
       context: context,
       product: product,
+      fromProductDetailScreen: false,
     );
   }
 
@@ -75,7 +77,7 @@ class _CartProductState extends State<CartProduct> {
                     width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Text(
-                      '\$${product.price}',
+                      '${formatPrice(product.price)} đ',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

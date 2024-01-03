@@ -40,8 +40,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   List<String> productCategories = [
     'Điện thoại',
-    'Đồ dùng thiết yếu',
-    'Thiết bị gia dụng',
+    'Đồ thiết yếu',
+    'Đồ gia dụng',
     'Sách',
     'Thời trang'
   ];

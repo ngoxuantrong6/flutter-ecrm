@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/admin/models/sales.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/features/admin/widgets/category_products_chart.dart';
@@ -36,13 +37,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
         ? const Loader()
         : Column(
             children: [
+              const SizedBox(height: 30),
               Text(
-                '\$$totalSales',
+                '${formatPriceInt(totalSales!)} đ',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 30),
               SizedBox(
                 height: 250,
                 child: CategoryProductsChart(seriesList: [

@@ -252,8 +252,8 @@ class AdminServices {
           totalEarning = response['totalEarnings'];
           sales = [
             Sales('Điện thoại', response['mobileEarnings']),
-            Sales('ĐDTY', response['essentialEarnings']),
-            Sales('TBGD', response['applianceEarnings']),
+            Sales('Đồ thiết yếu', response['essentialEarnings']),
+            Sales('Đồ gia dụng', response['applianceEarnings']),
             Sales('Sách', response['booksEarnings']),
             Sales('Thời trang', response['fashionEarnings']),
           ];

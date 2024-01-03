@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,7 @@ class SearchedProduct extends StatelessWidget {
                     width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Text(
-                      '\$${product.price}',
+                      '${formatPrice(product.price)} đ',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
@@ -18,6 +19,7 @@ class CartServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      LoadingShowAble.showLoading();
       http.Response res = await http.delete(
         Uri.parse('$uri/api/remove-from-cart/${product.id}'),
         headers: {
