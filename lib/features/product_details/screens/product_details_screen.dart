@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
 import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -54,6 +55,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     productDetailsServices.addToCart(
       context: context,
       product: widget.product,
+      fromProductDetailScreen: true,
     );
   }
 
@@ -195,7 +197,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   children: [
                     TextSpan(
-                      text: '\$${widget.product.price}',
+                      text: '${formatPrice(widget.product.price)} đ',
                       style: const TextStyle(
                         fontSize: 22,
                         color: Colors.red,

@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     checkLogin();
+    authService.getUserData(context);
   }
 
   Future<void> checkLogin() async {

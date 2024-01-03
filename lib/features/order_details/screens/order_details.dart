@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
@@ -160,7 +161,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     )}'),
                     Text('ID đơn hàng:          ${widget.order.id}'),
                     Text(
-                        'Tổng:                       \$${widget.order.totalPrice}'),
+                      'Tổng:                       ${formatPrice(widget.order.totalPrice)} đ',
+                    ),
                   ],
                 ),
               ),
@@ -214,7 +216,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               const Text(
                 'Theo dõi',
                 style: TextStyle(

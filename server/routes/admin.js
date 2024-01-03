@@ -88,11 +88,11 @@ adminRouter.get("/admin/analytics", admin, async (req, res) => {
       }
     }
     // CATEGORY WISE ORDER FETCHING
-    let mobileEarnings = await fetchCategoryWiseProduct("Mobiles");
-    let essentialEarnings = await fetchCategoryWiseProduct("Essentials");
-    let applianceEarnings = await fetchCategoryWiseProduct("Appliances");
-    let booksEarnings = await fetchCategoryWiseProduct("Books");
-    let fashionEarnings = await fetchCategoryWiseProduct("Fashion");
+    let mobileEarnings = await fetchCategoryWiseProduct("Điện thoại");
+    let essentialEarnings = await fetchCategoryWiseProduct("Đồ thiết yếu");
+    let applianceEarnings = await fetchCategoryWiseProduct("Đồ gia dụng");
+    let booksEarnings = await fetchCategoryWiseProduct("Sách");
+    let fashionEarnings = await fetchCategoryWiseProduct("Thời trang");
 
     let earnings = {
       totalEarnings,
@@ -117,9 +117,11 @@ async function fetchCategoryWiseProduct(category) {
 
   for (let i = 0; i < categoryOrders.length; i++) {
     for (let j = 0; j < categoryOrders[i].products.length; j++) {
-      earnings +=
-        categoryOrders[i].products[j].quantity *
-        categoryOrders[i].products[j].product.price;
+      if (categoryOrders[i].products[j].product.category == category) {
+        earnings +=
+          categoryOrders[i].products[j].quantity *
+          categoryOrders[i].products[j].product.price;
+      }
     }
   }
   return earnings;

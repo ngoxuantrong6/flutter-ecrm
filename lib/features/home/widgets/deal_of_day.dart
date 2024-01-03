@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/home/services/home_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
@@ -49,23 +50,26 @@ class _DealOfDayState extends State<DealOfDay> {
                       alignment: Alignment.topLeft,
                       padding: const EdgeInsets.only(left: 10, top: 15),
                       child: const Text(
-                        'Deal of the day',
+                        'Deal HOT nhất trong ngày',
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
+                    const SizedBox(height: 10),
                     Image.network(
                       product!.images[0],
                       height: 235,
                       fit: BoxFit.fitHeight,
                     ),
+                    const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.only(left: 15),
                       alignment: Alignment.topLeft,
                       child: Text(
-                        '\$${product!.price}',
+                        '${formatPrice(product!.price)} đ',
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
+                    const SizedBox(height: 10),
                     // Container(
                     //   alignment: Alignment.topLeft,
                     //   padding:

@@ -11,7 +11,7 @@ class CarouselImage extends StatelessWidget {
       items: GlobalVariables.carouselImages.map(
         (i) {
           return Builder(
-            builder: (BuildContext context) => Image.network(
+            builder: (BuildContext context) => Image.asset(
               i,
               fit: BoxFit.cover,
               height: 200,

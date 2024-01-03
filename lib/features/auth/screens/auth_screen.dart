@@ -105,11 +105,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Mật khẩu',
+                          passwordField: true,
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
@@ -156,11 +158,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         CustomTextField(
                           controller: _emailController,
                           hintText: 'Email',
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 10),
                         CustomTextField(
                           controller: _passwordController,
                           hintText: 'Mật khẩu',
+                          passwordField: true,
                         ),
                         const SizedBox(height: 10),
                         CustomButton(

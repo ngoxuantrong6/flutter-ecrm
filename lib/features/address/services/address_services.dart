@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
@@ -53,6 +54,7 @@ class AddressServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      LoadingShowAble.showLoading();
       http.Response res = await http.post(Uri.parse('$uri/api/order'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -68,11 +70,12 @@ class AddressServices {
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Your order has been placed!');
+          showSnackBar(context, 'Bạn đã đặt hàng thành công!');
           User user = userProvider.user.copyWith(
             cart: [],
           );
           userProvider.setUserFromModel(user);
+          Navigator.of(context).pop();
         },
       );
     } catch (e) {

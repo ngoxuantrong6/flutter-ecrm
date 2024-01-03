@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void showSnackBar(BuildContext context, String text) {
@@ -45,4 +46,15 @@ Future<List<File>> pickImages() async {
     debugPrint(e.toString());
   }
   return images;
+}
+
+final numberFormat = NumberFormat("#,##0", "vi_VN");
+String formatPrice(double number) {
+  final priceFormat = numberFormat.format(number);
+  return priceFormat;
+}
+
+String formatPriceInt(int number) {
+  final priceFormat = numberFormat.format(number);
+  return priceFormat;
 }
