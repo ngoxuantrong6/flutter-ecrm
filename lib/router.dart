@@ -2,6 +2,7 @@ import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
+import 'package:amazon_clone_tutorial/features/admin/screens/edit_product_screen.dart';
 import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_tutorial/features/home/screens/category_deals_screen.dart';
 import 'package:amazon_clone_tutorial/features/home/screens/home_screen.dart';
@@ -53,11 +54,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         ),
       );
     case ProductDetailScreen.routeName:
-      var product = routeSettings.arguments as Product;
+      var productId = routeSettings.arguments as String;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => ProductDetailScreen(
-          product: product,
+          productId: productId,
         ),
       );
     case AddressScreen.routeName:
@@ -80,6 +81,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AdminScreen(),
+      );
+    case EditProductScreen.routeName:
+      var product = routeSettings.arguments as Product;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => EditProductScreen(
+          product: product,
+        ),
       );
     default:
       return MaterialPageRoute(

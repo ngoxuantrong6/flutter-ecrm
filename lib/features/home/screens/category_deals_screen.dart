@@ -88,7 +88,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                           Navigator.pushNamed(
                             context,
                             ProductDetailScreen.routeName,
-                            arguments: product,
+                            arguments: product.id,
                           );
                         },
                         child: Column(

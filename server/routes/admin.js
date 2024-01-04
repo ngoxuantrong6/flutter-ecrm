@@ -24,6 +24,22 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
   }
 });
 
+// Edit product
+adminRouter.patch("/admin/edit-product/:id", admin, async (req, res) => {
+  try {
+    const id = req.params.id;
+    let product = await Product.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true } // Return products after updating
+    );
+    product = await product.save();
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Get all your products
 adminRouter.get("/admin/get-products", admin, async (req, res) => {
   try {

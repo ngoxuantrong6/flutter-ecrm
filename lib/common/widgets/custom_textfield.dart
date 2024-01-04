@@ -5,7 +5,6 @@ class CustomTextField extends StatefulWidget {
   final String hintText;
   final int maxLines;
   final TextInputType? keyboardType;
-  final bool invisible;
   final bool? passwordField;
   const CustomTextField({
     Key? key,
@@ -13,7 +12,6 @@ class CustomTextField extends StatefulWidget {
     required this.hintText,
     this.maxLines = 1,
     this.keyboardType,
-    this.invisible = true,
     this.passwordField,
   }) : super(key: key);
 
@@ -22,11 +20,14 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  bool _invisible = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       keyboardType: widget.keyboardType,
+      obscureText: widget.passwordField == true ? _invisible : false,
       decoration: InputDecoration(
         hintText: widget.hintText,
         border: const OutlineInputBorder(
@@ -38,14 +39,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
           color: Colors.black38,
         )),
         suffixIcon: widget.passwordField == true
-            ? widget.invisible == true
-                ? IconButton(
-                    icon: const Icon(Icons.visibility),
-                    onPressed: () {
-                      setState(() {});
-                    },
-                  )
-                : const Icon(Icons.visibility_off)
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _invisible = !_invisible;
+                  });
+                },
+                child: _invisible == true
+                    ? const Icon(Icons.visibility)
+                    : const Icon(Icons.visibility_off),
+              )
             : null,
       ),
       validator: (val) {

@@ -152,14 +152,20 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Ngày đặt hàng:      ${DateFormat.Hms('vi').format(
+                    Text('Ngày đặt hàng:      ${DateFormat.yMMMMd('vi').format(
                       DateTime.fromMillisecondsSinceEpoch(
                           widget.order.orderedAt),
-                    )} - ${DateFormat.yMMMMd('vi').format(
+                    )}         ${DateFormat.Hms('vi').format(
                       DateTime.fromMillisecondsSinceEpoch(
                           widget.order.orderedAt),
                     )}'),
-                    Text('ID đơn hàng:          ${widget.order.id}'),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Giao đến:                '),
+                        Expanded(child: Text(widget.order.address)),
+                      ],
+                    ),
                     Text(
                       'Tổng:                       ${formatPrice(widget.order.totalPrice)} đ',
                     ),

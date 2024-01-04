@@ -22,7 +22,7 @@ class AddressScreen extends StatefulWidget {
 class _AddressScreenState extends State<AddressScreen> {
   final TextEditingController flatBuildingController = TextEditingController();
   final TextEditingController areaController = TextEditingController();
-  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
   final _addressFormKey = GlobalKey<FormState>();
 
@@ -47,7 +47,7 @@ class _AddressScreenState extends State<AddressScreen> {
     super.dispose();
     flatBuildingController.dispose();
     areaController.dispose();
-    pincodeController.dispose();
+    phoneNumberController.dispose();
     cityController.dispose();
   }
 
@@ -86,13 +86,13 @@ class _AddressScreenState extends State<AddressScreen> {
 
     bool isForm = flatBuildingController.text.isNotEmpty ||
         areaController.text.isNotEmpty ||
-        pincodeController.text.isNotEmpty ||
+        phoneNumberController.text.isNotEmpty ||
         cityController.text.isNotEmpty;
 
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
         addressToBeUsed =
-            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${phoneNumberController.text}';
       } else {
         throw Exception('Please enter all the values!');
       }
@@ -168,8 +168,8 @@ class _AddressScreenState extends State<AddressScreen> {
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: pincodeController,
-                      hintText: 'Mã PIN',
+                      controller: phoneNumberController,
+                      hintText: 'SĐT',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(

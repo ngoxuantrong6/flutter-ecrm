@@ -1,6 +1,7 @@
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/cart/services/cart_services.dart';
+import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
@@ -50,60 +51,69 @@ class _CartProductState extends State<CartProduct> {
           margin: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          child: Row(
-            children: [
-              Image.network(
-                product.images[0],
-                fit: BoxFit.contain,
-                height: 135,
-                width: 135,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 225,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      product.name,
-                      style: const TextStyle(
-                        fontSize: 16,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                ProductDetailScreen.routeName,
+                arguments: product.id,
+              );
+            },
+            child: Row(
+              children: [
+                Image.network(
+                  product.images[0],
+                  fit: BoxFit.contain,
+                  height: 135,
+                  width: 135,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 225,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        product.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Container(
-                    width: 225,
-                    padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: Text(
-                      '${formatPrice(product.price)} đ',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: 225,
+                      padding: const EdgeInsets.only(left: 10, top: 5),
+                      child: Text(
+                        '${formatPrice(product.price)} đ',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
                     ),
-                  ),
-                  Container(
-                    width: 225,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: const Text('Đủ điều kiện FREE Ship'),
-                  ),
-                  Container(
-                    width: 225,
-                    padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: const Text(
-                      'Trong kho',
-                      style: TextStyle(
-                        color: GlobalVariables.primaryColor,
+                    Container(
+                      width: 225,
+                      padding: const EdgeInsets.only(left: 10),
+                      child: const Text('Đủ điều kiện FREE Ship'),
+                    ),
+                    Container(
+                      width: 225,
+                      padding: const EdgeInsets.only(left: 10, top: 5),
+                      child: const Text(
+                        'Trong kho',
+                        style: TextStyle(
+                          color: GlobalVariables.primaryColor,
+                        ),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         Container(

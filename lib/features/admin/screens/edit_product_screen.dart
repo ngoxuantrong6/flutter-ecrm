@@ -5,20 +5,22 @@ import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
+import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddProductScreen extends StatefulWidget {
-  static const String routeName = '/add-product';
-  const AddProductScreen({Key? key}) : super(key: key);
+class EditProductScreen extends StatefulWidget {
+  static const String routeName = '/edit-product';
+  const EditProductScreen({Key? key, required this.product}) : super(key: key);
+  final Product product;
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<EditProductScreen> createState() => _EditProductScreenState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
+class _EditProductScreenState extends State<EditProductScreen> {
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -26,8 +28,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final AdminServices adminServices = AdminServices();
 
   String category = 'Điện thoại';
-  List<XFile> images = [];
+  List<String> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    images = widget.product.images;
+    productNameController.text = widget.product.name;
+    descriptionController.text = widget.product.description;
+    priceController.text = widget.product.price.toString();
+    quantityController.text = widget.product.quantity.toString();
+    category = widget.product.category;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -46,10 +59,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Thời trang'
   ];
 
-  void sellProduct() {
+  void editProduct() {
     if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-      adminServices.sellProduct(
+      adminServices.editProduct(
         context: context,
+        productId: widget.product.id!,
         name: productNameController.text,
         description: descriptionController.text,
         price: int.parse(priceController.text),
@@ -60,12 +74,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
   }
 
-  void selectImages() async {
-    var res = await selectImages2();
-    setState(() {
-      images = res;
-    });
-  }
+  // void selectImages() async {
+  //   var res = await selectImages2();
+  //   setState(() {
+  //     images = res;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -94,57 +108,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                images.isNotEmpty
-                    ? CarouselSlider(
-                        items: images.map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) => Image.file(
-                                File(i.path),
-                                fit: BoxFit.cover,
-                                height: 200,
-                              ),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          viewportFraction: 1,
+                CarouselSlider(
+                  items: images.map(
+                    (i) {
+                      return Builder(
+                        builder: (BuildContext context) => Image.network(
+                          i,
+                          fit: BoxFit.cover,
                           height: 200,
                         ),
-                      )
-                    : GestureDetector(
-                        onTap: selectImages,
-                        child: DottedBorder(
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(10),
-                          dashPattern: const [10, 4],
-                          strokeCap: StrokeCap.round,
-                          child: Container(
-                            width: double.infinity,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.folder_open,
-                                  size: 40,
-                                ),
-                                const SizedBox(height: 15),
-                                Text(
-                                  'Chọn hình ảnh sản phẩm',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.grey.shade400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      );
+                    },
+                  ).toList(),
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    height: 200,
+                  ),
+                ),
                 const SizedBox(height: 30),
                 CustomTextField(
                   controller: productNameController,
@@ -187,8 +167,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 const SizedBox(height: 10),
                 CustomButton(
-                  text: 'Bán',
-                  onTap: sellProduct,
+                  text: 'Sửa',
+                  onTap: editProduct,
                 ),
                 const SizedBox(height: 20),
               ],
