@@ -129,7 +129,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           Navigator.pushNamed(
                             context,
                             ProductDetailScreen.routeName,
-                            arguments: products![index],
+                            arguments: products![index].id,
                           );
                         },
                         child: SearchedProduct(

@@ -19,8 +19,8 @@ class AdminServices {
     required BuildContext context,
     required String name,
     required String description,
-    required double price,
-    required double quantity,
+    required int price,
+    required int quantity,
     required String category,
     required List<XFile> images,
   }) async {
@@ -61,6 +61,52 @@ class AdminServices {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Đã thêm sản phẩm thành công!');
+          Navigator.of(context).pop(true);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void editProduct({
+    required BuildContext context,
+    required String productId,
+    required String name,
+    required String description,
+    required int price,
+    required int quantity,
+    required String category,
+    required List<String> images,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      LoadingShowAble.showLoading();
+
+      Product product = Product(
+        name: name,
+        description: description,
+        quantity: quantity,
+        images: images,
+        category: category,
+        price: price,
+      );
+
+      http.Response res = await http.patch(
+        Uri.parse('$uri/admin/edit-product/$productId'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: product.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Đã sửa sản phẩm thành công!');
           Navigator.of(context).pop(true);
         },
       );

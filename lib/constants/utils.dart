@@ -49,7 +49,7 @@ Future<List<File>> pickImages() async {
 }
 
 final numberFormat = NumberFormat("#,##0", "vi_VN");
-String formatPrice(double number) {
+String formatPrice(int number) {
   final priceFormat = numberFormat.format(number);
   return priceFormat;
 }

@@ -32,7 +32,7 @@ class _DealOfDayState extends State<DealOfDay> {
     Navigator.pushNamed(
       context,
       ProductDetailScreen.routeName,
-      arguments: product,
+      arguments: product?.id,
     );
   }
 

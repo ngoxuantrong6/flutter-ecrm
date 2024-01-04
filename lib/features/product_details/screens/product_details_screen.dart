@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
+import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
@@ -14,10 +15,10 @@ import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const String routeName = '/product-details';
-  final Product product;
+  final String productId;
   const ProductDetailScreen({
     Key? key,
-    required this.product,
+    required this.productId,
   }) : super(key: key);
 
   @override
@@ -29,22 +30,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ProductDetailsServices();
   double avgRating = 0;
   double myRating = 0;
+  Product? product;
 
   @override
   void initState() {
     super.initState();
-    double totalRating = 0;
-    for (int i = 0; i < widget.product.rating!.length; i++) {
-      totalRating += widget.product.rating![i].rating;
-      if (widget.product.rating![i].userId ==
-          Provider.of<UserProvider>(context, listen: false).user.id) {
-        myRating = widget.product.rating![i].rating;
-      }
-    }
+    getProductDetail();
+  }
 
-    if (totalRating != 0) {
-      avgRating = totalRating / widget.product.rating!.length;
-    }
+  void getProductDetail() async {
+    product = await productDetailsServices.getProductDetail(
+        context: context, productId: widget.productId);
+    setState(() {});
   }
 
   void navigateToSearchScreen(String query) {
@@ -54,13 +51,27 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void addToCart() {
     productDetailsServices.addToCart(
       context: context,
-      product: widget.product,
+      product: product!,
       fromProductDetailScreen: true,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    double totalRating = 0;
+    if (product != null) {
+      for (int i = 0; i < product!.rating!.length; i++) {
+        totalRating += product!.rating![i].rating;
+        if (product!.rating![i].userId ==
+            Provider.of<UserProvider>(context, listen: false).user.id) {
+          myRating = product!.rating![i].rating;
+        }
+      }
+
+      if (totalRating != 0) {
+        avgRating = totalRating / product!.rating!.length;
+      }
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -134,141 +145,145 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: product == null
+          ? const Loader()
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.product.id!,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'TOP bán chạy trong ${product!.category}',
+                          style: const TextStyle(
+                              color: GlobalVariables.primaryColor),
+                        ),
+                        Stars(
+                          rating: avgRating,
+                        ),
+                      ],
+                    ),
                   ),
-                  Stars(
-                    rating: avgRating,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 10,
+                    ),
+                    child: Text(
+                      product!.name,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
+                  CarouselSlider(
+                    items: product!.images.map(
+                      (i) {
+                        return Builder(
+                          builder: (BuildContext context) => Image.network(
+                            i,
+                            fit: BoxFit.contain,
+                            height: 200,
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    options: CarouselOptions(
+                      viewportFraction: 1,
+                      height: 300,
+                    ),
+                  ),
+                  Container(
+                    color: Colors.black12,
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: RichText(
+                      text: TextSpan(
+                        text: '',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '${formatPrice(product!.price)} đ',
+                            style: const TextStyle(
+                              fontSize: 22,
+                              color: Colors.red,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(product!.description),
+                  ),
+                  Container(
+                    color: Colors.black12,
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomButton(
+                      text: 'Mua ngay',
+                      onTap: () {},
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CustomButton(
+                      text: 'Thêm vào giỏ hàng',
+                      onTap: addToCart,
+                      color: const Color.fromRGBO(254, 216, 19, 1),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    color: Colors.black12,
+                    height: 5,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      'Đánh giá sản phẩm',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  RatingBar.builder(
+                    initialRating: myRating,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: GlobalVariables.secondaryColor,
+                    ),
+                    onRatingUpdate: (rating) {
+                      productDetailsServices.rateProduct(
+                        context: context,
+                        product: product!,
+                        rating: rating,
+                      );
+                    },
+                  )
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 10,
-              ),
-              child: Text(
-                widget.product.name,
-                style: const TextStyle(
-                  fontSize: 15,
-                ),
-              ),
-            ),
-            CarouselSlider(
-              items: widget.product.images.map(
-                (i) {
-                  return Builder(
-                    builder: (BuildContext context) => Image.network(
-                      i,
-                      fit: BoxFit.contain,
-                      height: 200,
-                    ),
-                  );
-                },
-              ).toList(),
-              options: CarouselOptions(
-                viewportFraction: 1,
-                height: 300,
-              ),
-            ),
-            Container(
-              color: Colors.black12,
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: RichText(
-                text: TextSpan(
-                  text: 'Deal Price: ',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: '${formatPrice(widget.product.price)} đ',
-                      style: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(widget.product.description),
-            ),
-            Container(
-              color: Colors.black12,
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Mua ngay',
-                onTap: () {},
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Thêm vào giỏ hàng',
-                onTap: addToCart,
-                color: const Color.fromRGBO(254, 216, 19, 1),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              color: Colors.black12,
-              height: 5,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                'Đánh giá sản phẩm',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            RatingBar.builder(
-              initialRating: myRating,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: GlobalVariables.secondaryColor,
-              ),
-              onRatingUpdate: (rating) {
-                productDetailsServices.rateProduct(
-                  context: context,
-                  product: widget.product,
-                  rating: rating,
-                );
-              },
-            )
-          ],
-        ),
-      ),
     );
   }
 }

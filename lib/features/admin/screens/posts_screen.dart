@@ -3,6 +3,7 @@ import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
+import 'package:amazon_clone_tutorial/features/admin/screens/edit_product_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:flutter/material.dart';
@@ -62,10 +63,19 @@ class _PostsScreenState extends State<PostsScreen> {
                 final productData = products![index];
                 return Column(
                   children: [
-                    SizedBox(
-                      height: 140,
-                      child: SingleProduct(
-                        image: productData.images[0],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          EditProductScreen.routeName,
+                          arguments: productData,
+                        );
+                      },
+                      child: SizedBox(
+                        height: 140,
+                        child: SingleProduct(
+                          image: productData.images[0],
+                        ),
                       ),
                     ),
                     Row(
