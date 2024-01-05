@@ -14,7 +14,7 @@ authRouter.post("/api/signup", async (req, res) => {
     if (existingUser) {
       return res
         .status(400)
-        .json({ msg: "User with same email already exists!" });
+        .json({ msg: "Người dùng có cùng email đã tồn tại!" });
     }
 
     const hashedPassword = await bcryptjs.hash(password, 8);
@@ -41,12 +41,12 @@ authRouter.post("/api/signin", async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ msg: "User with this email does not exist!" });
+        .json({ msg: "Người dùng có email này không tồn tại!" });
     }
 
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Incorrect password." });
+      return res.status(400).json({ msg: "Mật khẩu không đúng." });
     }
 
     const token = jwt.sign({ id: user._id }, "passwordKey");

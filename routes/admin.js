@@ -24,11 +24,38 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
   }
 });
 
+// Edit product
+adminRouter.patch("/admin/edit-product/:id", admin, async (req, res) => {
+  try {
+    const id = req.params.id;
+    let product = await Product.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true } // Return products after updating
+    );
+    product = await product.save();
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Get all your products
 adminRouter.get("/admin/get-products", admin, async (req, res) => {
   try {
     const products = await Product.find({});
     res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get detail your product
+adminRouter.get("/admin/get-product/:id", admin, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findById(id);
+    res.json(product);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -49,6 +76,16 @@ adminRouter.get("/admin/get-orders", admin, async (req, res) => {
   try {
     const orders = await Order.find({});
     res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+adminRouter.post("/admin/get-order-detail", admin, async (req, res) => {
+  try {
+    const { id } = req.body;
+    const order = await Order.findById(id);
+    res.json(order);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -78,11 +115,11 @@ adminRouter.get("/admin/analytics", admin, async (req, res) => {
       }
     }
     // CATEGORY WISE ORDER FETCHING
-    let mobileEarnings = await fetchCategoryWiseProduct("Mobiles");
-    let essentialEarnings = await fetchCategoryWiseProduct("Essentials");
-    let applianceEarnings = await fetchCategoryWiseProduct("Appliances");
-    let booksEarnings = await fetchCategoryWiseProduct("Books");
-    let fashionEarnings = await fetchCategoryWiseProduct("Fashion");
+    let mobileEarnings = await fetchCategoryWiseProduct("Điện thoại");
+    let essentialEarnings = await fetchCategoryWiseProduct("Đồ thiết yếu");
+    let applianceEarnings = await fetchCategoryWiseProduct("Đồ gia dụng");
+    let booksEarnings = await fetchCategoryWiseProduct("Sách");
+    let fashionEarnings = await fetchCategoryWiseProduct("Thời trang");
 
     let earnings = {
       totalEarnings,
@@ -107,9 +144,11 @@ async function fetchCategoryWiseProduct(category) {
 
   for (let i = 0; i < categoryOrders.length; i++) {
     for (let j = 0; j < categoryOrders[i].products.length; j++) {
-      earnings +=
-        categoryOrders[i].products[j].quantity *
-        categoryOrders[i].products[j].product.price;
+      if (categoryOrders[i].products[j].product.category == category) {
+        earnings +=
+          categoryOrders[i].products[j].quantity *
+          categoryOrders[i].products[j].product.price;
+      }
     }
   }
   return earnings;
