@@ -77,7 +77,7 @@ class SearchedProduct extends StatelessWidget {
                     width: 225,
                     padding: const EdgeInsets.only(left: 10, top: 5),
                     child: const Text(
-                      'Trong kho',
+                      'Còn trong kho',
                       style: TextStyle(
                         color: GlobalVariables.primaryColor,
                       ),

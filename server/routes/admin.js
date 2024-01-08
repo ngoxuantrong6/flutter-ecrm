@@ -50,6 +50,17 @@ adminRouter.get("/admin/get-products", admin, async (req, res) => {
   }
 });
 
+// Get detail your product
+adminRouter.get("/admin/get-product/:id", admin, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findById(id);
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Delete the product
 adminRouter.post("/admin/delete-product", admin, async (req, res) => {
   try {

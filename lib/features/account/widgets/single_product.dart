@@ -10,7 +10,7 @@ class SingleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.all(8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(

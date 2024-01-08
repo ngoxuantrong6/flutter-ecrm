@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone_tutorial/features/account/screens/update_profile_screen.dart';
 import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
@@ -89,6 +90,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => EditProductScreen(
           product: product,
         ),
+      );
+    case UpdateProfileScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const UpdateProfileScreen(),
       );
     default:
       return MaterialPageRoute(
