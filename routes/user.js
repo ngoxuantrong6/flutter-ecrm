@@ -118,4 +118,18 @@ userRouter.get("/api/orders/me", auth, async (req, res) => {
   }
 });
 
+userRouter.patch("/api/update-profile", auth, async (req, res) => {
+  try {
+    let user = await User.findByIdAndUpdate(
+      req.user,
+      req.body,
+      { new: true },
+    );
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 module.exports = userRouter;
