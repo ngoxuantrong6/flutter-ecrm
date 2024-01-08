@@ -4,7 +4,10 @@ import 'package:amazon_clone_tutorial/features/home/widgets/carousel_image.dart'
 import 'package:amazon_clone_tutorial/features/home/widgets/deal_of_day.dart';
 import 'package:amazon_clone_tutorial/features/home/widgets/top_categories.dart';
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:highlight_text/highlight_text.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -15,12 +18,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController searchTextController = TextEditingController();
+  stt.SpeechToText _speech = stt.SpeechToText();
+  bool _isListening = false;
+  String _text = '';
+  String _hintText = 'Tìm kiếm';
+
+  @override
+  void initState() {
+    super.initState();
+    _speech = stt.SpeechToText();
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
   @override
   Widget build(BuildContext context) {
+    searchTextController.text = _text;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -41,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
+                      controller: searchTextController,
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
@@ -74,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Tìm kiếm',
+                        hintText: _hintText,
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -84,11 +101,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic, color: Colors.black, size: 25),
+              AvatarGlow(
+                animate: _isListening,
+                glowColor: Theme.of(context).primaryColor,
+                endRadius: 25.0,
+                duration: const Duration(milliseconds: 2000),
+                repeatPauseDuration: const Duration(milliseconds: 100),
+                child: GestureDetector(
+                  onTap: _listen,
+                  child: Container(
+                    color: Colors.transparent,
+                    height: 42,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(_isListening ? Icons.mic : Icons.mic_none,
+                        color: Colors.black, size: 25),
+                  ),
+                ),
               ),
             ],
           ),
@@ -106,5 +134,40 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) {
+          print('onStatus: $val');
+          if (val == stt.SpeechToText.listeningStatus) {
+            _hintText = 'Đang nghe';
+          }
+          if (val == stt.SpeechToText.doneStatus) {
+            setState(() => _isListening = false);
+            print("vào doneeeeeeeee");
+
+            navigateToSearchScreen(_text);
+          }
+        },
+        onError: (val) => print('onError: $val'),
+      );
+
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _text = val.recognizedWords;
+            // if (val.hasConfidenceRating && val.confidence > 0) {
+            //   _confidence = val.confidence;
+            // }
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+    }
   }
 }
