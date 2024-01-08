@@ -147,6 +147,41 @@ class AdminServices {
     return productList;
   }
 
+  Future<Product> getProductDetailForAdmin({
+    required BuildContext context,
+    required String productId,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    Product product = Product(
+      name: '',
+      description: '',
+      quantity: 0,
+      images: [],
+      category: '',
+      price: 0,
+    );
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/admin/get-product/$productId'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          product = Product.fromJson(jsonEncode(jsonDecode(res.body)));
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return product;
+  }
+
   void deleteProduct({
     required BuildContext context,
     required Product product,
@@ -298,8 +333,8 @@ class AdminServices {
           totalEarning = response['totalEarnings'];
           sales = [
             Sales('Điện thoại', response['mobileEarnings']),
-            Sales('Đồ thiết yếu', response['essentialEarnings']),
-            Sales('Đồ gia dụng', response['applianceEarnings']),
+            Sales('Đ.thiết yếu', response['essentialEarnings']),
+            Sales('Đ.gia dụng', response['applianceEarnings']),
             Sales('Sách', response['booksEarnings']),
             Sales('Thời trang', response['fashionEarnings']),
           ];

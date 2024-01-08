@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
+import 'package:amazon_clone_tutorial/models/user.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,53 @@ class AccountServices {
       showSnackBar(context, e.toString());
     }
     return orderList;
+  }
+
+  void updateProfile({
+    required BuildContext context,
+    required String userName,
+    required String address,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      LoadingShowAble.showLoading();
+
+      User user = User(
+        id: userProvider.user.id,
+        name: userName,
+        email: userProvider.user.email,
+        password: userProvider.user.password,
+        address: address,
+        type: userProvider.user.type,
+        token: userProvider.user.token,
+        cart: userProvider.user.cart,
+      );
+
+      http.Response res = await http.patch(
+        Uri.parse('$uri/api/update-profile'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: user.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          User user = userProvider.user.copyWith(
+            name: jsonDecode(res.body)['name'],
+            address: jsonDecode(res.body)['address'],
+          );
+          userProvider.setUserFromModel(user);
+          showSnackBar(context, 'Cập nhật thông tin của bạn thành công!');
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 
   void logOut(BuildContext context) async {

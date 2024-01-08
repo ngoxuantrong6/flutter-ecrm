@@ -1,4 +1,5 @@
 import 'package:amazon_clone_tutorial/common/widgets/custom_dialog.dart';
+import 'package:amazon_clone_tutorial/features/account/screens/update_profile_screen.dart';
 import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +11,27 @@ class TopButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Row(
+        //   children: [
+        //     AccountButton(
+        //       text: 'Đơn hàng của bạn',
+        //       onTap: () {},
+        //     ),
+        //     AccountButton(
+        //       text: 'Turn Seller',
+        //       onTap: () {},
+        //     ),
+        //   ],
+        // ),
+        // const SizedBox(height: 10),
         Row(
           children: [
             AccountButton(
-              text: 'Đơn hàng của bạn',
-              onTap: () {},
+              text: 'Thông tin cá nhân',
+              onTap: () {
+                Navigator.pushNamed(context, UpdateProfileScreen.routeName);
+              },
             ),
-            AccountButton(
-              text: 'Turn Seller',
-              onTap: () {},
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
             AccountButton(
               text: 'Đăng xuất',
               onTap: () {
@@ -38,10 +45,6 @@ class TopButtons extends StatelessWidget {
                   },
                 );
               },
-            ),
-            AccountButton(
-              text: 'Danh sách của bạn',
-              onTap: () {},
             ),
           ],
         ),
