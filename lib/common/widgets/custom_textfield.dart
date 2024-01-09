@@ -6,6 +6,9 @@ class CustomTextField extends StatefulWidget {
   final int maxLines;
   final TextInputType? keyboardType;
   final bool? passwordField;
+  final bool? isNotSamePass;
+  final onTextChanged;
+  final AutovalidateMode? autovalidateMode;
   const CustomTextField({
     Key? key,
     required this.controller,
@@ -13,6 +16,9 @@ class CustomTextField extends StatefulWidget {
     this.maxLines = 1,
     this.keyboardType,
     this.passwordField,
+    this.isNotSamePass,
+    this.onTextChanged,
+    this.autovalidateMode,
   }) : super(key: key);
 
   @override
@@ -25,6 +31,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: widget.autovalidateMode,
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscureText: widget.passwordField == true ? _invisible : false,
@@ -51,9 +58,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : null,
       ),
+      onChanged: widget.onTextChanged,
       validator: (val) {
         if (val == null || val.isEmpty) {
           return 'Nhập ${widget.hintText} của bạn';
+        }
+        if (widget.isNotSamePass! == true) {
+          return 'Mật khẩu xác nhận không khớp với mật khẩu mới';
         }
         return null;
       },

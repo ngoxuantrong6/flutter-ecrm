@@ -1,4 +1,4 @@
-import 'package:amazon_clone_tutorial/common/widgets/custom_dialog.dart';
+import 'package:amazon_clone_tutorial/common/widgets/popup_notification_custom.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/analtyics_screen.dart';
@@ -62,14 +62,11 @@ class _AdminScreenState extends State<AdminScreen> {
           actions: [
             IconButton(
               onPressed: () {
-                showDialog(
+                PopupNotificationCustom.showMessgae(
                   context: context,
-                  builder: (mContext) {
-                    return CustomDialog(
-                      title: "Bạn có chắc muốn đăng xuất?",
-                      pressAgreeButton: () => AccountServices().logOut(context),
-                    );
-                  },
+                  title: 'ĐĂNG XUẤT',
+                  message: 'Bạn có thực sự muốn thoát phiên đăng nhập này?',
+                  pressButtonLeft: () => AccountServices().logOut(context),
                 );
               },
               icon: const Icon(Icons.logout),

@@ -1,4 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
+import 'package:amazon_clone_tutorial/features/account/screens/change_password_screen.dart';
+import 'package:amazon_clone_tutorial/features/account/screens/my_orders_screen.dart';
 import 'package:amazon_clone_tutorial/features/account/screens/update_profile_screen.dart';
 import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
@@ -95,6 +97,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const UpdateProfileScreen(),
+      );
+    case ChangePasswordScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const ChangePasswordScreen(),
+      );
+    case MyOrdersScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const MyOrdersScreen(),
       );
     default:
       return MaterialPageRoute(

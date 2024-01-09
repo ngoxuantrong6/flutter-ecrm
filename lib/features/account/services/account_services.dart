@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon_clone_tutorial/common/widgets/popup_notification_custom.dart';
 import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
@@ -86,6 +87,57 @@ class AccountServices {
           );
           userProvider.setUserFromModel(user);
           showSnackBar(context, 'Cập nhật thông tin của bạn thành công!');
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  void changePassword({
+    required BuildContext context,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      LoadingShowAble.showLoading();
+
+      http.Response res = await http.patch(
+        Uri.parse('$uri/api/change-password'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'oldPassword': oldPassword,
+          'newPassword': newPassword,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          User user = userProvider.user.copyWith(
+            password: jsonDecode(res.body)['password'],
+          );
+          userProvider.setUserFromModel(user);
+          PopupNotificationCustom.showMessgae(
+                  context: context,
+                  title: 'ĐỔI MẬT KHẨU THÀNH CÔNG',
+                  message:
+                      'Mật khẩu của bạn đã được đổi thành công. Bạn cần đăng nhập lại để tiếp tục sử dụng dịch vụ',
+                  buttonTitleLeft: "Đăng xuất",
+                  hiddenButtonRight: true)
+              .then((value) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AuthScreen.routeName,
+              (route) => false,
+            );
+          });
         },
       );
     } catch (e) {

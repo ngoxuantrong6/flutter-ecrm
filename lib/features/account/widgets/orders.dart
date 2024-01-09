@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/features/account/screens/my_orders_screen.dart';
 import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
 import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
@@ -42,21 +43,25 @@ class _OrdersState extends State<Orders> {
                       left: 15,
                     ),
                     child: const Text(
-                      'Đơn hàng của bạn',
+                      'Đơn hàng của tôi',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      right: 15,
-                    ),
-                    child: const Text(
-                      'Xem tất cả',
-                      style: TextStyle(
-                        color: GlobalVariables.primaryColor,
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, MyOrdersScreen.routeName),
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                        right: 15,
+                      ),
+                      child: const Text(
+                        'Xem tất cả',
+                        style: TextStyle(
+                          color: GlobalVariables.primaryColor,
+                        ),
                       ),
                     ),
                   ),

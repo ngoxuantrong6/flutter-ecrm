@@ -117,7 +117,7 @@ class _CartProductState extends State<CartProduct> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10).copyWith(left: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
