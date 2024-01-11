@@ -63,7 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (val == null || val.isEmpty) {
           return 'Nhập ${widget.hintText} của bạn';
         }
-        if (widget.isNotSamePass! == true) {
+        if (widget.isNotSamePass == true) {
           return 'Mật khẩu xác nhận không khớp với mật khẩu mới';
         }
         return null;

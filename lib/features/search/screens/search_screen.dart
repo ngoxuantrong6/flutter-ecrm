@@ -122,6 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 const SizedBox(height: 10),
                 Expanded(
                   child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: products!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(

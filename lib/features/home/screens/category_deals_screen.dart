@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_tutorial/features/home/services/home_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
@@ -69,18 +70,19 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 170,
+                Expanded(
                   child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 15),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: productList!.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 1.4,
-                      mainAxisSpacing: 10,
-                    ),
+                            crossAxisCount: 2),
+                    // gridDelegate:
+                    //     const SliverGridDelegateWithFixedCrossAxisCount(
+                    //   crossAxisCount: 1,
+                    //   childAspectRatio: 1.4,
+                    //   mainAxisSpacing: 10,
+                    // ),
                     itemBuilder: (context, index) {
                       final product = productList![index];
                       return GestureDetector(
@@ -94,29 +96,14 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 130,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black12,
-                                    width: 0.5,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Image.network(
-                                    product.images[0],
-                                  ),
-                                ),
+                              height: 140,
+                              child: SingleProduct(
+                                image: productList![index].images[0],
                               ),
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.only(
-                                left: 0,
-                                top: 5,
-                                right: 15,
-                              ),
+                              padding: const EdgeInsets.only(left: 15),
                               child: Text(
                                 product.name,
                                 maxLines: 1,

@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_tutorial/features/auth/services/auth_service.dart';
+import 'package:amazon_clone_tutorial/features/splash/screens/splash_screen.dart';
 import 'package:amazon_clone_tutorial/models/user.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:amazon_clone_tutorial/router.dart';
@@ -55,6 +56,10 @@ class _MyAppState extends State<MyApp> {
     );
     if (token == null || token == '') {
       prefs.setString('x-auth-token', '');
+      OneContext.instance.navigator.pushNamedAndRemoveUntil(
+        AuthScreen.routeName,
+        (route) => false,
+      );
     } else {
       if (userString != null || userString != '') {
         user = User.fromJson(jsonDecode(userString!));
@@ -97,7 +102,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: OneContext().navigator.key,
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
-      home: const AuthScreen(),
+      home: const SplashScreen(),
     );
   }
 }

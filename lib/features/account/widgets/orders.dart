@@ -76,6 +76,7 @@ class _OrdersState extends State<Orders> {
                   right: 0,
                 ),
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: orders!.length,
                   itemBuilder: (context, index) {

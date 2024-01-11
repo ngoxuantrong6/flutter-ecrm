@@ -12,6 +12,7 @@ import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const String routeName = '/product-details';
@@ -31,6 +32,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   double avgRating = 0;
   double myRating = 0;
   Product? product;
+  int activeIndex = 0;
 
   @override
   void initState() {
@@ -179,22 +181,45 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ),
-                  CarouselSlider(
-                    items: product!.images.map(
-                      (i) {
-                        return Builder(
-                          builder: (BuildContext context) => Image.network(
-                            i,
-                            fit: BoxFit.contain,
-                            height: 200,
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      CarouselSlider(
+                        items: product!.images.map(
+                          (i) {
+                            return Builder(
+                              builder: (BuildContext context) => Image.network(
+                                i,
+                                fit: BoxFit.contain,
+                                height: 200,
+                              ),
+                            );
+                          },
+                        ).toList(),
+                        options: CarouselOptions(
+                          viewportFraction: 1,
+                          height: 300,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              activeIndex = index;
+                            });
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 8,
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: activeIndex,
+                          count: product!.images.length,
+                          effect: const WormEffect(
+                            dotWidth: 8,
+                            dotHeight: 8,
+                            activeDotColor: GlobalVariables.primaryColor,
+                            dotColor: Colors.white70,
                           ),
-                        );
-                      },
-                    ).toList(),
-                    options: CarouselOptions(
-                      viewportFraction: 1,
-                      height: 300,
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     color: Colors.black12,
