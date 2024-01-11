@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-product';
@@ -28,6 +29,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   String category = 'Điện thoại';
   List<XFile> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
+  int activeIndex = 0;
 
   @override
   void dispose() {
@@ -95,22 +97,45 @@ class _AddProductScreenState extends State<AddProductScreen> {
               children: [
                 const SizedBox(height: 20),
                 images.isNotEmpty
-                    ? CarouselSlider(
-                        items: images.map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) => Image.file(
-                                File(i.path),
-                                fit: BoxFit.cover,
-                                height: 200,
+                    ? Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          CarouselSlider(
+                            items: images.map(
+                              (i) {
+                                return Builder(
+                                  builder: (BuildContext context) => Image.file(
+                                    File(i.path),
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                  ),
+                                );
+                              },
+                            ).toList(),
+                            options: CarouselOptions(
+                              viewportFraction: 1,
+                              height: 200,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  activeIndex = index;
+                                });
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 8,
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: activeIndex,
+                              count: images.length,
+                              effect: const WormEffect(
+                                dotWidth: 8,
+                                dotHeight: 8,
+                                activeDotColor: GlobalVariables.primaryColor,
+                                dotColor: Colors.white70,
                               ),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          viewportFraction: 1,
-                          height: 200,
-                        ),
+                            ),
+                          ),
+                        ],
                       )
                     : GestureDetector(
                         onTap: selectImages,

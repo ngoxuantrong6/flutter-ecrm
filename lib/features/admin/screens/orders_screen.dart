@@ -32,6 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     return orders == null
         ? const Loader()
         : GridView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: orders!.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),

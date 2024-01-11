@@ -56,6 +56,7 @@ class _PostsScreenState extends State<PostsScreen> {
         ? const Loader()
         : Scaffold(
             body: GridView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: products!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),

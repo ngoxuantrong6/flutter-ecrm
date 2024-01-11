@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dar
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const String routeName = '/edit-product';
@@ -25,6 +26,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   String category = 'Điện thoại';
   List<String> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
+  int activeIndex = 0;
 
   @override
   void initState() {
@@ -69,13 +71,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-  // void selectImages() async {
-  //   var res = await selectImages2();
-  //   setState(() {
-  //     images = res;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,22 +98,45 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                CarouselSlider(
-                  items: images.map(
-                    (i) {
-                      return Builder(
-                        builder: (BuildContext context) => Image.network(
-                          i,
-                          fit: BoxFit.cover,
-                          height: 200,
+                Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    CarouselSlider(
+                      items: images.map(
+                        (i) {
+                          return Builder(
+                            builder: (BuildContext context) => Image.network(
+                              i,
+                              fit: BoxFit.cover,
+                              height: 200,
+                            ),
+                          );
+                        },
+                      ).toList(),
+                      options: CarouselOptions(
+                        viewportFraction: 1,
+                        height: 200,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            activeIndex = index;
+                          });
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 8,
+                      child: AnimatedSmoothIndicator(
+                        activeIndex: activeIndex,
+                        count: images.length,
+                        effect: const WormEffect(
+                          dotWidth: 8,
+                          dotHeight: 8,
+                          activeDotColor: GlobalVariables.primaryColor,
+                          dotColor: Colors.white70,
                         ),
-                      );
-                    },
-                  ).toList(),
-                  options: CarouselOptions(
-                    viewportFraction: 1,
-                    height: 200,
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 30),
                 CustomTextField(
