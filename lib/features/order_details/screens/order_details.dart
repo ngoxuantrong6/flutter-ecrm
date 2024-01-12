@@ -154,9 +154,25 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black12,
+                    color: GlobalVariables.primaryColor,
+                    width: 0.2,
                   ),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      color: GlobalVariables.primaryColor.withOpacity(0.25),
+                      offset: const Offset(2, 2),
+                    ),
+                  ],
+                  color: Colors.white,
                 ),
+                // decoration: BoxDecoration(
+                //   border: Border.all(
+                //     color: Colors.black12,
+                //   ),
+                // ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -191,41 +207,60 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black12,
+                    color: GlobalVariables.primaryColor,
+                    width: 0.2,
                   ),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      color: GlobalVariables.primaryColor.withOpacity(0.25),
+                      offset: const Offset(2, 2),
+                    ),
+                  ],
+                  color: Colors.white,
                 ),
+                // decoration: BoxDecoration(
+                //   border: Border.all(
+                //     color: Colors.black12,
+                //   ),
+                // ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     for (int i = 0; i < widget.order.products.length; i++)
-                      Row(
-                        children: [
-                          Image.network(
-                            widget.order.products[i].images[0],
-                            height: 120,
-                            width: 120,
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.order.products[i].name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Số lượng: ${widget.order.quantity[i]}',
-                                ),
-                              ],
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Image.network(
+                              widget.order.products[i].images[0],
+                              height: 120,
+                              width: 120,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.order.products[i].name,
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    'Số lượng: ${widget.order.quantity[i]}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),
@@ -241,9 +276,25 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.black12,
+                    color: GlobalVariables.primaryColor,
+                    width: 0.2,
                   ),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      color: GlobalVariables.primaryColor.withOpacity(0.25),
+                      offset: const Offset(2, 2),
+                    ),
+                  ],
+                  color: Colors.white,
                 ),
+                // decoration: BoxDecoration(
+                //   border: Border.all(
+                //     color: Colors.black12,
+                //   ),
+                // ),
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {

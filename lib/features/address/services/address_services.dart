@@ -83,6 +83,38 @@ class AddressServices {
     }
   }
 
+  void buyNow({
+    required BuildContext context,
+    required Product product,
+    required String address,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      LoadingShowAble.showLoading();
+      http.Response res = await http.post(Uri.parse('$uri/api/order'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          body: jsonEncode({
+            'product': product,
+            'address': address,
+          }));
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Bạn đã đặt hàng thành công!');
+          Navigator.of(context).pop();
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
   void deleteProduct({
     required BuildContext context,
     required Product product,

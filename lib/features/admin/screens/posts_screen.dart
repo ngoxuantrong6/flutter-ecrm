@@ -7,6 +7,7 @@ import 'package:amazon_clone_tutorial/features/admin/screens/edit_product_screen
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class PostsScreen extends StatefulWidget {
   const PostsScreen({Key? key}) : super(key: key);
@@ -64,7 +65,7 @@ class _PostsScreenState extends State<PostsScreen> {
                 final productData = products![index];
                 return Column(
                   children: [
-                    GestureDetector(
+                    ZoomTapAnimation(
                       onTap: () {
                         Navigator.pushNamed(
                           context,
