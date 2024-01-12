@@ -1,3 +1,4 @@
+import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
@@ -14,10 +15,18 @@ class SingleProduct extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.black12,
-            width: 1.5,
+            color: GlobalVariables.primaryColor,
+            width: 0.2,
           ),
           borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              spreadRadius: 1,
+              blurRadius: 2,
+              color: GlobalVariables.primaryColor.withOpacity(0.25),
+              offset: const Offset(2, 2),
+            ),
+          ],
           color: Colors.white,
         ),
         child: Container(
