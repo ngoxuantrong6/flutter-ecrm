@@ -129,7 +129,7 @@ userRouter.post("/api/buy-now", auth, async (req, res) => {
 
     let order = new Order({
       products,
-      price,
+      totalPrice: price,
       address,
       userId: req.user,
       orderedAt: new Date().getTime(),
