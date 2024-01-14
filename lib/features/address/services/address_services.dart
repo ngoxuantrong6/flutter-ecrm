@@ -92,7 +92,7 @@ class AddressServices {
 
     try {
       LoadingShowAble.showLoading();
-      http.Response res = await http.post(Uri.parse('$uri/api/order'),
+      http.Response res = await http.post(Uri.parse('$uri/api/buy-now'),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'x-auth-token': userProvider.user.token,
