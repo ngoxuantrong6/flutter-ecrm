@@ -28,7 +28,7 @@ class AdminServices {
 
     try {
       LoadingShowAble.showLoading();
-      final cloudinary = CloudinaryPublic('denfgaxvg', 'uszbstnu');
+      final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
       List<String> imageUrls = [];
 
       for (int i = 0; i < images.length; i++) {

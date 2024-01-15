@@ -4,6 +4,7 @@ import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/home/services/home_services.dart';
 import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DealOfDay extends StatefulWidget {
@@ -55,8 +56,8 @@ class _DealOfDayState extends State<DealOfDay> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Image.network(
-                      product!.images[0],
+                    CachedNetworkImage(
+                      imageUrl: product!.images[0],
                       height: 235,
                       fit: BoxFit.fitHeight,
                     ),
@@ -86,8 +87,8 @@ class _DealOfDayState extends State<DealOfDay> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: product!.images
                             .map(
-                              (e) => Image.network(
-                                e,
+                              (e) => CachedNetworkImage(
+                                imageUrl: e,
                                 fit: BoxFit.fitWidth,
                                 width: 100,
                                 height: 100,

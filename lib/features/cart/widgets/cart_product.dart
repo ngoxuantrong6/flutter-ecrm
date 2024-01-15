@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/features/product_details/screens/product_d
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,8 +62,8 @@ class _CartProductState extends State<CartProduct> {
             },
             child: Row(
               children: [
-                Image.network(
-                  product.images[0],
+                CachedNetworkImage(
+                  imageUrl: product.images[0],
                   fit: BoxFit.contain,
                   height: 135,
                   width: 135,

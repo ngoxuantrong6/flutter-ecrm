@@ -2,6 +2,7 @@ import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SearchedProduct extends StatelessWidget {
@@ -29,8 +30,8 @@ class SearchedProduct extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Image.network(
-                product.images[0],
+              CachedNetworkImage(
+                imageUrl: product.images[0],
                 fit: BoxFit.contain,
                 height: 135,
                 width: 135,

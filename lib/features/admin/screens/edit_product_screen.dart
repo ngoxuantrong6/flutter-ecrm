@@ -3,6 +3,7 @@ import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -105,8 +106,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       items: images.map(
                         (i) {
                           return Builder(
-                            builder: (BuildContext context) => Image.network(
-                              i,
+                            builder: (BuildContext context) =>
+                                CachedNetworkImage(
+                              imageUrl: i,
                               fit: BoxFit.cover,
                               height: 200,
                             ),

@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dar
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -234,8 +235,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         padding: const EdgeInsets.all(5),
                         child: Row(
                           children: [
-                            Image.network(
-                              widget.order.products[i].images[0],
+                            CachedNetworkImage(
+                              imageUrl: widget.order.products[i].images[0],
                               height: 120,
                               width: 120,
                             ),

@@ -1,5 +1,6 @@
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SingleProduct extends StatelessWidget {
   final String image;
@@ -32,8 +33,8 @@ class SingleProduct extends StatelessWidget {
         child: Container(
           width: 180,
           padding: const EdgeInsets.all(10),
-          child: Image.network(
-            image,
+          child: CachedNetworkImage(
+            imageUrl: image,
             fit: BoxFit.fitHeight,
             width: 180,
           ),
