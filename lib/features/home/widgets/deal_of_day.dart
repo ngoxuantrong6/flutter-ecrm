@@ -96,18 +96,19 @@ class _DealOfDayState extends State<DealOfDay> {
                             .toList(),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                      ).copyWith(left: 15),
-                      alignment: Alignment.topLeft,
-                      child: const Text(
-                        'See all deals',
-                        style: TextStyle(
-                          color: GlobalVariables.primaryColor,
-                        ),
-                      ),
-                    ),
+                    const SizedBox(height: 10),
+                    // Container(
+                    //   padding: const EdgeInsets.symmetric(
+                    //     vertical: 15,
+                    //   ).copyWith(left: 15),
+                    //   alignment: Alignment.topLeft,
+                    //   child: const Text(
+                    //     'See all deals',
+                    //     style: TextStyle(
+                    //       color: GlobalVariables.primaryColor,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               );

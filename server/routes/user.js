@@ -112,24 +112,24 @@ userRouter.post("/api/order", auth, async (req, res) => {
 
 userRouter.post("/api/buy-now", auth, async (req, res) => {
   try {
-    const { product, address } = req.body;
+    const { id, address } = req.body;
     let products = [];
+    let product = await Product.findById(id);
     let price = product.price;
-    let productDB = await Product.findById(product._id);
 
-    if (productDB.quantity >= 1) {
-      productDB.quantity -= 1;
-      products.push({ productDB, quantity: 1 });
-      await productDB.save();
+    if (product.quantity >= 1) {
+      product.quantity -= 1;
+      products.push({ product, quantity: 1 });
+      await product.save();
     } else {
       return res
         .status(400)
-        .json({ msg: `${productDB.name} đã hết hàng!` });
+        .json({ msg: `${product.name} đã hết hàng!` });
     }
 
     let order = new Order({
       products,
-      price,
+      totalPrice: price,
       address,
       userId: req.user,
       orderedAt: new Date().getTime(),

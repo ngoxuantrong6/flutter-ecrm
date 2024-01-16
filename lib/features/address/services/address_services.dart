@@ -85,12 +85,13 @@ class AddressServices {
 
   void buyNow({
     required BuildContext context,
-    required Product product,
+    required String id,
     required String address,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
+      // print("qqqqqqqqqq ${product.toJson()}");
       LoadingShowAble.showLoading();
       http.Response res = await http.post(Uri.parse('$uri/api/buy-now'),
           headers: {
@@ -98,7 +99,7 @@ class AddressServices {
             'x-auth-token': userProvider.user.token,
           },
           body: jsonEncode({
-            'product': product,
+            'id': id,
             'address': address,
           }));
 

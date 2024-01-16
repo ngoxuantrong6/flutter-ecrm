@@ -62,7 +62,7 @@ class _AddressBuyNowScreenState extends State<AddressBuyNowScreen> {
     }
     addressServices.buyNow(
       context: context,
-      product: widget.product,
+      id: widget.product.id!,
       address: addressToBeUsed,
     );
   }
@@ -77,7 +77,7 @@ class _AddressBuyNowScreenState extends State<AddressBuyNowScreen> {
     }
     addressServices.buyNow(
       context: context,
-      product: widget.product,
+      id: widget.product.id!,
       address: addressToBeUsed,
     );
   }

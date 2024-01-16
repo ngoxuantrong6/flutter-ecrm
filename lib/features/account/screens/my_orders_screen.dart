@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/features/account/widgets/single_product.da
 import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class MyOrdersScreen extends StatefulWidget {
   static const String routeName = '/my-orders';
@@ -57,7 +58,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                   crossAxisCount: 2),
               itemBuilder: (context, index) {
                 final orderData = orders![index];
-                return GestureDetector(
+                return ZoomTapAnimation(
                   onTap: () {
                     Navigator.pushNamed(
                       context,

@@ -6,6 +6,7 @@ import 'package:amazon_clone_tutorial/features/account/widgets/single_product.da
 import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _OrdersState extends State<Orders> {
                   scrollDirection: Axis.horizontal,
                   itemCount: orders!.length,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
+                    return ZoomTapAnimation(
                       onTap: () {
                         Navigator.pushNamed(
                           context,
