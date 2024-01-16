@@ -6,6 +6,8 @@ import 'package:amazon_clone_tutorial/providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:speech_to_text/speech_to_text_provider.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -19,6 +21,7 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
+  final stt.SpeechToText speech = stt.SpeechToText();
 
   List<Widget> pages = [
     const HomeScreen(),
@@ -30,6 +33,17 @@ class _BottomBarState extends State<BottomBar> {
     setState(() {
       _page = page;
     });
+  }
+
+  @override
+  void initState() {
+    GlobalVariables.speechProvider = SpeechToTextProvider(speech);
+    initSpeechProvider();
+    super.initState();
+  }
+
+  Future<void> initSpeechProvider() async {
+    await GlobalVariables.speechProvider.initialize();
   }
 
   @override

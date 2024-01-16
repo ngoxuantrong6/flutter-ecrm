@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_to_text_provider.dart';
 
 String uri = 'https://ecrm-server.onrender.com';
 
@@ -58,4 +59,7 @@ class GlobalVariables {
       'image': 'assets/images/fashion.jpeg',
     },
   ];
+
+  // SPEECH TO TEXT
+  static late SpeechToTextProvider speechProvider;
 }

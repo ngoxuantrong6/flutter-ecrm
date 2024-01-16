@@ -14,8 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:one_context/one_context.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:speech_to_text/speech_to_text_provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -23,13 +21,10 @@ void main() {
       create: (context) => UserProvider(),
     ),
     ChangeNotifierProvider(
-      create: (context) => speechProvider,
+      create: (context) => GlobalVariables.speechProvider,
     ),
   ], child: const MyApp()));
 }
-
-final stt.SpeechToText speech = stt.SpeechToText();
-late SpeechToTextProvider speechProvider;
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -46,12 +41,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     checkLogin();
     authService.getUserData(context);
-    speechProvider = SpeechToTextProvider(speech);
-    initSpeechProvider();
-  }
-
-  Future<void> initSpeechProvider() async {
-    await speechProvider.initialize();
   }
 
   Future<void> checkLogin() async {

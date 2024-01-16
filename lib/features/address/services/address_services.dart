@@ -3,6 +3,8 @@ import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
 import 'package:amazon_clone_tutorial/constants/error_handling.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
+import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
+import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
 import 'package:amazon_clone_tutorial/models/user.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
@@ -76,6 +78,11 @@ class AddressServices {
           );
           userProvider.setUserFromModel(user);
           Navigator.of(context).pop();
+          Navigator.pushNamed(
+            context,
+            OrderDetailScreen.routeName,
+            arguments: Order.fromJson(jsonEncode(jsonDecode(res.body))),
+          );
         },
       );
     } catch (e) {
@@ -91,7 +98,6 @@ class AddressServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      // print("qqqqqqqqqq ${product.toJson()}");
       LoadingShowAble.showLoading();
       http.Response res = await http.post(Uri.parse('$uri/api/buy-now'),
           headers: {
@@ -109,6 +115,11 @@ class AddressServices {
         onSuccess: () {
           showSnackBar(context, 'Bạn đã đặt hàng thành công!');
           Navigator.of(context).pop();
+          Navigator.pushNamed(
+            context,
+            OrderDetailScreen.routeName,
+            arguments: Order.fromJson(jsonEncode(jsonDecode(res.body))),
+          );
         },
       );
     } catch (e) {
