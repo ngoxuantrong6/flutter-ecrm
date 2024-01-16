@@ -5,6 +5,7 @@ import 'package:amazon_clone_tutorial/constants/utils.dart';
 import 'package:amazon_clone_tutorial/features/address/screens/address_buy_now_screen.dart';
 import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -197,8 +198,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         items: product!.images.map(
                           (i) {
                             return Builder(
-                              builder: (BuildContext context) => Image.network(
-                                i,
+                              builder: (BuildContext context) =>
+                                  CachedNetworkImage(
+                                imageUrl: i,
                                 fit: BoxFit.contain,
                                 height: 200,
                               ),
