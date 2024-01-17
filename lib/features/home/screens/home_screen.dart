@@ -8,10 +8,7 @@ import 'package:amazon_clone_tutorial/features/home/widgets/top_categories.dart'
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_recognition_event.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:speech_to_text/speech_to_text_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -23,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchTextController = TextEditingController();
-  late SpeechToTextProvider speechToTextProvider;
+  late StreamSubscription<SpeechRecognitionEvent> subscription;
   bool _isListening = false;
   String _text = '';
   String _hintText = 'Tìm kiếm';
@@ -40,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    speechToTextProvider = Provider.of<SpeechToTextProvider>(context);
     searchTextController.text = _text;
     return Scaffold(
       appBar: PreferredSize(
@@ -141,50 +137,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // void _listen() async {
-  //   if (!_isListening) {
-  //     bool available = await _speech.initialize(
-  //       onStatus: (val) {
-  //         print('onStatus: $val');
-  //         if (val == stt.SpeechToText.listeningStatus) {
-  //           // _hintText = 'Đang nghe';
-  //           setState(() => _hintText = 'Đang nghe');
-  //         }
-  //         if (val == stt.SpeechToText.doneStatus) {
-  //           // setState(() => _isListening = false);
-  //           setState(() => print("ggggggggggggg"));
-  //           _stopListening();
-
-  //           navigateToSearchScreen(_text);
-  //         }
-  //       },
-  //       onError: (val) => print('onError: $val'),
-  //     );
-
-  //     if (available) {
-  //       setState(() => _isListening = true);
-  //       _speech.listen(
-  //         onResult: (val) => setState(() {
-  //           _text = val.recognizedWords;
-  //           // if (val.hasConfidenceRating && val.confidence > 0) {
-  //           //   _confidence = val.confidence;
-  //           // }
-  //         }),
-  //       );
-  //     }
-  //   } else {
-  //     _stopListening();
-  //   }
-  // }
-
   void _listen() {
-    speechToTextProvider.listen(
+    GlobalVariables.speechProvider.listen(
         pauseFor: const Duration(seconds: 5),
         // localeId: 'en-us',
         listenFor: const Duration(seconds: 5));
-    speechToTextProvider.stream.listen(
+    subscription = GlobalVariables.speechProvider.stream.listen(
       (event) {
-        print("vào đây");
         // on listening starts
         if (event.eventType == SpeechRecognitionEventType.statusChangeEvent) {
           _hintText = 'Đang nghe';
@@ -198,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (mounted) {
             setState(
               () {
-                _text = speechToTextProvider.lastResult!
+                _text = GlobalVariables.speechProvider.lastResult!
                     .recognizedWords; // the textField or Text Widget Will be updated
               },
             );
@@ -213,9 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //on done
         else if (event.eventType == SpeechRecognitionEventType.doneEvent) {
           //when the user stop speaking.
-          print("vào onDoneeeeeee");
-          speechToTextProvider.cancel();
-          speechToTextProvider.stop();
+          subscription.cancel();
           setState(() => _isListening = false);
           navigateToSearchScreen(_text);
         }

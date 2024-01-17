@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/constants/utils.dart';
@@ -5,11 +7,13 @@ import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dar
 import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
 import 'package:amazon_clone_tutorial/models/order.dart';
 import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_recognition_event.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static const String routeName = '/order-details';
@@ -26,6 +30,11 @@ class OrderDetailScreen extends StatefulWidget {
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int currentStep = 0;
   final AdminServices adminServices = AdminServices();
+  TextEditingController searchTextController = TextEditingController();
+  late StreamSubscription<SpeechRecognitionEvent> subscription;
+  bool _isListening = false;
+  String _text = '';
+  String _hintText = 'Tìm kiếm';
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
@@ -36,6 +45,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     super.initState();
     initializeDateFormatting();
     currentStep = widget.order.status;
+  }
+
+  @override
+  void dispose() {
+    searchTextController.clear();
+    super.dispose();
   }
 
   // !!! ONLY FOR ADMIN!!!
@@ -54,6 +69,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    searchTextController.text = _text;
     final user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
@@ -83,6 +99,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           borderRadius: BorderRadius.circular(7),
                           elevation: 1,
                           child: TextFormField(
+                            controller: searchTextController,
                             onFieldSubmitted: navigateToSearchScreen,
                             decoration: InputDecoration(
                               prefixIcon: InkWell(
@@ -116,7 +133,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                   width: 1,
                                 ),
                               ),
-                              hintText: 'Tìm kiếm',
+                              hintText: _hintText,
                               hintStyle: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 17,
@@ -126,12 +143,22 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                      color: Colors.transparent,
-                      height: 42,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child:
-                          const Icon(Icons.mic, color: Colors.black, size: 25),
+                    AvatarGlow(
+                      animate: _isListening,
+                      glowColor: Theme.of(context).primaryColor,
+                      endRadius: 25.0,
+                      duration: const Duration(milliseconds: 2000),
+                      repeatPauseDuration: const Duration(milliseconds: 100),
+                      child: GestureDetector(
+                        onTap: _listen,
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 42,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Icon(_isListening ? Icons.mic : Icons.mic_none,
+                              color: Colors.black, size: 25),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -375,6 +402,49 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _listen() {
+    GlobalVariables.speechProvider.listen(
+        pauseFor: const Duration(seconds: 5),
+        // localeId: 'en-us',
+        listenFor: const Duration(seconds: 5));
+    subscription = GlobalVariables.speechProvider.stream.listen(
+      (event) {
+        // on listening starts
+        if (event.eventType == SpeechRecognitionEventType.statusChangeEvent) {
+          _hintText = 'Đang nghe';
+          if (mounted) {
+            setState(() => _isListening = true);
+          }
+        }
+        // on every change it update
+        if (event.eventType ==
+            SpeechRecognitionEventType.partialRecognitionEvent) {
+          if (mounted) {
+            setState(
+              () {
+                _text = GlobalVariables.speechProvider.lastResult!
+                    .recognizedWords; // the textField or Text Widget Will be updated
+              },
+            );
+          }
+        }
+        //on error
+        else if (event.eventType == SpeechRecognitionEventType.errorEvent) {
+          ///on error if some error occurs then close the dilog box here . or stop the listner
+          print('onError');
+        }
+
+        //on done
+        else if (event.eventType == SpeechRecognitionEventType.doneEvent) {
+          //when the user stop speaking.
+          subscription.cancel();
+          setState(() => _isListening = false);
+          navigateToSearchScreen(_text);
+        }
+      },
     );
   }
 }

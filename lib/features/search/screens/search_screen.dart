@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
 import 'package:amazon_clone_tutorial/constants/global_variables.dart';
 import 'package:amazon_clone_tutorial/features/home/widgets/address_box.dart';
@@ -5,7 +7,9 @@ import 'package:amazon_clone_tutorial/features/product_details/screens/product_d
 import 'package:amazon_clone_tutorial/features/search/services/search_services.dart';
 import 'package:amazon_clone_tutorial/features/search/widget/searched_product.dart';
 import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_event.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String routeName = '/search-screen';
@@ -22,11 +26,22 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<Product>? products;
   final SearchServices searchServices = SearchServices();
+  TextEditingController searchTextController = TextEditingController();
+  late StreamSubscription<SpeechRecognitionEvent> subscription;
+  bool _isListening = false;
+  String _text = '';
+  String _hintText = 'Tìm kiếm';
 
   @override
   void initState() {
     super.initState();
     fetchSearchedProduct();
+  }
+
+  @override
+  void dispose() {
+    searchTextController.clear();
+    super.dispose();
   }
 
   fetchSearchedProduct() async {
@@ -41,6 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    searchTextController.text = _text;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -61,6 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
+                      controller: searchTextController,
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
@@ -94,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Tìm kiếm',
+                        hintText: _hintText,
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -104,11 +121,22 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic, color: Colors.black, size: 25),
+              AvatarGlow(
+                animate: _isListening,
+                glowColor: Theme.of(context).primaryColor,
+                endRadius: 25.0,
+                duration: const Duration(milliseconds: 2000),
+                repeatPauseDuration: const Duration(milliseconds: 100),
+                child: GestureDetector(
+                  onTap: _listen,
+                  child: Container(
+                    color: Colors.transparent,
+                    height: 42,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(_isListening ? Icons.mic : Icons.mic_none,
+                        color: Colors.black, size: 25),
+                  ),
+                ),
               ),
             ],
           ),
@@ -142,6 +170,49 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ],
             ),
+    );
+  }
+
+  void _listen() {
+    GlobalVariables.speechProvider.listen(
+        pauseFor: const Duration(seconds: 5),
+        // localeId: 'en-us',
+        listenFor: const Duration(seconds: 5));
+    subscription = GlobalVariables.speechProvider.stream.listen(
+      (event) {
+        // on listening starts
+        if (event.eventType == SpeechRecognitionEventType.statusChangeEvent) {
+          _hintText = 'Đang nghe';
+          if (mounted) {
+            setState(() => _isListening = true);
+          }
+        }
+        // on every change it update
+        if (event.eventType ==
+            SpeechRecognitionEventType.partialRecognitionEvent) {
+          if (mounted) {
+            setState(
+              () {
+                _text = GlobalVariables.speechProvider.lastResult!
+                    .recognizedWords; // the textField or Text Widget Will be updated
+              },
+            );
+          }
+        }
+        //on error
+        else if (event.eventType == SpeechRecognitionEventType.errorEvent) {
+          ///on error if some error occurs then close the dilog box here . or stop the listner
+          print('onError');
+        }
+
+        //on done
+        else if (event.eventType == SpeechRecognitionEventType.doneEvent) {
+          //when the user stop speaking.
+          subscription.cancel();
+          setState(() => _isListening = false);
+          navigateToSearchScreen(_text);
+        }
+      },
     );
   }
 }
