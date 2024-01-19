@@ -1,8 +1,8 @@
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/account_screen.dart';
-import 'package:amazon_clone_tutorial/features/cart/screens/cart_screen.dart';
-import 'package:amazon_clone_tutorial/features/home/screens/home_screen.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/account/screens/account_screen.dart';
+import 'package:flutter_ecrm/features/cart/screens/cart_screen.dart';
+import 'package:flutter_ecrm/features/home/screens/home_screen.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

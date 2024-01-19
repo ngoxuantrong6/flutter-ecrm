@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/home/widgets/address_box.dart';
-import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
-import 'package:amazon_clone_tutorial/features/search/services/search_services.dart';
-import 'package:amazon_clone_tutorial/features/search/widget/searched_product.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:flutter_ecrm/common/widgets/loader.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/home/widgets/address_box.dart';
+import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/features/search/services/search_services.dart';
+import 'package:flutter_ecrm/features/search/widget/searched_product.dart';
+import 'package:flutter_ecrm/models/product.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_event.dart';

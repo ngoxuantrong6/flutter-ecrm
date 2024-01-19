@@ -1,9 +1,9 @@
-import 'package:amazon_clone_tutorial/common/widgets/popup_notification_custom.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/analtyics_screen.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/orders_screen.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/posts_screen.dart';
+import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/account/services/account_services.dart';
+import 'package:flutter_ecrm/features/admin/screens/analtyics_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/orders_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {

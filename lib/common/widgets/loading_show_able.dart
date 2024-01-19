@@ -1,4 +1,4 @@
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
+import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

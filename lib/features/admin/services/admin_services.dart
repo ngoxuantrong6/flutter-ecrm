@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
-import 'package:amazon_clone_tutorial/constants/error_handling.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/models/sales.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
+import 'package:flutter_ecrm/constants/error_handling.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/admin/models/sales.dart';
+import 'package:flutter_ecrm/models/order.dart';
+import 'package:flutter_ecrm/models/product.dart';
+import 'package:flutter_ecrm/providers/add_product_provider.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -25,6 +26,8 @@ class AdminServices {
     required List<XFile> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final addProductProvider =
+        Provider.of<AddProductProvider>(context, listen: false);
 
     try {
       LoadingShowAble.showLoading();
@@ -61,6 +64,8 @@ class AdminServices {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Đã thêm sản phẩm thành công!');
+          addProductProvider.setCategory('Điện thoại');
+          addProductProvider.setImages([]);
           Navigator.of(context).pop(true);
         },
       );

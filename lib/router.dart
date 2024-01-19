@@ -1,21 +1,23 @@
-import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/change_password_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/my_orders_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/update_profile_screen.dart';
-import 'package:amazon_clone_tutorial/features/address/screens/address_buy_now_screen.dart';
-import 'package:amazon_clone_tutorial/features/address/screens/address_screen.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/add_product_screen.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/edit_product_screen.dart';
-import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone_tutorial/features/home/screens/category_deals_screen.dart';
-import 'package:amazon_clone_tutorial/features/home/screens/home_screen.dart';
-import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
-import 'package:amazon_clone_tutorial/features/product_details/screens/product_details_screen.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
+import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
+import 'package:flutter_ecrm/features/address/screens/address_buy_now_screen.dart';
+import 'package:flutter_ecrm/features/address/screens/address_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/add_product_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/admin_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/edit_product_screen.dart';
+import 'package:flutter_ecrm/features/auth/screens/auth_screen.dart';
+import 'package:flutter_ecrm/features/home/screens/category_deals_screen.dart';
+import 'package:flutter_ecrm/features/home/screens/home_screen.dart';
+import 'package:flutter_ecrm/features/order_details/screens/order_details.dart';
+import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
+import 'package:flutter_ecrm/models/order.dart';
+import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter/material.dart';
+
+import 'features/admin/screens/posts_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -36,9 +38,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const BottomBar(),
       );
     case AddProductScreen.routeName:
+      var addProductArguments = routeSettings.arguments as AddProductArguments;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AddProductScreen(),
+        builder: (_) =>
+            AddProductScreen(addProductArguments: addProductArguments),
       );
 
     case CategoryDealsScreen.routeName:

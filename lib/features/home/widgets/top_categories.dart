@@ -1,5 +1,5 @@
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/home/screens/category_deals_screen.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/home/screens/category_deals_screen.dart';
 import 'package:flutter/material.dart';
 
 class TopCategories extends StatelessWidget {

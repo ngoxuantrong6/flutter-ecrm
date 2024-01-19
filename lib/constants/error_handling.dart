@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
+import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,4 +1,4 @@
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

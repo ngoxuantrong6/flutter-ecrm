@@ -1,14 +1,15 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_tutorial/common/widgets/bottom_bar.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/admin/screens/admin_screen.dart';
-import 'package:amazon_clone_tutorial/features/auth/screens/auth_screen.dart';
-import 'package:amazon_clone_tutorial/features/auth/services/auth_service.dart';
-import 'package:amazon_clone_tutorial/features/splash/screens/splash_screen.dart';
-import 'package:amazon_clone_tutorial/models/user.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
-import 'package:amazon_clone_tutorial/router.dart';
+import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/admin/screens/admin_screen.dart';
+import 'package:flutter_ecrm/features/auth/screens/auth_screen.dart';
+import 'package:flutter_ecrm/features/auth/services/auth_service.dart';
+import 'package:flutter_ecrm/features/splash/screens/splash_screen.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/add_product_provider.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
+import 'package:flutter_ecrm/router.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,9 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => AddProductProvider(),
     ),
     ChangeNotifierProvider(
       create: (context) => GlobalVariables.speechProvider,

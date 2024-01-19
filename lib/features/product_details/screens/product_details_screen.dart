@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/address/screens/address_buy_now_screen.dart';
-import 'package:amazon_clone_tutorial/features/product_details/services/product_details_services.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/custom_button.dart';
+import 'package:flutter_ecrm/common/widgets/loader.dart';
+import 'package:flutter_ecrm/common/widgets/stars.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/address/screens/address_buy_now_screen.dart';
+import 'package:flutter_ecrm/features/product_details/services/product_details_services.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
+import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

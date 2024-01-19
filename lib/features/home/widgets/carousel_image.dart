@@ -1,4 +1,4 @@
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

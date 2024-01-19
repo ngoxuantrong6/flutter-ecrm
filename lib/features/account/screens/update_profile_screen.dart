@@ -1,9 +1,9 @@
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield_label.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/custom_button.dart';
+import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
+import 'package:flutter_ecrm/common/widgets/custom_textfield_label.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/account/services/account_services.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

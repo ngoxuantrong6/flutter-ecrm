@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
-import 'package:amazon_clone_tutorial/features/search/screens/search_screen.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/custom_button.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
+import 'package:flutter_ecrm/models/order.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

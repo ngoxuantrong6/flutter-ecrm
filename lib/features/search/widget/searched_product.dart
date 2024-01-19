@@ -1,7 +1,7 @@
-import 'package:amazon_clone_tutorial/common/widgets/stars.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:flutter_ecrm/common/widgets/stars.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/models/product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

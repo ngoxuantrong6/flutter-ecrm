@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:amazon_clone_tutorial/common/widgets/loading_show_able.dart';
-import 'package:amazon_clone_tutorial/constants/error_handling.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
-import 'package:amazon_clone_tutorial/models/user.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
+import 'package:flutter_ecrm/constants/error_handling.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/models/product.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;

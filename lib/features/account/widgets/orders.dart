@@ -1,10 +1,10 @@
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/my_orders_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
-import 'package:amazon_clone_tutorial/features/account/widgets/single_product.dart';
-import 'package:amazon_clone_tutorial/features/order_details/screens/order_details.dart';
-import 'package:amazon_clone_tutorial/models/order.dart';
+import 'package:flutter_ecrm/common/widgets/loader.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
+import 'package:flutter_ecrm/features/account/services/account_services.dart';
+import 'package:flutter_ecrm/features/account/widgets/single_product.dart';
+import 'package:flutter_ecrm/features/order_details/screens/order_details.dart';
+import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 

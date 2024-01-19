@@ -1,12 +1,12 @@
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/address/services/address_services.dart';
-import 'package:amazon_clone_tutorial/models/product.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/address/services/address_services.dart';
+import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/providers/user_provider.dart';
+import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 
 class AddressBuyNowScreen extends StatefulWidget {
   static const String routeName = '/address-buy-now';

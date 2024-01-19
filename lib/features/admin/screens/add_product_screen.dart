@@ -1,44 +1,33 @@
 import 'dart:io';
 
-import 'package:amazon_clone_tutorial/common/widgets/custom_button.dart';
-import 'package:amazon_clone_tutorial/common/widgets/custom_textfield.dart';
-import 'package:amazon_clone_tutorial/constants/global_variables.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/common/widgets/custom_button.dart';
+import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/admin/screens/posts_screen.dart';
+import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/providers/add_product_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-product';
-  const AddProductScreen({Key? key}) : super(key: key);
+  const AddProductScreen({Key? key, required this.addProductArguments})
+      : super(key: key);
+  final AddProductArguments addProductArguments;
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final TextEditingController productNameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController quantityController = TextEditingController();
   final AdminServices adminServices = AdminServices();
-
-  String category = 'Điện thoại';
-  List<XFile> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
   int activeIndex = 0;
-
-  @override
-  void dispose() {
-    super.dispose();
-    productNameController.dispose();
-    descriptionController.dispose();
-    priceController.dispose();
-    quantityController.dispose();
-  }
 
   List<String> productCategories = [
     'Điện thoại',
@@ -49,28 +38,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
   ];
 
   void sellProduct() {
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+    if (_addProductFormKey.currentState!.validate() &&
+        context.read<AddProductProvider>().images.isNotEmpty) {
       adminServices.sellProduct(
         context: context,
-        name: productNameController.text,
-        description: descriptionController.text,
-        price: int.parse(priceController.text),
-        quantity: int.parse(quantityController.text),
-        category: category,
-        images: images,
+        name: widget.addProductArguments.productNameController.text,
+        description: widget.addProductArguments.descriptionController.text,
+        price: int.parse(widget.addProductArguments.priceController.text),
+        quantity: int.parse(widget.addProductArguments.quantityController.text),
+        category: context.read<AddProductProvider>().category,
+        images: context.read<AddProductProvider>().images,
       );
     }
   }
 
-  void selectImages() async {
-    var res = await selectImages2();
-    setState(() {
-      images = res;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final addProductProvider = context.watch<AddProductProvider>();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -96,12 +80,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 20),
-                images.isNotEmpty
+                addProductProvider.images.isNotEmpty
                     ? Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
                           CarouselSlider(
-                            items: images.map(
+                            items: addProductProvider.images.map(
                               (i) {
                                 return Builder(
                                   builder: (BuildContext context) => Image.file(
@@ -126,7 +110,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             bottom: 8,
                             child: AnimatedSmoothIndicator(
                               activeIndex: activeIndex,
-                              count: images.length,
+                              count: widget.addProductArguments.images.length,
                               effect: const WormEffect(
                                 dotWidth: 8,
                                 dotHeight: 8,
@@ -137,8 +121,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                         ],
                       )
-                    : GestureDetector(
-                        onTap: selectImages,
+                    : ZoomTapAnimation(
+                        onTap: () async {
+                          var res = await selectImages2();
+                          addProductProvider.setImages(res);
+                        },
                         child: DottedBorder(
                           borderType: BorderType.RRect,
                           radius: const Radius.circular(10),
@@ -172,30 +159,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                 const SizedBox(height: 30),
                 CustomTextField(
-                  controller: productNameController,
+                  controller: widget.addProductArguments.productNameController,
                   hintText: 'Tên sản phẩm',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: descriptionController,
+                  controller: widget.addProductArguments.descriptionController,
                   hintText: 'Chi tiết',
                   maxLines: 7,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: priceController,
+                  controller: widget.addProductArguments.priceController,
                   hintText: 'Giá',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: quantityController,
+                  controller: widget.addProductArguments.quantityController,
                   hintText: 'Số lượng',
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
                   child: DropdownButton(
-                    value: category,
+                    value: addProductProvider.category,
                     icon: const Icon(Icons.keyboard_arrow_down),
                     items: productCategories.map((String item) {
                       return DropdownMenuItem(
@@ -204,9 +191,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       );
                     }).toList(),
                     onChanged: (String? newVal) {
-                      setState(() {
-                        category = newVal!;
-                      });
+                      addProductProvider.setCategory(newVal!);
+                      // setState(() {
+                      //   widget.addProductArguments.category = newVal!;
+                      //   print(
+                      //       "categoryyyyyyy ${widget.addProductArguments.category}");
+                      // });
                     },
                   ),
                 ),

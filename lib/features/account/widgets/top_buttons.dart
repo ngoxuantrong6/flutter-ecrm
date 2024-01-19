@@ -1,9 +1,9 @@
-import 'package:amazon_clone_tutorial/common/widgets/popup_notification_custom.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/change_password_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/my_orders_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/screens/update_profile_screen.dart';
-import 'package:amazon_clone_tutorial/features/account/services/account_services.dart';
-import 'package:amazon_clone_tutorial/features/account/widgets/account_button.dart';
+import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
+import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
+import 'package:flutter_ecrm/features/account/services/account_services.dart';
+import 'package:flutter_ecrm/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';
 
 class TopButtons extends StatelessWidget {

@@ -1,8 +1,8 @@
-import 'package:amazon_clone_tutorial/common/widgets/loader.dart';
-import 'package:amazon_clone_tutorial/constants/utils.dart';
-import 'package:amazon_clone_tutorial/features/admin/models/sales.dart';
-import 'package:amazon_clone_tutorial/features/admin/services/admin_services.dart';
-import 'package:amazon_clone_tutorial/features/admin/widgets/category_products_chart.dart';
+import 'package:flutter_ecrm/common/widgets/loader.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/admin/models/sales.dart';
+import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/features/admin/widgets/category_products_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     var earningData = await adminServices.getEarnings(context);
     totalSales = earningData['totalEarnings'];
     earnings = earningData['sales'];
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
