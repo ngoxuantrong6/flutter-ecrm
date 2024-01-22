@@ -47,5 +47,9 @@
 	<string>We want image for product!</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Recognize and display speech input</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Detect speech input</string>
 </dict>
 </plist>

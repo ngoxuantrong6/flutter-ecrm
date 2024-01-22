@@ -1,11 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
-import 'package:flutter_ecrm/common/widgets/custom_textfield_label.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/account/services/account_services.dart';
-import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const String routeName = '/change-password';
@@ -23,15 +22,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final AccountServices accountServices = AccountServices();
   final _addProductFormKey = GlobalKey<FormState>();
   bool isNotSame = false;
-
-  // @override
-  // void initState() {
-  //   final user = Provider.of<UserProvider>(context, listen: false).user;
-  //   oldPasswordController.text = user.name;
-  //   newPasswordController.text = user.email;
-  //   confirmNewPasswordController.text = user.address;
-  //   super.initState();
-  // }
 
   @override
   void dispose() {
@@ -76,7 +66,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               onTap: () => Navigator.of(context).pop(),
               child: Container(
                 color: Colors.transparent,
-                child: const Icon(Icons.arrow_back),
+                child: Platform.isAndroid
+                    ? const Icon(Icons.arrow_back)
+                    : const Icon(Icons.arrow_back_ios),
               ),
             ),
           ),
