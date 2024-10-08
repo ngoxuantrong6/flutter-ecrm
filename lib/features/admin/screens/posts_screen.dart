@@ -49,7 +49,7 @@ class _PostsScreenState extends State<PostsScreen> {
   void initState() {
     super.initState();
     fetchAllProducts();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<AddProductProvider>().setCategory('Điện thoại');
       context.read<AddProductProvider>().setImages([]);
     });
