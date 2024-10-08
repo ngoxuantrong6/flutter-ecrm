@@ -17,7 +17,7 @@ class TopCategories extends StatelessWidget {
       child: ListView.builder(
         itemCount: GlobalVariables.categoryImages.length,
         scrollDirection: Axis.horizontal,
-        itemExtent: 75,
+        itemExtent: MediaQuery.of(context).size.width * 0.2,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => navigateToCategoryPage(

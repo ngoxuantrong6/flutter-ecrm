@@ -123,8 +123,8 @@ class _PostsScreenState extends State<PostsScreen> {
                           }
                         });
                       },
-                      child: SizedBox(
-                        height: 140,
+                      child: Container(
+                        constraints: const BoxConstraints(maxHeight: 140),
                         child: SingleProduct(
                           image: productData.images[0],
                         ),
@@ -135,7 +135,7 @@ class _PostsScreenState extends State<PostsScreen> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 15.0),
                             child: Text(
                               productData.name,
                               overflow: TextOverflow.ellipsis,

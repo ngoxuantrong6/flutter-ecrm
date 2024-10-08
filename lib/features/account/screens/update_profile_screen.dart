@@ -51,53 +51,58 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: AppBar(
+              flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                  gradient: GlobalVariables.appBarGradient,
+                ),
+              ),
+              title: const Text(
+                'Thông tin cá nhân',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
-          title: const Text(
-            'Thông tin cá nhân',
-            style: TextStyle(
-              color: Colors.black,
+          body: SingleChildScrollView(
+            child: Form(
+              key: _addProductFormKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      controller: userNameController,
+                      hintText: 'Tên',
+                    ),
+                    const SizedBox(height: 10),
+                    CustomTextFieldLabel(email: emailController.text),
+                    const SizedBox(height: 10),
+                    CustomTextField(
+                      controller: addressController,
+                      hintText: 'Địa chỉ',
+                    ),
+                    const SizedBox(height: 50),
+                    CustomButton(
+                      text: 'Cập nhật',
+                      onTap: updateProfile,
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _addProductFormKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                CustomTextField(
-                  controller: userNameController,
-                  hintText: 'Tên',
-                ),
-                const SizedBox(height: 10),
-                CustomTextFieldLabel(email: emailController.text),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  controller: addressController,
-                  hintText: 'Địa chỉ',
-                ),
-                const SizedBox(height: 50),
-                CustomButton(
-                  text: 'Cập nhật',
-                  onTap: updateProfile,
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

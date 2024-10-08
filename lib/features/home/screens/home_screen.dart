@@ -38,102 +38,106 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     searchTextController.text = _text;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 42,
-                  margin: const EdgeInsets.only(left: 15),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(7),
-                    elevation: 1,
-                    child: TextFormField(
-                      controller: searchTextController,
-                      onFieldSubmitted: navigateToSearchScreen,
-                      decoration: InputDecoration(
-                        prefixIcon: InkWell(
-                          onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6,
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: AppBar(
+              flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                  gradient: GlobalVariables.appBarGradient,
+                ),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 42,
+                      margin: const EdgeInsets.only(left: 15),
+                      child: Material(
+                        borderRadius: BorderRadius.circular(7),
+                        elevation: 1,
+                        child: TextFormField(
+                          controller: searchTextController,
+                          onFieldSubmitted: navigateToSearchScreen,
+                          decoration: InputDecoration(
+                            prefixIcon: InkWell(
+                              onTap: () {},
+                              child: const Padding(
+                                padding: EdgeInsets.only(
+                                  left: 6,
+                                ),
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                  size: 23,
+                                ),
+                              ),
                             ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 23,
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding: const EdgeInsets.only(top: 10),
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(7),
+                              ),
+                              borderSide: BorderSide.none,
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(7),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.black38,
+                                width: 1,
+                              ),
+                            ),
+                            hintText: _hintText,
+                            hintStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
                             ),
                           ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(top: 10),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
-                        ),
-                        hintText: _hintText,
-                        hintStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-              AvatarGlow(
-                animate: _isListening,
-                glowColor: Theme.of(context).primaryColor,
-                endRadius: 25.0,
-                duration: const Duration(milliseconds: 2000),
-                repeatPauseDuration: const Duration(milliseconds: 100),
-                child: GestureDetector(
-                  onTap: _listen,
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 42,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Icon(_isListening ? Icons.mic : Icons.mic_none,
-                        color: Colors.black, size: 25),
+                  AvatarGlow(
+                    animate: _isListening,
+                    glowColor: Theme.of(context).primaryColor,
+                    endRadius: 25.0,
+                    duration: const Duration(milliseconds: 2000),
+                    repeatPauseDuration: const Duration(milliseconds: 100),
+                    child: GestureDetector(
+                      onTap: _listen,
+                      child: Container(
+                        color: Colors.transparent,
+                        height: 42,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Icon(_isListening ? Icons.mic : Icons.mic_none,
+                            color: Colors.black, size: 25),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            AddressBox(),
-            SizedBox(height: 10),
-            TopCategories(),
-            CarouselImage(),
-            DealOfDay(),
-          ],
-        ),
-      ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: const [
+                AddressBox(),
+                SizedBox(height: 10),
+                TopCategories(),
+                CarouselImage(),
+                DealOfDay(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

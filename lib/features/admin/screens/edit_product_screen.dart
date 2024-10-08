@@ -134,7 +134,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           dotWidth: 8,
                           dotHeight: 8,
                           activeDotColor: GlobalVariables.primaryColor,
-                          dotColor: Colors.white70,
+                          dotColor: Colors.grey,
                         ),
                       ),
                     ),

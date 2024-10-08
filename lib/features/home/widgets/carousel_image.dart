@@ -48,7 +48,7 @@ class _CarouselImageState extends State<CarouselImage> {
               dotWidth: 8,
               dotHeight: 8,
               activeDotColor: GlobalVariables.primaryColor,
-              dotColor: Colors.white70,
+              dotColor: Colors.grey,
             ),
           ),
         ),

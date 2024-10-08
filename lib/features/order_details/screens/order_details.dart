@@ -211,6 +211,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       DateTime.fromMillisecondsSinceEpoch(
                           widget.order.orderedAt),
                     )}'),
+                    Text('Id đơn hàng:           ${widget.order.id}'),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

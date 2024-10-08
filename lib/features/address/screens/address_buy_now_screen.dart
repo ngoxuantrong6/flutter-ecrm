@@ -1,3 +1,4 @@
+import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/address/services/address_services.dart';
 import 'package:flutter_ecrm/models/product.dart';
@@ -203,7 +204,7 @@ class _AddressBuyNowScreenState extends State<AddressBuyNowScreen> {
                 type: GooglePayButtonType.buy,
                 margin: const EdgeInsets.only(top: 15),
                 loadingIndicator: const Center(
-                  child: CircularProgressIndicator(),
+                  child: Loader(),
                 ),
               ),
             ],

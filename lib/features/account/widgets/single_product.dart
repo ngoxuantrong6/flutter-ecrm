@@ -31,12 +31,12 @@ class SingleProduct extends StatelessWidget {
           color: Colors.white,
         ),
         child: Container(
-          width: 180,
+          width: MediaQuery.of(context).size.width * 0.45,
           padding: const EdgeInsets.all(10),
           child: CachedNetworkImage(
             imageUrl: image,
             fit: BoxFit.fitHeight,
-            width: 180,
+            width: MediaQuery.of(context).size.width * 0.45,
           ),
         ),
       ),

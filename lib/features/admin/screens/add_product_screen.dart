@@ -115,7 +115,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 dotWidth: 8,
                                 dotHeight: 8,
                                 activeDotColor: GlobalVariables.primaryColor,
-                                dotColor: Colors.white70,
+                                dotColor: Colors.grey,
                               ),
                             ),
                           ),

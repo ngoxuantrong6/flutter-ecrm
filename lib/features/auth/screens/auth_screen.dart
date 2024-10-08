@@ -58,128 +58,130 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Xin chào bạn',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              ListTile(
-                tileColor: _auth == Auth.signup
-                    ? GlobalVariables.backgroundColor
-                    : GlobalVariables.greyBackgroundCOlor,
-                title: const Text(
-                  'Tạo tài khoản',
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Xin chào bạn',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signup,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  },
-                ),
-              ),
-              if (_auth == Auth.signup)
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: GlobalVariables.backgroundColor,
-                  child: Form(
-                    key: _signUpFormKey,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          controller: _nameController,
-                          hintText: 'Tên',
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: 'Mật khẩu',
-                          passwordField: true,
-                        ),
-                        const SizedBox(height: 10),
-                        CustomButton(
-                          text: 'Đăng Ký',
-                          onTap: () {
-                            if (_signUpFormKey.currentState!.validate()) {
-                              signUpUser();
-                            }
-                          },
-                        )
-                      ],
+                ListTile(
+                  tileColor: _auth == Auth.signup
+                      ? GlobalVariables.backgroundColor
+                      : GlobalVariables.greyBackgroundCOlor,
+                  title: const Text(
+                    'Tạo tài khoản',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ListTile(
-                tileColor: _auth == Auth.signin
-                    ? GlobalVariables.backgroundColor
-                    : GlobalVariables.greyBackgroundCOlor,
-                title: const Text(
-                  'Đăng nhập',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                  leading: Radio(
+                    activeColor: GlobalVariables.secondaryColor,
+                    value: Auth.signup,
+                    groupValue: _auth,
+                    onChanged: (Auth? val) {
+                      setState(() {
+                        _auth = val!;
+                      });
+                    },
                   ),
                 ),
-                leading: Radio(
-                  activeColor: GlobalVariables.secondaryColor,
-                  value: Auth.signin,
-                  groupValue: _auth,
-                  onChanged: (Auth? val) {
-                    setState(() {
-                      _auth = val!;
-                    });
-                  },
-                ),
-              ),
-              if (_auth == Auth.signin)
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: GlobalVariables.backgroundColor,
-                  child: Form(
-                    key: _signInFormKey,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        const SizedBox(height: 10),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: 'Mật khẩu',
-                          passwordField: true,
-                        ),
-                        const SizedBox(height: 10),
-                        CustomButton(
-                          text: 'Đăng Nhập',
-                          onTap: () {
-                            if (_signInFormKey.currentState!.validate()) {
-                              signInUser();
-                            }
-                          },
-                        )
-                      ],
+                if (_auth == Auth.signup)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: GlobalVariables.backgroundColor,
+                    child: Form(
+                      key: _signUpFormKey,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            controller: _nameController,
+                            hintText: 'Tên',
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _emailController,
+                            hintText: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _passwordController,
+                            hintText: 'Mật khẩu',
+                            passwordField: true,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomButton(
+                            text: 'Đăng Ký',
+                            onTap: () {
+                              if (_signUpFormKey.currentState!.validate()) {
+                                signUpUser();
+                              }
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
+                ListTile(
+                  tileColor: _auth == Auth.signin
+                      ? GlobalVariables.backgroundColor
+                      : GlobalVariables.greyBackgroundCOlor,
+                  title: const Text(
+                    'Đăng nhập',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  leading: Radio(
+                    activeColor: GlobalVariables.secondaryColor,
+                    value: Auth.signin,
+                    groupValue: _auth,
+                    onChanged: (Auth? val) {
+                      setState(() {
+                        _auth = val!;
+                      });
+                    },
+                  ),
                 ),
-            ],
+                if (_auth == Auth.signin)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: GlobalVariables.backgroundColor,
+                    child: Form(
+                      key: _signInFormKey,
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            controller: _emailController,
+                            hintText: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomTextField(
+                            controller: _passwordController,
+                            hintText: 'Mật khẩu',
+                            passwordField: true,
+                          ),
+                          const SizedBox(height: 10),
+                          CustomButton(
+                            text: 'Đăng Nhập',
+                            onTap: () {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

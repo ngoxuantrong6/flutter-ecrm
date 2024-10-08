@@ -37,29 +37,31 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   Widget build(BuildContext context) {
     return earnings == null || totalSales == null
         ? const Loader()
-        : Column(
-            children: [
-              const SizedBox(height: 30),
-              Text(
-                '${formatPriceInt(totalSales!)} đ',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                height: 250,
-                child: CategoryProductsChart(seriesList: [
-                  charts.Series(
-                    id: 'Sales',
-                    data: earnings!,
-                    domainFn: (Sales sales, _) => sales.label,
-                    measureFn: (Sales sales, _) => sales.earning,
+        : SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                Text(
+                  'Tổng thu nhập: ${formatPriceInt(totalSales!)} đ',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ]),
-              )
-            ],
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  height: 250,
+                  child: CategoryProductsChart(seriesList: [
+                    charts.Series(
+                      id: 'Sales',
+                      data: earnings!,
+                      domainFn: (Sales sales, _) => sales.label,
+                      measureFn: (Sales sales, _) => sales.earning,
+                    ),
+                  ]),
+                )
+              ],
+            ),
           );
   }
 }

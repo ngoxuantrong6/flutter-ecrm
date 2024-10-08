@@ -39,86 +39,92 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient,
-            ),
-          ),
-          title: Text(
-            widget.category,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
-      body: productList == null
-          ? const Loader()
-          : Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Tiếp tục mua sắm với ${widget.category}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: AppBar(
+              flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                  gradient: GlobalVariables.appBarGradient,
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: productList!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    // gridDelegate:
-                    //     const SliverGridDelegateWithFixedCrossAxisCount(
-                    //   crossAxisCount: 1,
-                    //   childAspectRatio: 1.4,
-                    //   mainAxisSpacing: 10,
-                    // ),
-                    itemBuilder: (context, index) {
-                      final product = productList![index];
-                      return ZoomTapAnimation(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            ProductDetailScreen.routeName,
-                            arguments: product.id,
+              ),
+              title: Text(
+                widget.category,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          body: productList == null
+              ? const Loader()
+              : Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Tiếp tục mua sắm với ${widget.category}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GridView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: productList!.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        // gridDelegate:
+                        //     const SliverGridDelegateWithFixedCrossAxisCount(
+                        //   crossAxisCount: 1,
+                        //   childAspectRatio: 1.4,
+                        //   mainAxisSpacing: 10,
+                        // ),
+                        itemBuilder: (context, index) {
+                          final product = productList![index];
+                          return ZoomTapAnimation(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                ProductDetailScreen.routeName,
+                                arguments: product.id,
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  constraints:
+                                      const BoxConstraints(maxHeight: 140),
+                                  child: SingleProduct(
+                                    image: productList![index].images[0],
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    product.name,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 140,
-                              child: SingleProduct(
-                                image: productList![index].images[0],
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Text(
-                                product.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+        );
+      },
     );
   }
 }
