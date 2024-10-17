@@ -31,6 +31,10 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   ratings: [ratingSchema],
+  branchId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

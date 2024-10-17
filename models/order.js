@@ -31,6 +31,10 @@ const orderSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  branchId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);

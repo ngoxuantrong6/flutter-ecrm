@@ -6,6 +6,7 @@ const adminRouter = require("./routes/admin");
 const authRouter = require("./routes/auth");
 const productRouter = require("./routes/product");
 const userRouter = require("./routes/user");
+const branchRouter = require("./routes/branch");
 
 // INIT
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ const DB =
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
+app.use(branchRouter);
 app.use(productRouter);
 app.use(userRouter);
 

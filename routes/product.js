@@ -2,6 +2,7 @@ const express = require("express");
 const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
+const User = require("../models/user");
 
 productRouter.get("/api/product/:id", auth, async (req, res) => {
   try {
@@ -15,12 +16,37 @@ productRouter.get("/api/product/:id", auth, async (req, res) => {
 
 productRouter.get("/api/products/", auth, async (req, res) => {
   try {
-    const products = await Product.find({ category: req.query.category });
+    const { category, branchId } = req.query;
+    // Tạo điều kiện truy vấn ban đầu
+    let query = {};
+
+    // Thêm điều kiện truy vấn theo category nếu có
+    if (category) {
+      query.category = category;
+    }
+
+    // Thêm điều kiện truy vấn theo branchId nếu có
+    if (branchId) {
+      query.branchId = branchId;
+    }
+
+    // Tìm sản phẩm theo điều kiện đã tạo
+    const products = await Product.find(query);
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 });
+
+
+// productRouter.get("/api/products/", auth, async (req, res) => {
+//   try {
+//     const products = await Product.find({ category: req.query.category });
+//     res.json(products);
+//   } catch (e) {
+//     res.status(500).json({ error: e.message });
+//   }
+// });
 
 // create a get request to search products and get them
 // /api/products/search/i
@@ -87,3 +113,15 @@ productRouter.get("/api/deal-of-day", auth, async (req, res) => {
 });
 
 module.exports = productRouter;
+
+// const { Branch } = require("../models/branch");
+
+// Route để lấy danh sách các chi nhánh
+productRouter.get("/api/branches", auth, async (req, res) => {
+  try {
+    const branches = await User.find({ type: "branch" }); // Truy vấn lấy tất cả các chi nhánh
+    res.json(branches); // Trả về danh sách chi nhánh dưới dạng JSON
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
