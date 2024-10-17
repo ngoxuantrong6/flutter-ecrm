@@ -38,6 +38,7 @@ class ProductDetailsServices {
         response: res,
         context: context,
         onSuccess: () {
+          print("lấy chi tiết ${res.body}");
           product = Product.fromJson(jsonEncode(jsonDecode(res.body)));
         },
       );

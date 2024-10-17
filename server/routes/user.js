@@ -10,6 +10,10 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
     const { id } = req.body;
     const product = await Product.findById(id);
+    // Kiểm tra nếu product không tồn tại hoặc không có branchId
+    if (!product || !product.branchId) {
+      return res.status(400).json({ error: "Product not found or missing branch information" });
+    }
     let user = await User.findById(req.user);
 
     if (user.cart.length == 0) {
@@ -102,6 +106,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
       address,
       userId: req.user,
       orderedAt: new Date().getTime(),
+      branchId: cart[0].product.branchId,
     });
     order = await order.save();
     res.json(order);
@@ -157,7 +162,6 @@ userRouter.patch("/api/update-profile", auth, async (req, res) => {
       req.body,
       { new: true },
     );
-    user = await user.save();
     res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });

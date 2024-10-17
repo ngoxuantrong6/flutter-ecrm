@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/models/user.dart';
 import 'package:speech_to_text/speech_to_text_provider.dart';
 
-String uri = 'https://ecrm-server.onrender.com';
+// String uri = 'https://ecrm-server.onrender.com';
+// String uri = 'http://192.168.100.108:3000';
+String uri = 'http://192.168.1.12:3000';
 
 class GlobalVariables {
   // COLORS
@@ -62,4 +65,6 @@ class GlobalVariables {
 
   // SPEECH TO TEXT
   static late SpeechToTextProvider speechProvider;
+
+  static List<User> branches = [];
 }

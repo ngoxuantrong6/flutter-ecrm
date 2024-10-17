@@ -4,6 +4,7 @@ import 'package:flutter_ecrm/constants/error_handling.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/models/product.dart';
+import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +14,13 @@ class HomeServices {
   Future<List<Product>> fetchCategoryProducts({
     required BuildContext context,
     required String category,
+    required String branchId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
       http.Response res = await http
-          .get(Uri.parse('$uri/api/products?category=$category'), headers: {
+          .get(Uri.parse('$uri/api/products?category=$category&branchId=$branchId'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -75,5 +77,38 @@ class HomeServices {
       showSnackBar(context, e.toString());
     }
     return product;
+  }
+
+  Future<List<User>> getListBranch({
+    required BuildContext context,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<User> branchList = [];
+    try {
+      http.Response res = await http
+          .get(Uri.parse('$uri/api/branches'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            branchList.add(
+              User.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return branchList;
   }
 }

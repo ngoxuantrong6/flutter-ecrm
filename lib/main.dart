@@ -8,6 +8,7 @@ import 'package:flutter_ecrm/features/auth/services/auth_service.dart';
 import 'package:flutter_ecrm/features/splash/screens/splash_screen.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/add_product_provider.dart';
+import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter_ecrm/router.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -23,6 +24,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => AddProductProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => FetchBranchProvider(),
     ),
     ChangeNotifierProvider(
       create: (context) => GlobalVariables.speechProvider,

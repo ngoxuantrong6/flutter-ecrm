@@ -6,10 +6,14 @@ import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/screens/posts_screen.dart';
 import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
+import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/add_product_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -25,7 +29,9 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  final BranchServices branchServices = BranchServices();
   final AdminServices adminServices = AdminServices();
+  User? user;
   final _addProductFormKey = GlobalKey<FormState>();
   int activeIndex = 0;
 
@@ -40,21 +46,60 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void sellProduct() {
     if (_addProductFormKey.currentState!.validate() &&
         context.read<AddProductProvider>().images.isNotEmpty) {
-      adminServices.sellProduct(
-        context: context,
-        name: widget.addProductArguments.productNameController.text,
-        description: widget.addProductArguments.descriptionController.text,
-        price: int.parse(widget.addProductArguments.priceController.text),
-        quantity: int.parse(widget.addProductArguments.quantityController.text),
-        category: context.read<AddProductProvider>().category,
-        images: context.read<AddProductProvider>().images,
-      );
+      if (user?.type == "admin") {
+        adminServices
+            .sellProduct(
+          context: context,
+          name: widget.addProductArguments.productNameController.text,
+          description: widget.addProductArguments.descriptionController.text,
+          price: int.parse(widget.addProductArguments.priceController.text),
+          quantity:
+              int.parse(widget.addProductArguments.quantityController.text),
+          category: context.read<AddProductProvider>().category,
+          images: context.read<AddProductProvider>().images,
+          branchId: context.read<FetchBranchProvider>().branch.id,
+        )
+            .then((value) {
+          widget.addProductArguments.productNameController.clear();
+          widget.addProductArguments.descriptionController.clear();
+          widget.addProductArguments.priceController.clear();
+          widget.addProductArguments.quantityController.clear();
+        });
+      } else {
+        branchServices
+            .sellProduct(
+          context: context,
+          name: widget.addProductArguments.productNameController.text,
+          description: widget.addProductArguments.descriptionController.text,
+          price: int.parse(widget.addProductArguments.priceController.text),
+          quantity:
+              int.parse(widget.addProductArguments.quantityController.text),
+          category: context.read<AddProductProvider>().category,
+          images: context.read<AddProductProvider>().images,
+        )
+            .then((value) {
+          widget.addProductArguments.productNameController.clear();
+          widget.addProductArguments.descriptionController.clear();
+          widget.addProductArguments.priceController.clear();
+          widget.addProductArguments.quantityController.clear();
+        });
+      }
     }
+  }
+
+  @override
+  void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
+    });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final addProductProvider = context.watch<AddProductProvider>();
+    final fetchBranchProvider = context.watch<FetchBranchProvider>();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -200,6 +245,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     },
                   ),
                 ),
+                if (user?.type == "admin") ...[
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: DropdownButton(
+                      value: fetchBranchProvider.branch,
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: fetchBranchProvider.listBranch.map((User item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item.name),
+                        );
+                      }).toList(),
+                      onChanged: (User? newVal) {
+                        fetchBranchProvider.setBranch(newVal!);
+                      },
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Bán',

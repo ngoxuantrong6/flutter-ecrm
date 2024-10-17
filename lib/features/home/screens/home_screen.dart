@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/features/home/services/home_services.dart';
 import 'package:flutter_ecrm/features/home/widgets/address_box.dart';
 import 'package:flutter_ecrm/features/home/widgets/carousel_image.dart';
 import 'package:flutter_ecrm/features/home/widgets/deal_of_day.dart';
@@ -24,6 +25,18 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isListening = false;
   String _text = '';
   String _hintText = 'Tìm kiếm';
+  final HomeServices homeServices = HomeServices();
+
+  @override
+  void initState() {
+    getListBranch();
+    super.initState();
+  }
+
+  void getListBranch() async {
+    GlobalVariables.branches =  await homeServices.getListBranch(context: context);
+    setState(() {});
+  }
 
   @override
   void dispose() {

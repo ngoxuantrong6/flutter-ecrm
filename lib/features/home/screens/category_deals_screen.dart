@@ -5,6 +5,9 @@ import 'package:flutter_ecrm/features/home/services/home_services.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
@@ -26,19 +29,26 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
   @override
   void initState() {
     super.initState();
-    fetchCategoryProducts();
+    fetchCategoryProducts(branchId: "");
+    // Trì hoãn việc gọi setListBranch() cho đến khi build hoàn tất
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
+    });
   }
 
-  fetchCategoryProducts() async {
+  fetchCategoryProducts({required String branchId}) async {
+    productList = null;
     productList = await homeServices.fetchCategoryProducts(
       context: context,
       category: widget.category,
+      branchId: branchId,
     );
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final fetchBranchProvider = context.watch<FetchBranchProvider>();
     return OrientationBuilder(
       builder: (context, orientation) {
         return Scaffold(
@@ -58,22 +68,50 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
               ),
             ),
           ),
-          body: productList == null
-              ? const Loader()
-              : Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Tiếp tục mua sắm với ${widget.category}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Expanded(
+          body: Column(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Tiếp tục mua sắm với ${widget.category}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: DropdownButton(
+                    value: fetchBranchProvider.branch,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: fetchBranchProvider.listBranch.map((User item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item.name),
+                      );
+                    }).toList(),
+                    onChanged: (User? newVal) {
+                      fetchBranchProvider.setBranch(newVal!);
+                      fetchCategoryProducts(
+                          branchId: fetchBranchProvider.branch.id);
+                      // setState(() {
+                      //   widget.addProductArguments.category = newVal!;
+                      //   print(
+                      //       "categoryyyyyyy ${widget.addProductArguments.category}");
+                      // });
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              productList == null
+                  ? const Loader()
+                  : Expanded(
                       child: GridView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: productList!.length,
@@ -121,8 +159,8 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         },
                       ),
                     ),
-                  ],
-                ),
+            ],
+          ),
         );
       },
     );

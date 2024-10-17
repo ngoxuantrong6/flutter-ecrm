@@ -8,7 +8,6 @@ import 'package:flutter_ecrm/features/admin/models/sales.dart';
 import 'package:flutter_ecrm/models/branch.dart';
 import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/models/product.dart';
-import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/add_product_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -17,7 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class AdminServices {
+class BranchServices {
   Future<void> sellProduct({
     required BuildContext context,
     required String name,
@@ -26,7 +25,6 @@ class AdminServices {
     required int quantity,
     required String category,
     required List<XFile> images,
-    required String branchId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final addProductProvider =
@@ -51,11 +49,10 @@ class AdminServices {
         images: imageUrls,
         category: category,
         price: price,
-        branchId: branchId,
       );
 
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/add-product'),
+        Uri.parse('$uri/branch/add-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -105,7 +102,7 @@ class AdminServices {
       );
 
       http.Response res = await http.patch(
-        Uri.parse('$uri/admin/edit-product/$productId'),
+        Uri.parse('$uri/branch/edit-product/$productId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -132,41 +129,7 @@ class AdminServices {
     List<Product> productList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-products'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
-              Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
-          }
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-    return productList;
-  }
-
-  Future<List<Product>> fetchBranchProducts({
-    required BuildContext context,
-    required String branchId,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Product> productList = [];
-    try {
-      http.Response res = await http
-          .get(Uri.parse('$uri/admin/get-products?branchId=$branchId'), headers: {
+          await http.get(Uri.parse('$uri/branch/get-products'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -207,7 +170,7 @@ class AdminServices {
     );
     try {
       http.Response res = await http.get(
-        Uri.parse('$uri/admin/get-product/$productId'),
+        Uri.parse('$uri/branch/get-product/$productId'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -236,7 +199,7 @@ class AdminServices {
 
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/delete-product'),
+        Uri.parse('$uri/branch/delete-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -258,12 +221,12 @@ class AdminServices {
     }
   }
 
-  Future<List<Order>> fetchAllOrders(BuildContext context, String branchId) async {
+  Future<List<Order>> fetchAllOrders(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-orders?branchId=$branchId'), headers: {
+          await http.get(Uri.parse('$uri/branch/get-orders'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -304,7 +267,7 @@ class AdminServices {
     try {
       http.Response res = await http.post(
           Uri.parse(
-            '$uri/admin/get-order-detail',
+            '$uri/branch/get-order-detail',
           ),
           body: jsonEncode({
             'id': orderId,
@@ -338,7 +301,7 @@ class AdminServices {
     try {
       LoadingShowAble.showLoading();
       http.Response res = await http.post(
-        Uri.parse('$uri/admin/change-order-status'),
+        Uri.parse('$uri/branch/change-order-status'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -359,13 +322,13 @@ class AdminServices {
     }
   }
 
-  Future<Map<String, dynamic>> getEarnings(BuildContext context, String branchId) async {
+  Future<Map<String, dynamic>> getEarnings(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Sales> sales = [];
     int totalEarning = 0;
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/analytics?branchId=$branchId'), headers: {
+          await http.get(Uri.parse('$uri/branch/analytics'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -392,193 +355,5 @@ class AdminServices {
       'sales': sales,
       'totalEarnings': totalEarning,
     };
-  }
-
-  // MANAGE BRANCH
-
-  void addBranch({
-    required BuildContext context,
-    required String branchName,
-    required String address,
-    required String email,
-    required String password,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    try {
-      LoadingShowAble.showLoading();
-
-      Branch branch = Branch(
-        branchName: branchName,
-        address: address,
-        email: email,
-        password: password,
-      );
-
-      http.Response res = await http.post(
-        Uri.parse('$uri/admin/add-branch'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-        body: branch.toJson(),
-      );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          showSnackBar(context, 'Đã thêm chi nhánh thành công!');
-          Navigator.of(context).pop(true);
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  void editBranch({
-    required BuildContext context,
-    required String branchName,
-    required String address,
-    required String email,
-    required String branchId,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    try {
-      LoadingShowAble.showLoading();
-
-      User user = User(
-        id: userProvider.user.id,
-        name: branchName,
-        email: email,
-        password: userProvider.user.password,
-        address: address,
-        type: "branch",
-        token: userProvider.user.token,
-        cart: userProvider.user.cart,
-      );
-
-      http.Response res = await http.patch(
-        Uri.parse('$uri/admin/edit-branch/$branchId'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-        body: user.toJson(),
-      );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          showSnackBar(context, 'Đã sửa chi nhánh thành công!');
-          Navigator.of(context).pop(true);
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  // get all the branches
-  Future<List<User>> fetchAllBranches(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<User> branchList = [];
-    try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-branches'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            branchList.add(
-              User.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
-          }
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-    return branchList;
-  }
-
-  Future<User> getBranchDetailForAdmin({
-    required BuildContext context,
-    required String branchId,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    User branch = User(
-      id: "",
-      name: "",
-      email: "",
-      password: "",
-      address: "",
-      type: "",
-      token: "",
-      cart: [],
-    );
-    try {
-      http.Response res = await http.get(
-        Uri.parse('$uri/admin/get-branch/$branchId'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-      );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          branch = User.fromJson(jsonEncode(jsonDecode(res.body)));
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-    return branch;
-  }
-
-  void deleteBranch({
-    required BuildContext context,
-    required User branch,
-    required VoidCallback onSuccess,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    try {
-      http.Response res = await http.post(
-        Uri.parse('$uri/admin/delete-branch'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-        body: jsonEncode({
-          'id': branch.id,
-        }),
-      );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          onSuccess();
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
   }
 }

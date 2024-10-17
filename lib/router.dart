@@ -4,9 +4,12 @@ import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
 import 'package:flutter_ecrm/features/address/screens/address_buy_now_screen.dart';
 import 'package:flutter_ecrm/features/address/screens/address_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/add_branch_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/add_product_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/admin_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/edit_branch_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/edit_product_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/manage_branch_screen.dart';
 import 'package:flutter_ecrm/features/auth/screens/auth_screen.dart';
 import 'package:flutter_ecrm/features/home/screens/category_deals_screen.dart';
 import 'package:flutter_ecrm/features/home/screens/home_screen.dart';
@@ -16,8 +19,11 @@ import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
 import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:provider/provider.dart';
 
 import 'features/admin/screens/posts_screen.dart';
+import 'providers/fetch_branch_provider.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -37,22 +43,45 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const BottomBar(),
       );
+    // case AddProductScreen.routeName:
+    //   var addProductArguments = routeSettings.arguments as AddProductArguments;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) =>
+    //         AddProductScreen(addProductArguments: addProductArguments),
+    //   );
+
     case AddProductScreen.routeName:
       var addProductArguments = routeSettings.arguments as AddProductArguments;
       return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider<FetchBranchProvider>(
+                create: (context) => FetchBranchProvider(),
+                child:
+                    AddProductScreen(addProductArguments: addProductArguments),
+              ));
+
+    case AddBranchScreen.routeName:
+      var addBranchArguments = routeSettings.arguments as AddBranchArguments;
+      return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) =>
-            AddProductScreen(addProductArguments: addProductArguments),
+        builder: (_) => AddBranchScreen(addBranchArguments: addBranchArguments),
       );
+
+    // case CategoryDealsScreen.routeName:
+    //   var category = routeSettings.arguments as String;
+    //   return MaterialPageRoute(
+    //     settings: routeSettings,
+    //     builder: (_) => CategoryDealsScreen(
+    //       category: category,
+    //     ),
+    //   );
 
     case CategoryDealsScreen.routeName:
       var category = routeSettings.arguments as String;
       return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => CategoryDealsScreen(
-          category: category,
-        ),
-      );
+          builder: (_) => ChangeNotifierProvider<FetchBranchProvider>(
+              create: (context) => FetchBranchProvider(),
+              child: CategoryDealsScreen(category: category)));
     case SearchScreen.routeName:
       var searchQuery = routeSettings.arguments as String;
       return MaterialPageRoute(
@@ -96,6 +125,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => EditProductScreen(
           product: product,
+        ),
+      );
+    case EditBranchScreen.routeName:
+      var branch = routeSettings.arguments as User;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => EditBranchScreen(
+          branch: branch,
         ),
       );
     case UpdateProfileScreen.routeName:

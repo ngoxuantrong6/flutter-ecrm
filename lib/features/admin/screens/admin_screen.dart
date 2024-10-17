@@ -1,10 +1,15 @@
-import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
-import 'package:flutter_ecrm/features/account/services/account_services.dart';
 import 'package:flutter_ecrm/features/admin/screens/analtyics_screen.dart';
+import 'package:flutter_ecrm/features/admin/screens/manage_branch_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/orders_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/features/admin/screens/setting_screen.dart';
+import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class AdminScreen extends StatefulWidget {
   static const String routeName = '/admin';
@@ -18,17 +23,46 @@ class _AdminScreenState extends State<AdminScreen> {
   int _page = 0;
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
+  User? user;
+  List<User>? branches;
+  AdminServices adminServices = AdminServices();
 
   List<Widget> pages = [
-    const PostsScreen(),
-    const AnalyticsScreen(),
-    const OrdersScreen(),
+    ChangeNotifierProvider<FetchBranchProvider>(
+      create: (context) => FetchBranchProvider(),
+      child: const PostsScreen(),
+    ),
+    ChangeNotifierProvider<FetchBranchProvider>(
+      create: (context) => FetchBranchProvider(),
+      child: const AnalyticsScreen(),
+    ),
+    ChangeNotifierProvider<FetchBranchProvider>(
+      create: (context) => FetchBranchProvider(),
+      child: const OrdersScreen(),
+    ),
+    const SettingScreen(),
   ];
+
+  @override
+  void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
+    if (user?.type == "admin") {
+      pages.insert(1, const ManageBranchScreen());
+      fetchAllBranches();
+    }
+    super.initState();
+  }
 
   void updatePage(int page) {
     setState(() {
       _page = page;
     });
+  }
+
+  fetchAllBranches() async {
+    branches = await adminServices.fetchAllBranches(context);
+    GlobalVariables.branches = branches ?? [];
+    setState(() {});
   }
 
   @override
@@ -60,16 +94,27 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                PopupNotificationCustom.showMessgae(
-                  context: context,
-                  title: 'ĐĂNG XUẤT',
-                  message: 'Bạn có thực sự muốn thoát phiên đăng nhập này?',
-                  pressButtonLeft: () => AccountServices().logOut(context),
-                );
-              },
-              icon: const Icon(Icons.logout),
+            // IconButton(
+            //   onPressed: () {
+            //     PopupNotificationCustom.showMessgae(
+            //       context: context,
+            //       title: 'ĐĂNG XUẤT',
+            //       message: 'Bạn có thực sự muốn thoát phiên đăng nhập này?',
+            //       pressButtonLeft: () => AccountServices().logOut(context),
+            //     );
+            //   },
+            //   icon: const Icon(Icons.logout),
+            // ),
+            Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Text(
+                user?.type == "admin" ? "Admin" : "Chi nhánh",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -103,6 +148,28 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
             label: '',
           ),
+          // MANAGE BRANCH
+          if (user?.type == "admin") ...[
+            BottomNavigationBarItem(
+              icon: Container(
+                width: bottomBarWidth,
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: _page == 1
+                          ? GlobalVariables.primaryColor
+                          : GlobalVariables.backgroundColor,
+                      width: bottomBarBorderWidth,
+                    ),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.add_business_outlined,
+                ),
+              ),
+              label: '',
+            ),
+          ],
           // ANALYTICS
           BottomNavigationBarItem(
             icon: Container(
@@ -110,7 +177,7 @@ class _AdminScreenState extends State<AdminScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 1
+                    color: _page == (user?.type == "admin" ? 2 : 1)
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -130,7 +197,7 @@ class _AdminScreenState extends State<AdminScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 2
+                    color: _page == (user?.type == "admin" ? 3 : 2)
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -139,6 +206,26 @@ class _AdminScreenState extends State<AdminScreen> {
               ),
               child: const Icon(
                 Icons.all_inbox_outlined,
+              ),
+            ),
+            label: '',
+          ),
+          // SETTING
+          BottomNavigationBarItem(
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: _page == (user?.type == "admin" ? 4 : 3)
+                        ? GlobalVariables.primaryColor
+                        : GlobalVariables.backgroundColor,
+                    width: bottomBarBorderWidth,
+                  ),
+                ),
+              ),
+              child: const Icon(
+                Icons.person_outline_outlined,
               ),
             ),
             label: '',

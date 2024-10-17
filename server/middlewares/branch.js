@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
-const sellerOrAdmin = async (req, res, next) => {
+const branch = async (req, res, next) => {
   try {
     const token = req.header("x-auth-token");
     if (!token) {
@@ -14,7 +14,7 @@ const sellerOrAdmin = async (req, res, next) => {
     }
 
     const user = await User.findById(verified.id);
-    if (user.type !== "seller") {
+    if (user.type !== "branch") {
       return res.status(400).json({ msg: "You are not authorized!" });
     }
 
@@ -26,4 +26,4 @@ const sellerOrAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = sellerOrAdmin;
+module.exports = branch;

@@ -90,6 +90,12 @@ class AuthService {
               AdminScreen.routeName,
               (route) => false,
             );
+          } else if (user.type == 'branch') {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AdminScreen.routeName,
+              (route) => false,
+            );
           } else {
             Navigator.pushNamedAndRemoveUntil(
               context,

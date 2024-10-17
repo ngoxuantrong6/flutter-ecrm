@@ -2,10 +2,15 @@ import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
 import 'package:flutter_ecrm/models/product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
+import 'package:flutter_ecrm/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -22,21 +27,39 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final BranchServices branchServices = BranchServices();
   final AdminServices adminServices = AdminServices();
 
   String category = 'Điện thoại';
   List<String> images = [];
-  final _addProductFormKey = GlobalKey<FormState>();
+  String branchId = '';
+  final _editProductFormKey = GlobalKey<FormState>();
   int activeIndex = 0;
+  User? user;
+  List<User> branches = [];
+  User? currentBranch;
 
   @override
   void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
     images = widget.product.images;
     productNameController.text = widget.product.name;
     descriptionController.text = widget.product.description;
     priceController.text = widget.product.price.toString();
     quantityController.text = widget.product.quantity.toString();
     category = widget.product.category;
+    branchId = widget.product.branchId ?? "";
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
+      branches =
+          Provider.of<FetchBranchProvider>(context, listen: false).listBranch;
+      for (var branch in branches) {
+        if (branch.id == branchId) {
+          currentBranch = branch;
+        }
+      }
+    });
+
     super.initState();
   }
 
@@ -58,22 +81,38 @@ class _EditProductScreenState extends State<EditProductScreen> {
   ];
 
   void editProduct() {
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-      adminServices.editProduct(
-        context: context,
-        productId: widget.product.id!,
-        name: productNameController.text,
-        description: descriptionController.text,
-        price: int.parse(priceController.text),
-        quantity: int.parse(quantityController.text),
-        category: category,
-        images: images,
-      );
+    if (_editProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      if (user?.type == "admin") {
+        adminServices.editProduct(
+          context: context,
+          productId: widget.product.id!,
+          name: productNameController.text,
+          description: descriptionController.text,
+          price: int.parse(priceController.text),
+          quantity: int.parse(quantityController.text),
+          category: category,
+          images: images,
+          branchId: currentBranch!.id,
+        );
+      } else {
+        branchServices.editProduct(
+          context: context,
+          productId: widget.product.id!,
+          name: productNameController.text,
+          description: descriptionController.text,
+          price: int.parse(priceController.text),
+          quantity: int.parse(quantityController.text),
+          category: category,
+          images: images,
+          branchId: branchId,
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final fetchBranchProvider = context.watch<FetchBranchProvider>();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -93,7 +132,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: _addProductFormKey,
+          key: _editProductFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -180,6 +219,28 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     },
                   ),
                 ),
+                if (user?.type == "admin") ...[
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: DropdownButton(
+                      value: currentBranch,
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: fetchBranchProvider.listBranch.map((User item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(item.name),
+                        );
+                      }).toList(),
+                      onChanged: (User? newVal) {
+                        // fetchBranchProvider.setBranch(newVal!);
+                        setState(() {
+                          currentBranch = newVal;
+                        });
+                      },
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sửa',

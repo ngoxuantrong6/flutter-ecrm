@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
-import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
+import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
 import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
 import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
@@ -29,7 +29,7 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int currentStep = 0;
-  final AdminServices adminServices = AdminServices();
+  final BranchServices adminServices = BranchServices();
   TextEditingController searchTextController = TextEditingController();
   late StreamSubscription<SpeechRecognitionEvent> subscription;
   bool _isListening = false;
@@ -81,7 +81,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: user.type == 'admin'
+          title: user.type == 'admin' || user.type == 'branch'
               ? const Text(
                   'Quản lý đơn hàng',
                   style: TextStyle(
@@ -327,7 +327,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {
-                    if (user.type == 'admin' && currentStep < 5) {
+                    if ((user.type == 'admin' || user.type == 'branch') && currentStep < 5) {
                       return CustomButton(
                         text: 'Xong',
                         onTap: () => changeOrderStatus(details.currentStep),
