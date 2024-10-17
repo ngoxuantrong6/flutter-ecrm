@@ -93,7 +93,7 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
-                  text: 'Thêm',
+                  text: 'Sửa',
                   onTap: editBranch,
                 ),
               ],
