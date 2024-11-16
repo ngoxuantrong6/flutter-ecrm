@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
 
 class OwnMessageCard extends StatelessWidget {
   const OwnMessageCard({Key? key, required this.message, required this.time}) : super(key: key);
@@ -16,7 +17,7 @@ class OwnMessageCard extends StatelessWidget {
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: Color(0xffdcf8c6),
+          color: GlobalVariables.primaryColor,
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Stack(
             children: [
@@ -29,8 +30,9 @@ class OwnMessageCard extends StatelessWidget {
                 ),
                 child: Text(
                   message,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -43,7 +45,7 @@ class OwnMessageCard extends StatelessWidget {
                       time,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[600],
+                        color: Colors.grey[300],
                       ),
                     ),
                     SizedBox(

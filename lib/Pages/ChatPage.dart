@@ -36,40 +36,6 @@ class _ChatPageState extends State<ChatPage> {
       chatPageServices.getConversations(context: context).then((value) {
         setState(() {
           conversations = value;
-          // ..add(ChatModel(
-          //     id: "672499ba502334975b1bd621",
-          //     members: [
-          //       User(
-          //         id: "64e33407471caeb00e89ca70",
-          //         name: "Trọng Ngô",
-          //         email: "trongbanhang@gmail.com",
-          //         password: "",
-          //         address: "141 Chiến Thắng, Tân Triều, Thanh Trì, Hà Nội",
-          //         type: "user",
-          //         token: "",
-          //         cart: [],
-          //       ),
-          //       User(
-          //         id: "6708a30a7ad8a99e8a76351c",
-          //         name: "Chi nhánh Đà Nẵng",
-          //         email: "branchdanang@gmail.com",
-          //         password: "",
-          //         address:
-          //             "Số 7 Trường Sa, Phường Hoà Hải, Quận Ngũ Hành Sơn, Thành phố Đà Nẵng, Việt Nam",
-          //         type: "branch",
-          //         token: "",
-          //         cart: [],
-          //       ),
-          //     ],
-          //     messages: [],
-          //     lastMessage: MessageModel(
-          //       id: "",
-          //       senderId: "",
-          //       receiverId: "",
-          //       message: "",
-          //       createdAt: 0,
-          //     ),
-          //     createdAt: 0));
         });
       });
     }

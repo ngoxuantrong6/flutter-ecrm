@@ -62,10 +62,10 @@ class CustomCard extends StatelessWidget {
                 ),
               ],
             ),
-            // trailing: Text(
-            //   DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(
-            //       chatModel.messages[0].createdAt)),
-            // ),
+            trailing: Text(
+              DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(
+                  chatModel.lastMessage?.createdAt ?? 0)),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 80),

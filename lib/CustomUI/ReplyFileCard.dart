@@ -38,11 +38,11 @@ class ReplyFileCard extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 1.8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.teal[400],
+              // color: Colors.teal[400],
             ),
             child: Card(
               margin: EdgeInsets.all(3),
-              color: Colors.teal[400],
+              // color: Colors.teal[400],
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               shape: RoundedRectangleBorder(
@@ -72,7 +72,6 @@ class ReplyFileCard extends StatelessWidget {
                             message,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),

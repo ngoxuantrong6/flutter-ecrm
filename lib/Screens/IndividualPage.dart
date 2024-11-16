@@ -5,6 +5,7 @@ import 'package:flutter_ecrm/CustomUI/OwnMessgaeCrad.dart';
 import 'package:flutter_ecrm/CustomUI/ReplyCard.dart';
 import 'package:flutter_ecrm/CustomUI/ReplyFileCard.dart';
 import 'package:flutter_ecrm/Pages/CameraPage.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
@@ -53,14 +54,14 @@ class _IndividualPageState extends State<IndividualPage> {
     final individualPageProvider = context.watch<IndividualPageProvider>();
     return Stack(
       children: [
-        Image.asset(
-          "assets/whatsapp_Back.png",
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-        ),
+        // Image.asset(
+        //   "assets/whatsapp_Back.png",
+        //   height: MediaQuery.of(context).size.height,
+        //   width: MediaQuery.of(context).size.width,
+        //   fit: BoxFit.cover,
+        // ),
         Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: GlobalVariables.backgroundColor,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: AppBar(
@@ -104,54 +105,54 @@ class _IndividualPageState extends State<IndividualPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "last seen today at 12:05",
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
-                      )
+                      // Text(
+                      //   "last seen today at 12:05",
+                      //   style: TextStyle(
+                      //     fontSize: 13,
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
               ),
-              actions: [
-                IconButton(icon: Icon(Icons.videocam), onPressed: () {}),
-                IconButton(icon: Icon(Icons.call), onPressed: () {}),
-                PopupMenuButton<String>(
-                  padding: EdgeInsets.all(0),
-                  onSelected: (value) {
-                    print(value);
-                  },
-                  itemBuilder: (BuildContext contesxt) {
-                    return [
-                      PopupMenuItem(
-                        child: Text("View Contact"),
-                        value: "View Contact",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Media, links, and docs"),
-                        value: "Media, links, and docs",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Whatsapp Web"),
-                        value: "Whatsapp Web",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Search"),
-                        value: "Search",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Mute Notification"),
-                        value: "Mute Notification",
-                      ),
-                      PopupMenuItem(
-                        child: Text("Wallpaper"),
-                        value: "Wallpaper",
-                      ),
-                    ];
-                  },
-                ),
-              ],
+              // actions: [
+              //   IconButton(icon: Icon(Icons.videocam), onPressed: () {}),
+              //   IconButton(icon: Icon(Icons.call), onPressed: () {}),
+              //   PopupMenuButton<String>(
+              //     padding: EdgeInsets.all(0),
+              //     onSelected: (value) {
+              //       print(value);
+              //     },
+              //     itemBuilder: (BuildContext contesxt) {
+              //       return [
+              //         PopupMenuItem(
+              //           child: Text("View Contact"),
+              //           value: "View Contact",
+              //         ),
+              //         PopupMenuItem(
+              //           child: Text("Media, links, and docs"),
+              //           value: "Media, links, and docs",
+              //         ),
+              //         PopupMenuItem(
+              //           child: Text("Whatsapp Web"),
+              //           value: "Whatsapp Web",
+              //         ),
+              //         PopupMenuItem(
+              //           child: Text("Search"),
+              //           value: "Search",
+              //         ),
+              //         PopupMenuItem(
+              //           child: Text("Mute Notification"),
+              //           value: "Mute Notification",
+              //         ),
+              //         PopupMenuItem(
+              //           child: Text("Wallpaper"),
+              //           value: "Wallpaper",
+              //         ),
+              //       ];
+              //     },
+              //   ),
+              // ],
             ),
           ),
           body: Container(
@@ -272,7 +273,7 @@ class _IndividualPageState extends State<IndividualPage> {
                                     },
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Type a message",
+                                      hintText: "Nhập tin nhắn",
                                       hintStyle: TextStyle(color: Colors.grey),
                                       prefixIcon: IconButton(
                                         icon: Icon(
@@ -293,17 +294,17 @@ class _IndividualPageState extends State<IndividualPage> {
                                       suffixIcon: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          IconButton(
-                                            icon: Icon(Icons.attach_file),
-                                            onPressed: () {
-                                              showModalBottomSheet(
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  context: context,
-                                                  builder: (builder) =>
-                                                      bottomSheet());
-                                            },
-                                          ),
+                                          // IconButton(
+                                          //   icon: Icon(Icons.attach_file),
+                                          //   onPressed: () {
+                                          //     showModalBottomSheet(
+                                          //         backgroundColor:
+                                          //             Colors.transparent,
+                                          //         context: context,
+                                          //         builder: (builder) =>
+                                          //             bottomSheet());
+                                          //   },
+                                          // ),
                                           IconButton(
                                             icon: Icon(Icons.camera_alt),
                                             onPressed: () {
@@ -337,10 +338,10 @@ class _IndividualPageState extends State<IndividualPage> {
                                 ),
                                 child: CircleAvatar(
                                   radius: 25,
-                                  backgroundColor: Color(0xFF128C7E),
+                                  backgroundColor: GlobalVariables.primaryColor,
                                   child: IconButton(
                                     icon: Icon(
-                                      sendButton ? Icons.send : Icons.mic,
+                                      sendButton ? Icons.send : Icons.send,
                                       color: Colors.white,
                                     ),
                                     onPressed: () {

@@ -430,7 +430,7 @@ class BranchServices {
         context: context,
         onSuccess: () {
           messageModel = MessageModel.fromJson(jsonEncode(jsonDecode(res.body)));
-          showSnackBar(context, 'Gửi tin nhắn thành công!');
+          // showSnackBar(context, 'Gửi tin nhắn thành công!');
         },
       );
     } catch (e) {

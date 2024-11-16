@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/models/product.dart';
 
@@ -38,11 +39,11 @@ class OwnFileCard extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 1.8,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Colors.teal[400],
+              color: GlobalVariables.primaryColor,
             ),
             child: Card(
               margin: EdgeInsets.all(3),
-              color: Colors.teal[400],
+              color: GlobalVariables.primaryColor,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               shape: RoundedRectangleBorder(
