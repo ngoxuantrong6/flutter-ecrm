@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:camera/camera.dart';
 import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/admin/screens/admin_screen.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_ecrm/features/splash/screens/splash_screen.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/add_product_provider.dart';
 import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
+import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter_ecrm/router.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -17,7 +19,15 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:one_context/one_context.dart';
 
-void main() {
+List<CameraDescription>? cameras;
+
+void main() async {
+   // Đảm bảo rằng WidgetsFlutterBinding đã được khởi tạo
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Lấy danh sách các camera có sẵn
+  cameras = await availableCameras();
+  
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
@@ -28,6 +38,9 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => FetchBranchProvider(),
     ),
+    // ChangeNotifierProvider(
+    //   create: (context) => IndividualPageProvider(context),
+    // ),
     ChangeNotifierProvider(
       create: (context) => GlobalVariables.speechProvider,
     ),
@@ -71,6 +84,9 @@ class _MyAppState extends State<MyApp> {
         AuthScreen.routeName,
         (route) => false,
       );
+      // OneContext.instance.navigator.pushReplacement(
+      //   MaterialPageRoute(builder: (_) => LoginScreen()),
+      // );
     } else {
       if (userString != null || userString != '') {
         user = User.fromJson(jsonDecode(userString!));

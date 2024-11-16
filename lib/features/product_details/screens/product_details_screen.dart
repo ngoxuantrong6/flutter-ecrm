@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter_ecrm/Screens/IndividualPage.dart';
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:flutter_ecrm/common/widgets/stars.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/address/screens/address_buy_now_screen.dart';
 import 'package:flutter_ecrm/features/product_details/services/product_details_services.dart';
+import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -348,6 +350,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ],
               ),
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          productDetailsServices
+              .getUserById(
+            context: context,
+            branchId: product!.branchId ?? "",
+          )
+              .then((receiver) {
+            Navigator.pushNamed(
+              context,
+              IndividualPage.routeName,
+              arguments: IndividualPageArguments(
+                productDetail: product,
+                receiver: receiver,
+              ),
+            );
+          });
+        },
+        child: Icon(
+          Icons.chat,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
@@ -393,4 +418,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       },
     );
   }
+}
+
+class IndividualPageArguments {
+  final Product? productDetail;
+  final User receiver;
+
+  IndividualPageArguments({
+    this.productDetail,
+    required this.receiver,
+  });
 }

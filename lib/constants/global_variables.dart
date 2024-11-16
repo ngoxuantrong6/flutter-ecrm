@@ -3,8 +3,8 @@ import 'package:flutter_ecrm/models/user.dart';
 import 'package:speech_to_text/speech_to_text_provider.dart';
 
 // String uri = 'https://ecrm-server.onrender.com';
-// String uri = 'http://192.168.100.108:3000';
-String uri = 'http://192.168.1.12:3000';
+String uri = 'http://192.168.100.108:3000'; // mang cty
+// String uri = 'http://192.168.1.22:3000'; // mang o nha
 
 class GlobalVariables {
   // COLORS

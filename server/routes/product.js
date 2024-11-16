@@ -2,7 +2,7 @@ const express = require("express");
 const productRouter = express.Router();
 const auth = require("../middlewares/auth");
 const { Product } = require("../models/product");
-const User = require("../models/user");
+const { User } = require("../models/user");
 
 productRouter.get("/api/product/:id", auth, async (req, res) => {
   try {
@@ -112,9 +112,6 @@ productRouter.get("/api/deal-of-day", auth, async (req, res) => {
   }
 });
 
-module.exports = productRouter;
-
-// const { Branch } = require("../models/branch");
 
 // Route để lấy danh sách các chi nhánh
 productRouter.get("/api/branches", auth, async (req, res) => {
@@ -125,3 +122,21 @@ productRouter.get("/api/branches", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+// GET /api/users/:id - Lấy user theo ID
+productRouter.get("/api/users/:id", async (req, res) => {
+  try {
+      const userId = req.params.id;
+      const user = await User.findById(userId);
+
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+  } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = productRouter;

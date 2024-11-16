@@ -1,7 +1,14 @@
+import 'package:flutter_ecrm/Model/ChatModel.dart';
+import 'package:flutter_ecrm/Model/MessageModel.dart';
+import 'package:flutter_ecrm/Pages/ChatPage.dart';
+import 'package:flutter_ecrm/Pages/ChatPageServices.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/account/screens/account_screen.dart';
 import 'package:flutter_ecrm/features/cart/screens/cart_screen.dart';
 import 'package:flutter_ecrm/features/home/screens/home_screen.dart';
+import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
@@ -22,12 +29,8 @@ class _BottomBarState extends State<BottomBar> {
   double bottomBarWidth = 42;
   double bottomBarBorderWidth = 5;
   final stt.SpeechToText speech = stt.SpeechToText();
-
-  List<Widget> pages = [
-    const HomeScreen(),
-    const AccountScreen(),
-    const CartScreen(),
-  ];
+  User? user;
+  List<Widget> pages = [];
 
   void updatePage(int page) {
     setState(() {
@@ -37,8 +40,15 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
     GlobalVariables.speechProvider = SpeechToTextProvider(speech);
     initSpeechProvider();
+    pages = [
+      const HomeScreen(),
+      ChatPage(),
+      const AccountScreen(),
+      const CartScreen(),
+    ];
     super.initState();
   }
 
@@ -80,7 +90,7 @@ class _BottomBarState extends State<BottomBar> {
             ),
             label: '',
           ),
-          // ACCOUNT
+          // CHAT
           BottomNavigationBarItem(
             icon: Container(
               width: bottomBarWidth,
@@ -88,6 +98,26 @@ class _BottomBarState extends State<BottomBar> {
                 border: Border(
                   top: BorderSide(
                     color: _page == 1
+                        ? GlobalVariables.primaryColor
+                        : GlobalVariables.backgroundColor,
+                    width: bottomBarBorderWidth,
+                  ),
+                ),
+              ),
+              child: const Icon(
+                Icons.chat_outlined,
+              ),
+            ),
+            label: '',
+          ),
+          // ACCOUNT
+          BottomNavigationBarItem(
+            icon: Container(
+              width: bottomBarWidth,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: _page == 2
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -107,7 +137,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == 2
+                    color: _page == 3
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,

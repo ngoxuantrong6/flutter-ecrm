@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:flutter_ecrm/Model/ChatModel.dart';
+import 'package:flutter_ecrm/Model/MessageModel.dart';
 import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
 import 'package:flutter_ecrm/constants/error_handling.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
@@ -355,5 +358,118 @@ class BranchServices {
       'sales': sales,
       'totalEarnings': totalEarning,
     };
+  }
+
+  Future<List<MessageModel>> getMessages({
+    required BuildContext context,
+    required String chatUserId,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<MessageModel> messageList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/branch/message/get-message/$chatUserId'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            messageList.add(
+              MessageModel.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return messageList;
+  }
+
+  Future<MessageModel> sendMessage({
+    required BuildContext context,
+    required String receiverId,
+    String? message,
+    XFile? image,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    var messageModel = MessageModel(
+        id: "", senderId: "", receiverId: "", message: "", createdAt: 0);
+
+    try {
+      LoadingShowAble.showLoading();
+      final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
+      String? imageUrl;
+
+      if (image != null) {
+        CloudinaryResponse cloudRes = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(image.path, folder: message ?? ""),
+        );
+        imageUrl = cloudRes.secureUrl;
+      }
+
+      http.Response res = await http.post(
+        Uri.parse('$uri/branch/message/send-message/$receiverId'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: json.encode({'message': message, 'image': imageUrl}),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          messageModel = MessageModel.fromJson(jsonEncode(jsonDecode(res.body)));
+          showSnackBar(context, 'Gửi tin nhắn thành công!');
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return messageModel;
+  }
+
+  Future<List<ChatModel>> getConversations({
+    required BuildContext context,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<ChatModel> conversationList = [];
+    try {
+      http.Response res = await http
+          .get(Uri.parse('$uri/branch/conversation/list'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          log("mmmmmmmmmmmmmmm ${res.body}");
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            conversationList.add(
+              ChatModel.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return conversationList;
   }
 }

@@ -114,4 +114,43 @@ class ProductDetailsServices {
       showSnackBar(context, e.toString());
     }
   }
+
+  Future<User> getUserById({
+    required BuildContext context,
+    required String branchId,
+  }) async {
+    LoadingShowAble.showLoading();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    User user = User(
+      id: '',
+      name: '',
+      password: '',
+      email: '',
+      address: '',
+      type: '',
+      token: '',
+      cart: [],
+    );
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/api/users/$branchId'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          print("lấy chi tiết ${res.body}");
+          user = User.fromJson(jsonEncode(jsonDecode(res.body)));
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return user;
+  }
 }

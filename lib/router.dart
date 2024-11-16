@@ -1,3 +1,5 @@
+import 'package:flutter_ecrm/Model/ChatModel.dart';
+import 'package:flutter_ecrm/Screens/IndividualPage.dart';
 import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
 import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
@@ -20,6 +22,7 @@ import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/models/user.dart';
+import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'features/admin/screens/posts_screen.dart';
@@ -158,6 +161,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           product: product,
         ),
       );
+
+    case IndividualPage.routeName:
+      var individualPageArguments =
+          routeSettings.arguments as IndividualPageArguments;
+      return MaterialPageRoute(
+          builder: (_) => ChangeNotifierProvider<IndividualPageProvider>(
+                create: (context) =>
+                    IndividualPageProvider(context, individualPageArguments),
+                child: IndividualPage(
+                    individualPageArguments: individualPageArguments),
+              ));
     default:
       return MaterialPageRoute(
         settings: routeSettings,

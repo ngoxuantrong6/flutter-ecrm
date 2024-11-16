@@ -1,3 +1,5 @@
+import 'package:flutter_ecrm/Model/ChatModel.dart';
+import 'package:flutter_ecrm/Pages/ChatPage.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/admin/screens/analtyics_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/manage_branch_screen.dart';
@@ -49,6 +51,8 @@ class _AdminScreenState extends State<AdminScreen> {
     if (user?.type == "admin") {
       pages.insert(1, const ManageBranchScreen());
       fetchAllBranches();
+    } else {
+      pages.insert(1, ChatPage());
     }
     super.initState();
   }
@@ -169,6 +173,26 @@ class _AdminScreenState extends State<AdminScreen> {
               ),
               label: '',
             ),
+          ] else ...[
+            BottomNavigationBarItem(
+              icon: Container(
+                width: bottomBarWidth,
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: _page == 1
+                          ? GlobalVariables.primaryColor
+                          : GlobalVariables.backgroundColor,
+                      width: bottomBarBorderWidth,
+                    ),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.chat_outlined,
+                ),
+              ),
+              label: '',
+            ),
           ],
           // ANALYTICS
           BottomNavigationBarItem(
@@ -177,7 +201,7 @@ class _AdminScreenState extends State<AdminScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == (user?.type == "admin" ? 2 : 1)
+                    color: _page == 2
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -197,7 +221,7 @@ class _AdminScreenState extends State<AdminScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == (user?.type == "admin" ? 3 : 2)
+                    color: _page == 3
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
@@ -217,7 +241,7 @@ class _AdminScreenState extends State<AdminScreen> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: _page == (user?.type == "admin" ? 4 : 3)
+                    color: _page == 4
                         ? GlobalVariables.primaryColor
                         : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
