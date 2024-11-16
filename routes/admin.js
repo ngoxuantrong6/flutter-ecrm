@@ -5,7 +5,7 @@ const { Product } = require("../models/product");
 const Order = require("../models/order");
 const { PromiseProvider } = require("mongoose");
 const bcryptjs = require('bcryptjs');
-const User = require("../models/user");
+const { User } = require("../models/user");
 
 // Add product
 adminRouter.post("/admin/add-product", admin, async (req, res) => {
