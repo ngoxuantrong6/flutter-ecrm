@@ -37,7 +37,7 @@ const app = express();
 const server = http.createServer(app);
 const io = Server(server, {
   cors: {
-    origin: "http://192.168.100.108:3000",
+    origin: "https://ecrm-server.onrender.com",
     methods: ["GET", "POST"],
   },
 });
