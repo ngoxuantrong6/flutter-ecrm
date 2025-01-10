@@ -10,7 +10,10 @@ const messageSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  message: {
+  messageEncryptForMe: {
+    type: String,
+  },
+  messageEncryptForReveiver: {
     type: String,
   },
   image: {
