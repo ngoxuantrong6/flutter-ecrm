@@ -130,6 +130,8 @@ class ProductDetailsServices {
       type: '',
       token: '',
       cart: [],
+      publicKey: '',
+      privateKey: '',
     );
     try {
       http.Response res = await http.get(

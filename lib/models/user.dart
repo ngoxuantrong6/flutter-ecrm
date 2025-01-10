@@ -9,6 +9,8 @@ class User {
   final String type;
   final String token;
   final List<dynamic> cart;
+  final String publicKey;
+  final String privateKey;
 
   User({
     required this.id,
@@ -19,6 +21,8 @@ class User {
     required this.type,
     required this.token,
     required this.cart,
+    required this.publicKey,
+    required this.privateKey,
   });
 
   Map<String, dynamic> toMap() {
@@ -31,6 +35,8 @@ class User {
       'type': type,
       'token': token,
       'cart': cart,
+      'publicKey': publicKey,
+      'privateKey': privateKey,
     };
   }
 
@@ -48,6 +54,8 @@ class User {
           (x) => Map<String, dynamic>.from(x),
         ),
       ),
+      publicKey: map['publicKey'] ?? '',
+      privateKey: map['privateKey'] ?? '',
     );
   }
 
@@ -64,6 +72,8 @@ class User {
     String? type,
     String? token,
     List<dynamic>? cart,
+    String? publicKey,
+    String? privateKey,
   }) {
     return User(
       id: id ?? this.id,
@@ -74,6 +84,8 @@ class User {
       type: type ?? this.type,
       token: token ?? this.token,
       cart: cart ?? this.cart,
+      publicKey: publicKey ?? this.publicKey,
+      privateKey: privateKey ?? this.privateKey,
     );
   }
 }

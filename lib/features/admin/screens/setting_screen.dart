@@ -1,5 +1,6 @@
 import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
 import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/register_biometric_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
 import 'package:flutter_ecrm/features/account/services/account_services.dart';
 import 'package:flutter_ecrm/features/account/widgets/below_app_bar.dart';
@@ -23,6 +24,13 @@ class SettingScreen extends StatelessWidget {
               iconPath: Icons.person_outline_outlined,
               onTap: () {
                 Navigator.pushNamed(context, UpdateProfileScreen.routeName);
+              },
+            ),
+            SettingItem(
+              title: "Cài đặt đăng nhập FaceID/ vân tay",
+              iconPath: Icons.fingerprint_outlined,
+              onTap: () {
+                Navigator.pushNamed(context, RegisterBiometricScreen.routeName);
               },
             ),
             SettingItem(

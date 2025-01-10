@@ -4,7 +4,7 @@ import 'package:speech_to_text/speech_to_text_provider.dart';
 
 String uri = 'https://ecrm-server.onrender.com';
 // String uri = 'http://192.168.100.108:3000'; // mang cty
-// String uri = 'http://192.168.1.22:3000'; // mang o nha
+// String uri = 'http://192.168.1.18:3000'; // mang o nha
 
 class GlobalVariables {
   // COLORS
@@ -67,4 +67,7 @@ class GlobalVariables {
   static late SpeechToTextProvider speechProvider;
 
   static List<User> branches = [];
+  static bool checkUserExist = false;
+  static dynamic DEVICE_INFO;
+  static String DEVICE_ID = "";
 }

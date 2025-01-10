@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 const { productSchema } = require("./product");
 
 const userSchema = mongoose.Schema({
@@ -41,6 +42,15 @@ const userSchema = mongoose.Schema({
       },
     },
   ],
+  publicKey: {
+    type: String,
+  },
+  privateKey: {
+    type: String,
+  },
+  deviceId: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

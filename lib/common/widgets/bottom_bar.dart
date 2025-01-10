@@ -3,10 +3,12 @@ import 'package:flutter_ecrm/Model/MessageModel.dart';
 import 'package:flutter_ecrm/Pages/ChatPage.dart';
 import 'package:flutter_ecrm/Pages/ChatPageServices.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/account/screens/account_screen.dart';
 import 'package:flutter_ecrm/features/cart/screens/cart_screen.dart';
 import 'package:flutter_ecrm/features/home/screens/home_screen.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/helper/encryption_helper.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
@@ -40,6 +42,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   void initState() {
+    checkRootJailbreak();
     user = Provider.of<UserProvider>(context, listen: false).user;
     GlobalVariables.speechProvider = SpeechToTextProvider(speech);
     initSpeechProvider();
@@ -54,6 +57,13 @@ class _BottomBarState extends State<BottomBar> {
 
   Future<void> initSpeechProvider() async {
     await GlobalVariables.speechProvider.initialize();
+  }
+
+  Future<void> checkRootJailbreak() async {
+    bool isJaiBreak = await deviceRootJailbreak(context);
+    if (isJaiBreak) {
+      return;
+    }
   }
 
   @override

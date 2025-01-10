@@ -263,11 +263,18 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         padding: const EdgeInsets.all(5),
                         child: Row(
                           children: [
-                            CachedNetworkImage(
-                              imageUrl: widget.order.products[i].images[0],
-                              height: 120,
-                              width: 120,
-                            ),
+                            isUrl(widget.order.products[i].images[0])
+                                ? CachedNetworkImage(
+                                    imageUrl:
+                                        widget.order.products[i].images[0],
+                                    height: 120,
+                                    width: 120,
+                                  )
+                                : imageFromBase64String(
+                                    widget.order.products[i].images[0],
+                                    height: 120,
+                                    width: 120,
+                                  ),
                             const SizedBox(width: 5),
                             Expanded(
                               child: Column(
@@ -327,7 +334,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {
-                    if ((user.type == 'admin' || user.type == 'branch') && currentStep < 5) {
+                    if ((user.type == 'admin' || user.type == 'branch') &&
+                        currentStep < 5) {
                       return CustomButton(
                         text: 'Xong',
                         onTap: () => changeOrderStatus(details.currentStep),

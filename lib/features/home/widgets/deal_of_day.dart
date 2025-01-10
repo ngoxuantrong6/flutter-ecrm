@@ -56,11 +56,17 @@ class _DealOfDayState extends State<DealOfDay> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    CachedNetworkImage(
-                      imageUrl: product!.images[0],
-                      height: 235,
-                      fit: BoxFit.fitHeight,
-                    ),
+                    isUrl(product!.images[0])
+                        ? CachedNetworkImage(
+                            imageUrl: product!.images[0],
+                            height: 235,
+                            fit: BoxFit.fitHeight,
+                          )
+                        : imageFromBase64String(
+                            product!.images[0],
+                            height: 235,
+                            fit: BoxFit.fitHeight,
+                          ),
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.only(left: 15),
@@ -87,12 +93,19 @@ class _DealOfDayState extends State<DealOfDay> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: product!.images
                             .map(
-                              (e) => CachedNetworkImage(
-                                imageUrl: e,
-                                fit: BoxFit.fitWidth,
-                                width: 100,
-                                height: 100,
-                              ),
+                              (e) => isUrl(e)
+                                  ? CachedNetworkImage(
+                                      imageUrl: e,
+                                      fit: BoxFit.fitWidth,
+                                      width: 100,
+                                      height: 100,
+                                    )
+                                  : imageFromBase64String(
+                                      e,
+                                      fit: BoxFit.fitWidth,
+                                      width: 100,
+                                      height: 100,
+                                    ),
                             )
                             .toList(),
                       ),

@@ -1,21 +1,54 @@
+import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/Model/ChatModel.dart';
 import 'package:flutter_ecrm/Screens/IndividualPage.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/helper/encryption_helper.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rsa_encrypt/rsa_encrypt.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCard extends StatefulWidget {
   const CustomCard({Key? key, required this.chatModel}) : super(key: key);
   final ChatModel chatModel;
 
   @override
+  State<CustomCard> createState() => _CustomCardState();
+}
+
+class _CustomCardState extends State<CustomCard> {
+  late User user;
+  List<String>? hashedPassword = [];
+  String decrypted_private_key = "";
+  @override
+  void initState() {
+    user = Provider.of<UserProvider>(context, listen: false).user;
+    getHashedPassword().then((value) {
+      setState(() {
+        decrypted_private_key = EncryptionHelper.decryptPrivateKey(
+          value![1],
+          user.privateKey,
+        );
+      });
+    });
+    super.initState();
+  }
+
+  Future<List<String>?> getHashedPassword() async {
+    await EncryptedSharedPreferences.initialize(key);
+    EncryptedSharedPreferences prefs = EncryptedSharedPreferences.getInstance();
+    hashedPassword = prefs.getStringList('hashedPassword');
+    return hashedPassword;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context, listen: false).user;
-    User receiver = chatModel.members.firstWhere(
+    User receiver = widget.chatModel.members.firstWhere(
       (member) => member.id != user.id,
     );
     return InkWell(
@@ -53,7 +86,24 @@ class CustomCard extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    chatModel.lastMessage?.message ?? "",
+                    // chatModel.lastMessage?.messageEncryptForMe ?? "",
+                    decrypted_private_key == ""
+                        ? ""
+                        : (widget.chatModel.lastMessage?.senderId == user.id)
+                            ? decrypt(
+                                widget.chatModel.lastMessage
+                                        ?.messageEncryptForMe ??
+                                    "",
+                                EncryptionHelper.convertStringToPrivateKey(
+                                    decrypted_private_key),
+                              )
+                            : decrypt(
+                                widget.chatModel.lastMessage
+                                        ?.messageEncryptForReveiver ??
+                                    "",
+                                EncryptionHelper.convertStringToPrivateKey(
+                                    decrypted_private_key),
+                              ),
                     style: TextStyle(
                       fontSize: 13,
                       overflow: TextOverflow.ellipsis,
@@ -64,7 +114,7 @@ class CustomCard extends StatelessWidget {
             ),
             trailing: Text(
               DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(
-                  chatModel.lastMessage?.createdAt ?? 0)),
+                  widget.chatModel.lastMessage?.createdAt ?? 0)),
             ),
           ),
           Padding(

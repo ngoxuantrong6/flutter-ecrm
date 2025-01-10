@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter_ecrm/Model/ChatModel.dart';
 import 'package:flutter_ecrm/Model/MessageModel.dart';
 import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
@@ -37,19 +38,24 @@ class BranchServices {
       LoadingShowAble.showLoading();
       final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
       List<String> imageUrls = [];
+      String base64Image = "";
+      List<String> base64Images = [];
 
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
         imageUrls.add(res.secureUrl);
+        base64Image = await encodeImageFromUrl(res.secureUrl);
+        base64Images.add(base64Image);
       }
 
       Product product = Product(
         name: name,
         description: description,
         quantity: quantity,
-        images: imageUrls,
+        // images: imageUrls,
+        images: base64Images,
         category: category,
         price: price,
       );
@@ -75,6 +81,26 @@ class BranchServices {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  Future<String> encodeImageFromUrl(String imageUrl) async {
+    try {
+      // Tải ảnh từ URL
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        // Lấy dữ liệu byte từ ảnh
+        Uint8List imageBytes = response.bodyBytes;
+
+        // Mã hóa Base64
+        String base64Image = base64Encode(imageBytes);
+        return base64Image;
+      } else {
+        throw Exception("Failed to load image");
+      }
+    } catch (e) {
+      print("Error encoding image: $e");
+      return "";
     }
   }
 
@@ -367,11 +393,12 @@ class BranchServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<MessageModel> messageList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/branch/message/get-message/$chatUserId'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+          Uri.parse('$uri/branch/message/get-message/$chatUserId'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          });
 
       httpErrorHandle(
         response: res,
@@ -397,12 +424,18 @@ class BranchServices {
   Future<MessageModel> sendMessage({
     required BuildContext context,
     required String receiverId,
-    String? message,
+    String? messageEncryptForMe,
+    String? messageEncryptForReveiver,
     XFile? image,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     var messageModel = MessageModel(
-        id: "", senderId: "", receiverId: "", message: "", createdAt: 0);
+        id: "",
+        senderId: "",
+        receiverId: "",
+        messageEncryptForMe: "",
+        messageEncryptForReveiver: "",
+        createdAt: 0);
 
     try {
       LoadingShowAble.showLoading();
@@ -411,7 +444,8 @@ class BranchServices {
 
       if (image != null) {
         CloudinaryResponse cloudRes = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(image.path, folder: message ?? ""),
+          CloudinaryFile.fromFile(image.path,
+              folder: messageEncryptForReveiver ?? ""),
         );
         imageUrl = cloudRes.secureUrl;
       }
@@ -422,14 +456,19 @@ class BranchServices {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: json.encode({'message': message, 'image': imageUrl}),
+        body: json.encode({
+          'messageEncryptForMe': messageEncryptForMe,
+          'messageEncryptForReveiver': messageEncryptForReveiver,
+          'image': imageUrl,
+        }),
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          messageModel = MessageModel.fromJson(jsonEncode(jsonDecode(res.body)));
+          messageModel =
+              MessageModel.fromJson(jsonEncode(jsonDecode(res.body)));
           // showSnackBar(context, 'Gửi tin nhắn thành công!');
         },
       );
@@ -445,8 +484,8 @@ class BranchServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<ChatModel> conversationList = [];
     try {
-      http.Response res = await http
-          .get(Uri.parse('$uri/branch/conversation/list'), headers: {
+      http.Response res =
+          await http.get(Uri.parse('$uri/branch/conversation/list'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });

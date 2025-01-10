@@ -51,5 +51,8 @@
 	<string>Recognize and display speech input</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Detect speech input</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Sử dụng để xác thực sinh trắc học</string>
+
 </dict>
 </plist>

@@ -1,6 +1,7 @@
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/common/widgets/custom_textfield.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
 import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
 import 'package:flutter_ecrm/models/product.dart';
@@ -145,12 +146,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       items: images.map(
                         (i) {
                           return Builder(
-                            builder: (BuildContext context) =>
-                                CachedNetworkImage(
-                              imageUrl: i,
-                              fit: BoxFit.cover,
-                              height: 200,
-                            ),
+                            builder: (BuildContext context) => isUrl(i)
+                                ? CachedNetworkImage(
+                                    imageUrl: i,
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                  )
+                                : imageFromBase64String(
+                                    i,
+                                    fit: BoxFit.cover,
+                                    height: 200,
+                                  ),
                           );
                         },
                       ).toList(),

@@ -228,12 +228,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         items: product!.images.map(
                           (i) {
                             return Builder(
-                              builder: (BuildContext context) =>
-                                  CachedNetworkImage(
-                                imageUrl: i,
-                                fit: BoxFit.contain,
-                                height: 200,
-                              ),
+                              builder: (BuildContext context) => isUrl(i)
+                                  ? CachedNetworkImage(
+                                      imageUrl: i,
+                                      fit: BoxFit.contain,
+                                      height: 200,
+                                    )
+                                  : imageFromBase64String(
+                                      i,
+                                      fit: BoxFit.contain,
+                                      height: 200,
+                                    ),
                             );
                           },
                         ).toList(),

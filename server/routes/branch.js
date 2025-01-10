@@ -164,7 +164,7 @@ const { getReceiverSocketId, io } = require("../SocketIO/server");
 
 branchRouter.post("/branch/message/send-message/:id", branch, async (req, res) => {
     try {
-        const { message, image } = req.body;
+        const { messageEncryptForMe, messageEncryptForReveiver, image } = req.body;
         const { id: receiverId } = req.params;
         const senderId = req.user; // current logged in user
         let conversation = await Conversation.findOne({
@@ -179,7 +179,8 @@ branchRouter.post("/branch/message/send-message/:id", branch, async (req, res) =
         const newMessage = new Message({
             senderId,
             receiverId,
-            message: message || "",
+            messageEncryptForMe: messageEncryptForMe || "",
+            messageEncryptForReveiver: messageEncryptForReveiver || "",
             image: image || null,
             createdAt: new Date().getTime(),
         });

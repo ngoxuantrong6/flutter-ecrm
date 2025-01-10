@@ -7,11 +7,13 @@ import 'package:flutter_ecrm/CustomUI/ReplyFileCard.dart';
 import 'package:flutter_ecrm/Pages/CameraPage.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
+import 'package:flutter_ecrm/helper/encryption_helper.dart';
 import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rsa_encrypt/rsa_encrypt.dart';
 
 class IndividualPage extends StatefulWidget {
   static const String routeName = '/individual-page';
@@ -181,7 +183,7 @@ class _IndividualPageState extends State<IndividualPage> {
                               path:
                                   individualPageProvider.messages[index].image!,
                               message: individualPageProvider
-                                      .messages[index].message ??
+                                      .messages[index].messageEncryptForMe ??
                                   "",
                               time: DateFormat('HH:mm').format(
                                 DateTime.fromMillisecondsSinceEpoch(
@@ -194,8 +196,14 @@ class _IndividualPageState extends State<IndividualPage> {
                           } else {
                             return OwnMessageCard(
                               message: individualPageProvider
-                                      .messages[index].message ??
+                                      .messages[index].messageEncryptForMe ??
                                   "",
+                              // message: decrypt(
+                              //     individualPageProvider
+                              //             .messages[index].message ??
+                              //         "",
+                              //     EncryptionHelper.convertStringToPrivateKey(
+                              //         userProvider.user.privateKey)),
                               time: DateFormat('HH:mm').format(
                                 DateTime.fromMillisecondsSinceEpoch(
                                     individualPageProvider
@@ -210,7 +218,7 @@ class _IndividualPageState extends State<IndividualPage> {
                               path:
                                   individualPageProvider.messages[index].image!,
                               message: individualPageProvider
-                                      .messages[index].message ??
+                                      .messages[index].messageEncryptForReveiver ??
                                   "",
                               time: DateFormat('HH:mm').format(
                                 DateTime.fromMillisecondsSinceEpoch(
@@ -223,7 +231,7 @@ class _IndividualPageState extends State<IndividualPage> {
                           } else {
                             return ReplyCard(
                               message: individualPageProvider
-                                      .messages[index].message ??
+                                      .messages[index].messageEncryptForReveiver ??
                                   "",
                               time: DateFormat('HH:mm').format(
                                 DateTime.fromMillisecondsSinceEpoch(

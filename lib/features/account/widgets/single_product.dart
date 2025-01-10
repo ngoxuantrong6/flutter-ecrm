@@ -1,6 +1,7 @@
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 
 class SingleProduct extends StatelessWidget {
   final String image;
@@ -33,11 +34,17 @@ class SingleProduct extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width * 0.45,
           padding: const EdgeInsets.all(10),
-          child: CachedNetworkImage(
-            imageUrl: image,
-            fit: BoxFit.fitHeight,
-            width: MediaQuery.of(context).size.width * 0.45,
-          ),
+          child: isUrl(image)
+              ? CachedNetworkImage(
+                  imageUrl: image,
+                  fit: BoxFit.fitHeight,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                )
+              : imageFromBase64String(
+                  image,
+                  fit: BoxFit.fitHeight,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                ),
         ),
       ),
     );

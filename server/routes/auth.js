@@ -3,12 +3,15 @@ const { User } = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const authRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const auth = require("../middlewares/auth");
+const nodemailer = require('nodemailer');
+const { OTP } = require("../models/otp");
 
 // SIGN UP
 authRouter.post("/api/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, publicKey, privateKey } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -17,12 +20,14 @@ authRouter.post("/api/signup", async (req, res) => {
         .json({ msg: "Người dùng có cùng email đã tồn tại!" });
     }
 
-    const hashedPassword = await bcryptjs.hash(password, 8);
+    // const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({
       email,
-      password: hashedPassword,
+      password,
       name,
+      publicKey,
+      privateKey,
     });
     user = await user.save();
     res.json(user);
@@ -35,7 +40,7 @@ authRouter.post("/api/signup", async (req, res) => {
 // Exercise
 authRouter.post("/api/signin", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, deviceId } = req.body;
 
     const user = await User.findOne({ email });
     if (!user) {
@@ -44,9 +49,26 @@ authRouter.post("/api/signin", async (req, res) => {
         .json({ msg: "Người dùng có email này không tồn tại!" });
     }
 
-    const isMatch = await bcryptjs.compare(password, user.password);
+    // const isMatch = await bcryptjs.compare(password, user.password);
+    // console.log(`vvvvvvvvvvv ${user.password}`);
+    const isMatch = password == null || password == "" || user.password == password;
+    console.log(`vvvvvvvvvvv ${password}`);
     if (!isMatch) {
       return res.status(400).json({ msg: "Mật khẩu không đúng." });
+    }
+
+    // Kiểm tra deviceId
+    if (user.deviceId && user.deviceId !== deviceId) {
+      console.log(`deviceId ${user.deviceId}`);
+      console.log(`deviceIdd ${deviceId}`);
+      // Thiết bị mới, yêu cầu xác minh OTP
+      return res.status(403).json({ msg: 'Thiết bị mới! Yêu cầu xác minh OTP.' });
+    }
+
+    // Cập nhật deviceId nếu chưa có
+    if (!user.deviceId) {
+      user.deviceId = deviceId;
+      await user.save();
     }
 
     const token = jwt.sign({ id: user._id }, "passwordKey");
@@ -55,6 +77,44 @@ authRouter.post("/api/signin", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+authRouter.post('/api/request-otp', async (req, res) => {
+  const { email } = req.body;
+
+  // Tạo mã OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6 số ngẫu nhiên
+  const expiresAt = new Date(Date.now() + 1 * 60 * 1000); // Hết hạn sau 1 phút
+
+  // Lưu OTP vào database
+  await OTP.create({ email, otp, expiresAt });
+
+  // Gửi OTP qua email
+  await sendOTP(email, otp);
+
+  res.json({ msg: 'OTP đã được gửi!' });
+});
+
+authRouter.post('/api/verify-otp', async (req, res) => {
+  const { email, otp, deviceId } = req.body;
+
+  // Tìm OTP trong database
+  const otpEntry = await OTP.findOne({ email, otp });
+  if (!otpEntry || otpEntry.expiresAt < new Date()) {
+    return res.status(400).json({ msg: 'OTP không hợp lệ hoặc đã hết hạn!' });
+  }
+
+  // Xóa OTP sau khi xác minh thành công
+  await OTP.deleteOne({ _id: otpEntry._id });
+
+  // Cập nhật deviceId cho user
+  const user = await User.findOne({ email });
+  user.deviceId = deviceId;
+  await user.save();
+
+  res.json({ msg: 'Xác minh thành công!' });
+});
+
+
 
 authRouter.post("/tokenIsValid", async (req, res) => {
   try {
@@ -76,5 +136,24 @@ authRouter.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user);
   res.json({ ...user._doc, token: req.token });
 });
+
+// Cấu hình SMTP server
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'trongbanhang@gmail.com',
+    pass: 'honk bqtc tkkb tpje',
+  },
+});
+
+// Hàm gửi OTP qua email
+const sendOTP = async (email, otp) => {
+  await transporter.sendMail({
+    from: 'trongbanhang@gmail.com',
+    to: email,
+    subject: 'Xác minh thiết bị mới',
+    text: `Mã OTP của bạn là: ${otp}`,
+  });
+};
 
 module.exports = authRouter;

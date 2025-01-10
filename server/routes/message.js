@@ -9,7 +9,7 @@ const messageRouter = express.Router();
 
 messageRouter.post("/api/message/send-message/:id", auth, async (req, res) => {
     try {
-        const { message, image, productId } = req.body;
+        const { messageEncryptForMe, messageEncryptForReveiver, image, productId } = req.body;
         const { id: receiverId } = req.params;
         const senderId = req.user; // current logged in user
         const product = await Product.findById(productId);
@@ -25,7 +25,8 @@ messageRouter.post("/api/message/send-message/:id", auth, async (req, res) => {
         const newMessage = new Message({
             senderId,
             receiverId,
-            message: message || "",
+            messageEncryptForMe: messageEncryptForMe || "",
+            messageEncryptForReveiver: messageEncryptForReveiver || "",
             image: image || null,
             product: product || null,
             createdAt: new Date().getTime(),

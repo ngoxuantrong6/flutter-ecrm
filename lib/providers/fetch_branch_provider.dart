@@ -3,9 +3,9 @@ import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/models/user.dart';
 
 class FetchBranchProvider extends ChangeNotifier {
-  User _branch = User(id: "", name: "Tất cả", email: "", password: "", address: "", type: "branch", token: "", cart: []);
+  User _branch = User(id: "", name: "Tất cả", email: "", password: "", address: "", type: "branch", token: "", cart: [], publicKey: "", privateKey: "");
   List<User> _listBranch = [];
-  User branchDefault = User(id: "", name: "Tất cả", email: "", password: "", address: "", type: "branch", token: "", cart: []);
+  User branchDefault = User(id: "", name: "Tất cả", email: "", password: "", address: "", type: "branch", token: "", cart: [], publicKey: "", privateKey: "");
 
   User get branch => _branch;
   List<User> get listBranch => _listBranch;

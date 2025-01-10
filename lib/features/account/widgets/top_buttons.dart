@@ -1,6 +1,7 @@
 import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
 import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/register_biometric_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
 import 'package:flutter_ecrm/features/account/services/account_services.dart';
 import 'package:flutter_ecrm/features/account/widgets/account_button.dart';
@@ -47,6 +48,17 @@ class TopButtons extends StatelessWidget {
                   message: 'Bạn có thực sự muốn thoát phiên đăng nhập này?',
                   pressButtonLeft: () => AccountServices().logOut(context),
                 );
+              },
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            AccountButton(
+              text: 'Cài đặt đăng nhập FaceID/ vân tay',
+              onTap: () {
+                Navigator.pushNamed(context, RegisterBiometricScreen.routeName);
               },
             ),
           ],

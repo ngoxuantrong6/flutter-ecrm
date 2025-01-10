@@ -62,12 +62,19 @@ class _CartProductState extends State<CartProduct> {
             },
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: product.images[0],
-                  fit: BoxFit.contain,
-                  height: 135,
-                  width: 135,
-                ),
+                isUrl(product.images[0])
+                    ? CachedNetworkImage(
+                        imageUrl: product.images[0],
+                        fit: BoxFit.contain,
+                        height: 135,
+                        width: 135,
+                      )
+                    : imageFromBase64String(
+                        product.images[0],
+                        fit: BoxFit.contain,
+                        height: 135,
+                        width: 135,
+                      ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

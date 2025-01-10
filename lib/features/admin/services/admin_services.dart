@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
 import 'package:flutter_ecrm/constants/error_handling.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
@@ -36,19 +37,24 @@ class AdminServices {
       LoadingShowAble.showLoading();
       final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
       List<String> imageUrls = [];
+      String base64Image = "";
+      List<String> base64Images = [];
 
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
         imageUrls.add(res.secureUrl);
+        base64Image = await encodeImageFromUrl(res.secureUrl);
+        base64Images.add(base64Image);
       }
 
       Product product = Product(
         name: name,
         description: description,
         quantity: quantity,
-        images: imageUrls,
+        // images: imageUrls,
+        images: base64Images,
         category: category,
         price: price,
         branchId: branchId,
@@ -75,6 +81,26 @@ class AdminServices {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    }
+  }
+
+  Future<String> encodeImageFromUrl(String imageUrl) async {
+    try {
+      // Tải ảnh từ URL
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        // Lấy dữ liệu byte từ ảnh
+        Uint8List imageBytes = response.bodyBytes;
+
+        // Mã hóa Base64
+        String base64Image = base64Encode(imageBytes);
+        return base64Image;
+      } else {
+        throw Exception("Failed to load image");
+      }
+    } catch (e) {
+      print("Error encoding image: $e");
+      return "";
     }
   }
 
@@ -165,11 +191,12 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
-      http.Response res = await http
-          .get(Uri.parse('$uri/admin/get-products?branchId=$branchId'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+          Uri.parse('$uri/admin/get-products?branchId=$branchId'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          });
 
       httpErrorHandle(
         response: res,
@@ -258,12 +285,13 @@ class AdminServices {
     }
   }
 
-  Future<List<Order>> fetchAllOrders(BuildContext context, String branchId) async {
+  Future<List<Order>> fetchAllOrders(
+      BuildContext context, String branchId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-orders?branchId=$branchId'), headers: {
+      http.Response res = await http
+          .get(Uri.parse('$uri/admin/get-orders?branchId=$branchId'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -359,13 +387,14 @@ class AdminServices {
     }
   }
 
-  Future<Map<String, dynamic>> getEarnings(BuildContext context, String branchId) async {
+  Future<Map<String, dynamic>> getEarnings(
+      BuildContext context, String branchId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Sales> sales = [];
     int totalEarning = 0;
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/analytics?branchId=$branchId'), headers: {
+      http.Response res = await http
+          .get(Uri.parse('$uri/admin/analytics?branchId=$branchId'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -458,6 +487,8 @@ class AdminServices {
         type: "branch",
         token: userProvider.user.token,
         cart: userProvider.user.cart,
+        publicKey: userProvider.user.publicKey,
+        privateKey: userProvider.user.privateKey,
       );
 
       http.Response res = await http.patch(
@@ -528,6 +559,8 @@ class AdminServices {
       type: "",
       token: "",
       cart: [],
+      publicKey: "",
+      privateKey: "",
     );
     try {
       http.Response res = await http.get(

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/models/product.dart';
 
@@ -57,10 +59,15 @@ class OwnFileCard extends StatelessWidget {
                     //   File(path),
                     //   fit: BoxFit.fitHeight,
                     // ),
-                    child: Image.network(
-                      path,
-                      fit: BoxFit.contain,
-                    ),
+                    child: isUrl(path)
+                        ? CachedNetworkImage(
+                            imageUrl: path,
+                            fit: BoxFit.contain,
+                          )
+                        : imageFromBase64String(
+                            path,
+                            fit: BoxFit.contain,
+                          ),
                   ),
                   message.length > 0
                       ? Container(

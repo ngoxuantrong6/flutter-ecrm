@@ -3,6 +3,7 @@ import 'package:flutter_ecrm/Screens/IndividualPage.dart';
 import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
 import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';
+import 'package:flutter_ecrm/features/account/screens/register_biometric_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/update_profile_screen.dart';
 import 'package:flutter_ecrm/features/address/screens/address_buy_now_screen.dart';
 import 'package:flutter_ecrm/features/address/screens/address_screen.dart';
@@ -172,6 +173,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
                 child: IndividualPage(
                     individualPageArguments: individualPageArguments),
               ));
+
+    case RegisterBiometricScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const RegisterBiometricScreen(),
+      );
     default:
       return MaterialPageRoute(
         settings: routeSettings,

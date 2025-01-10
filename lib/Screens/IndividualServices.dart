@@ -50,13 +50,14 @@ class IndividualServices {
   Future<MessageModel> sendMessage({
     required BuildContext context,
     required String receiverId,
-    String? message,
+    String? messageEncryptForMe,
+    String? messageEncryptForReveiver,
     XFile? image,
     Product? product,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     var messageModel = MessageModel(
-        id: "", senderId: "", receiverId: "", message: "", createdAt: 0);
+        id: "", senderId: "", receiverId: "", messageEncryptForMe: "", messageEncryptForReveiver: "", createdAt: 0);
 
     try {
       LoadingShowAble.showLoading();
@@ -65,7 +66,7 @@ class IndividualServices {
 
       if (image != null) {
         CloudinaryResponse cloudRes = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(image.path, folder: message ?? ""),
+          CloudinaryFile.fromFile(image.path, folder: messageEncryptForReveiver ?? ""),
         );
         imageUrl = cloudRes.secureUrl;
       }
@@ -77,7 +78,8 @@ class IndividualServices {
           'x-auth-token': userProvider.user.token,
         },
         body: json.encode({
-          'message': message,
+          'messageEncryptForMe': messageEncryptForMe,
+          'messageEncryptForReveiver': messageEncryptForReveiver,
           'image': product?.images[0] ?? imageUrl,
           'productId': product?.id,
         }),

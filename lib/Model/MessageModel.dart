@@ -1,10 +1,3 @@
-// class MessageModel {
-//   String? type;
-//   String? message;
-//   String? time;
-//   MessageModel({this.message, this.type, this.time});
-// }
-
 import 'dart:convert';
 
 import 'package:flutter_ecrm/models/product.dart';
@@ -13,7 +6,8 @@ class MessageModel {
   final String id;
   final String senderId;
   final String receiverId;
-  final String? message;
+  final String? messageEncryptForMe;
+  final String? messageEncryptForReveiver;
   final String? image;
   final Product? product;
   final int createdAt;
@@ -22,7 +16,8 @@ class MessageModel {
     required this.id,
     required this.senderId,
     required this.receiverId,
-    this.message,
+    this.messageEncryptForMe,
+    this.messageEncryptForReveiver,
     this.image,
     this.product,
     required this.createdAt,
@@ -34,7 +29,8 @@ class MessageModel {
       '_id': id,
       'senderId': senderId,
       'receiverId': receiverId,
-      'message': message,
+      'messageEncryptForMe': messageEncryptForMe,
+      'messageEncryptForReveiver': messageEncryptForReveiver,
       'image': image,
       'product': product,
       'createdAt': createdAt,
@@ -47,7 +43,8 @@ class MessageModel {
       id: map['_id'] ?? '',
       senderId: map['senderId'] ?? '',
       receiverId: map['receiverId'] ?? '',
-      message: map['message'] ?? '',
+      messageEncryptForMe: map['messageEncryptForMe'] ?? '',
+      messageEncryptForReveiver: map['messageEncryptForReveiver'] ?? '',
       image: map['image'] ?? '',
       product: map['product'] != null ? Product.fromMap(map['product']) : null,
       createdAt: map['createdAt']?.toInt() ?? 0,
@@ -65,7 +62,8 @@ class MessageModel {
     String? id,
     String? senderId,
     String? receiverId,
-    String? message,
+    String? messageEncryptForMe,
+    String? messageEncryptForReveiver,
     String? image,
     Product? product,
     int? createdAt,
@@ -74,7 +72,8 @@ class MessageModel {
       id: id ?? this.id,
       senderId: senderId ?? this.senderId,
       receiverId: receiverId ?? this.receiverId,
-      message: message ?? this.message,
+      messageEncryptForMe: messageEncryptForMe ?? this.messageEncryptForMe,
+      messageEncryptForReveiver: messageEncryptForReveiver ?? this.messageEncryptForReveiver,
       image: image ?? this.image,
       product: product ?? this.product,
       createdAt: createdAt ?? this.createdAt,

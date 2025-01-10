@@ -1,6 +1,7 @@
 import 'package:flutter_ecrm/Model/ChatModel.dart';
 import 'package:flutter_ecrm/Pages/ChatPage.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
+import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/screens/analtyics_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/manage_branch_screen.dart';
 import 'package:flutter_ecrm/features/admin/screens/orders_screen.dart';
@@ -47,6 +48,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   @override
   void initState() {
+    checkRootJailbreak();
     user = Provider.of<UserProvider>(context, listen: false).user;
     if (user?.type == "admin") {
       pages.insert(1, const ManageBranchScreen());
@@ -55,6 +57,13 @@ class _AdminScreenState extends State<AdminScreen> {
       pages.insert(1, ChatPage());
     }
     super.initState();
+  }
+
+  Future<void> checkRootJailbreak() async {
+    bool isJaiBreak = await deviceRootJailbreak(context);
+    if (isJaiBreak) {
+      return;
+    }
   }
 
   void updatePage(int page) {

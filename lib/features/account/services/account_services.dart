@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
 import 'package:flutter_ecrm/common/widgets/loading_show_able.dart';
 import 'package:flutter_ecrm/constants/error_handling.dart';
@@ -66,6 +67,8 @@ class AccountServices {
         type: userProvider.user.type,
         token: userProvider.user.token,
         cart: userProvider.user.cart,
+        publicKey: userProvider.user.publicKey,
+        privateKey: userProvider.user.privateKey,
       );
 
       http.Response res = await http.patch(
@@ -147,8 +150,8 @@ class AccountServices {
 
   void logOut(BuildContext context) async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      await EncryptedSharedPreferences.initialize(key);
+      EncryptedSharedPreferences sharedPreferences = EncryptedSharedPreferences.getInstance();
       await sharedPreferences.setString('x-auth-token', '');
       await sharedPreferences.setString('user', '');
       Navigator.pushNamedAndRemoveUntil(
