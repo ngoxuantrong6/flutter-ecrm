@@ -13,7 +13,7 @@ import 'package:speech_to_text/speech_recognition_event.dart';
 
 class SearchScreen extends StatefulWidget {
   static const String routeName = '/search-screen';
-  final String searchQuery;
+  final String searchQuery; //tham số dadauf vào của searchScreen
   const SearchScreen({
     Key? key,
     required this.searchQuery,
@@ -24,10 +24,11 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<Product>? products;
+  List<Product>? products; //danh sách chứa sản phẩm tìm thấy
   final SearchServices searchServices = SearchServices();
   TextEditingController searchTextController = TextEditingController();
-  late StreamSubscription<SpeechRecognitionEvent> subscription;
+  late StreamSubscription<SpeechRecognitionEvent>
+      subscription; // xử lý tìm kiếm bằng giọng nói
   bool _isListening = false;
   String _text = '';
   String _hintText = 'Tìm kiếm';

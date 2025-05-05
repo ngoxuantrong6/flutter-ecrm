@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/address/screens/address_screen.dart';
@@ -29,15 +28,26 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void dispose() {
-    searchTextController.clear();
+    searchTextController.dispose();
     super.dispose();
   }
 
   void navigateToSearchScreen(String query) {
-    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+    Navigator.pushNamed(context, SearchScreen.routeName,
+        arguments: query); // điều hướng đến search Screen
   }
 
   void navigateToAddress(int sum) {
+    // điều hướng đến địa chỉ để thanh toán
+    if (sum == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("🛒 Giỏ hàng của bạn đang trống!"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
     Navigator.pushNamed(
       context,
       AddressScreen.routeName,
@@ -49,10 +59,22 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     searchTextController.text = _text;
     final user = context.watch<UserProvider>().user;
-    int sum = 0;
-    user.cart
-        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
-        .toList();
+
+    // ✅ Tính tổng tiền an toàn
+    int sum = user.cart.fold(
+      0,
+      (previousValue, item) {
+        final price = item['product']['price'];
+        final quantity = item['quantity'];
+
+        // 🔥 Kiểm tra giá trị hợp lệ trước khi cộng
+        if (price is int && quantity is int) {
+          return previousValue + (quantity * price);
+        } else {
+          return previousValue;
+        }
+      },
+    );
 
     return Scaffold(
       appBar: PreferredSize(
@@ -77,36 +99,22 @@ class _CartScreenState extends State<CartScreen> {
                       controller: searchTextController,
                       onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
-                        prefixIcon: InkWell(
-                          onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 23,
-                            ),
-                          ),
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.only(left: 6),
+                          child:
+                              Icon(Icons.search, color: Colors.black, size: 23),
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.only(top: 10),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
                           borderSide: BorderSide.none,
                         ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(7),
+                          borderSide:
+                              const BorderSide(color: Colors.black38, width: 1),
                         ),
                         hintText: _hintText,
                         hintStyle: const TextStyle(
@@ -130,8 +138,11 @@ class _CartScreenState extends State<CartScreen> {
                     color: Colors.transparent,
                     height: 42,
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Icon(_isListening ? Icons.mic : Icons.mic_none,
-                        color: Colors.black, size: 25),
+                    child: Icon(
+                      _isListening ? Icons.mic : Icons.mic_none,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   ),
                 ),
               ),
@@ -142,31 +153,53 @@ class _CartScreenState extends State<CartScreen> {
       body: Column(
         children: [
           const AddressBox(),
-          const CartSubtotal(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomButton(
-              text: 'Thanh toán tất cả (${user.cart.length} items)',
-              onTap: () => navigateToAddress(sum),
-              color: Colors.yellow[600],
+          if (user.cart.isNotEmpty && sum > 0) ...[
+            const CartSubtotal(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.yellow[700],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 2,
+                  ),
+                  onPressed: () => navigateToAddress(sum),
+                  child: Text(
+                    'Thanh toán tất cả (${user.cart.length} items)',
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 15),
-          Container(
-            color: Colors.black12.withOpacity(0.08),
-            height: 1,
-          ),
+          ],
+          const SizedBox(height: 10),
+          Container(color: Colors.black12.withOpacity(0.08), height: 1),
           const SizedBox(height: 5),
           Expanded(
-            child: ListView.builder(
-              itemCount: user.cart.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return CartProduct(
-                  index: index,
-                );
-              },
-            ),
+            child: user.cart.isEmpty
+                ? const Center(
+                    child: Text(
+                      "🛒 Giỏ hàng của bạn đang trống!",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: user.cart.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return CartProduct(index: index);
+                    },
+                  ),
           ),
         ],
       ),
@@ -175,39 +208,25 @@ class _CartScreenState extends State<CartScreen> {
 
   void _listen() {
     GlobalVariables.speechProvider.listen(
-        pauseFor: const Duration(seconds: 5),
-        // localeId: 'en-us',
-        listenFor: const Duration(seconds: 5));
+      pauseFor: const Duration(seconds: 5),
+      listenFor: const Duration(seconds: 5),
+    );
     subscription = GlobalVariables.speechProvider.stream.listen(
       (event) {
-        // on listening starts
         if (event.eventType == SpeechRecognitionEventType.statusChangeEvent) {
           _hintText = 'Đang nghe';
-          if (mounted) {
-            setState(() => _isListening = true);
-          }
-        }
-        // on every change it update
-        if (event.eventType ==
+          if (mounted) setState(() => _isListening = true);
+        } else if (event.eventType ==
             SpeechRecognitionEventType.partialRecognitionEvent) {
           if (mounted) {
-            setState(
-              () {
-                _text = GlobalVariables.speechProvider.lastResult!
-                    .recognizedWords; // the textField or Text Widget Will be updated
-              },
-            );
+            setState(() {
+              _text =
+                  GlobalVariables.speechProvider.lastResult!.recognizedWords;
+            });
           }
-        }
-        //on error
-        else if (event.eventType == SpeechRecognitionEventType.errorEvent) {
-          ///on error if some error occurs then close the dilog box here . or stop the listner
+        } else if (event.eventType == SpeechRecognitionEventType.errorEvent) {
           print('onError');
-        }
-
-        //on done
-        else if (event.eventType == SpeechRecognitionEventType.doneEvent) {
-          //when the user stop speaking.
+        } else if (event.eventType == SpeechRecognitionEventType.doneEvent) {
           subscription.cancel();
           setState(() => _isListening = false);
           navigateToSearchScreen(_text);

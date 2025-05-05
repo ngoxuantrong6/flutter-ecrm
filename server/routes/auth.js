@@ -11,12 +11,12 @@ const { OTP } = require("../models/otp");
 // SIGN UP
 authRouter.post("/api/signup", async (req, res) => {
   try {
-    const { name, email, password, publicKey, privateKey } = req.body;
+    const { name, email, password, publicKey, privateKey } = req.body; // nhận thông tin từ request body 
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }); // kiểm tra xem người dùng tồn tại hay chưa , kiểm tra xem email giống với email đã nhập từ form đăng ký
     if (existingUser) {
       return res
-        .status(400)
+        .status(400) // trả về mã 
         .json({ msg: "Người dùng có cùng email đã tồn tại!" });
     }
 
@@ -29,10 +29,10 @@ authRouter.post("/api/signup", async (req, res) => {
       publicKey,
       privateKey,
     });
-    user = await user.save();
-    res.json(user);
+    user = await user.save(); // lưu dữ liệu vào mongoDB và trả về đối tượng người dùng sau khi đã lưu thành công
+    res.json(user); // trả về dạng json
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(500).json({ error: e.message }); // nếu lỗi trong quá trình thì phản hồi với mã 500
   }
 });
 
@@ -40,9 +40,9 @@ authRouter.post("/api/signup", async (req, res) => {
 // Exercise
 authRouter.post("/api/signin", async (req, res) => {
   try {
-    const { email, password, deviceId } = req.body;
+    const { email, password, deviceId } = req.body; // lấy thông tin từ người dùng từ request body
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }); // tìm người dùng trong csdl bằng email
     if (!user) {
       return res
         .status(400)
@@ -51,7 +51,7 @@ authRouter.post("/api/signin", async (req, res) => {
 
     // const isMatch = await bcryptjs.compare(password, user.password);
     // console.log(`vvvvvvvvvvv ${user.password}`);
-    const isMatch = password == null || password == "" || user.password == password;
+    const isMatch = password == null || password == "" || user.password == password; // kiểm tra xem mật khẩu có khớp với mật khẩu đã lưu trong CSDL 
     console.log(`vvvvvvvvvvv ${password}`);
     if (!isMatch) {
       return res.status(400).json({ msg: "Mật khẩu không đúng." });

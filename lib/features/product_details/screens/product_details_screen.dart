@@ -49,6 +49,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   void initState() {
+    // khơi tạo
     super.initState();
     getProductDetail();
   }
@@ -90,8 +91,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     searchTextController.text = _text;
     double totalRating = 0;
     if (product != null) {
+      // kiểm tra xem dữ liệu sản phẩm đã được tải chưa , ban đầu là null , sau khi getProductDetail thì mới có giá trị
       for (int i = 0; i < product!.rating!.length; i++) {
-        totalRating += product!.rating![i].rating;
+        // duyệt qua rating mảng đánh giá sản phẩm
+        totalRating += product!
+            .rating![i].rating; // cộng dồn điểm đánh giá tất cả người dùng
         if (product!.rating![i].userId ==
             Provider.of<UserProvider>(context, listen: false).user.id) {
           myRating = product!.rating![i].rating;
@@ -99,7 +103,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       }
 
       if (totalRating != 0) {
-        avgRating = totalRating / product!.rating!.length;
+        avgRating = totalRating /
+            product!.rating!
+                .length; //tính điểm trung bình đánh giá bằng avgRating / số lượng đánh giá
       }
     }
     return Scaffold(
@@ -107,6 +113,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
+            // sử dụng để phủ lên toàn bộ khu vực của Appbar
             decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient,
             ),
@@ -190,169 +197,204 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: product == null
           ? const Loader()
           : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'TOP bán chạy trong ${product!.category}',
-                          style: const TextStyle(
-                              color: GlobalVariables.primaryColor),
-                        ),
-                        Stars(
-                          rating: avgRating,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 10,
-                    ),
-                    child: Text(
-                      product!.name,
-                      style: const TextStyle(
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      CarouselSlider(
-                        items: product!.images.map(
-                          (i) {
-                            return Builder(
-                              builder: (BuildContext context) => isUrl(i)
-                                  ? CachedNetworkImage(
-                                      imageUrl: i,
-                                      fit: BoxFit.contain,
-                                      height: 200,
-                                    )
-                                  : imageFromBase64String(
-                                      i,
-                                      fit: BoxFit.contain,
-                                      height: 200,
-                                    ),
-                            );
-                          },
-                        ).toList(),
-                        options: CarouselOptions(
-                          viewportFraction: 1,
-                          height: 300,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              activeIndex = index;
-                            });
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 8,
-                        child: AnimatedSmoothIndicator(
-                          activeIndex: activeIndex,
-                          count: product!.images.length,
-                          effect: const WormEffect(
-                            dotWidth: 8,
-                            dotHeight: 8,
-                            activeDotColor: GlobalVariables.primaryColor,
-                            dotColor: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    color: Colors.black12,
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: RichText(
-                      text: TextSpan(
-                        text: '',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Tiêu đề sản phẩm + Xếp hạng
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextSpan(
-                            text: '${formatPrice(product!.price)} đ',
-                            style: const TextStyle(
-                              fontSize: 22,
-                              color: Colors.red,
-                              fontWeight: FontWeight.w500,
+                          Expanded(
+                            child: Text(
+                              'TOP bán chạy trong ${product?.category ?? "Danh mục"}',
+                              style: const TextStyle(
+                                color: GlobalVariables.primaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          Stars(rating: avgRating),
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(product!.description),
-                  ),
-                  Container(
-                    color: Colors.black12,
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CustomButton(
-                      text: 'Mua ngay',
-                      onTap: () => navigateToAddressBuyNowScreen(product!),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CustomButton(
-                      text: 'Thêm vào giỏ hàng',
-                      onTap: addToCart,
-                      color: const Color.fromRGBO(254, 216, 19, 1),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    color: Colors.black12,
-                    height: 5,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      'Đánh giá sản phẩm',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+
+                    /// Tên sản phẩm
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        product?.name ?? "Không có tên sản phẩm",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  ),
-                  RatingBar.builder(
-                    initialRating: myRating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: GlobalVariables.secondaryColor,
+
+                    /// Ảnh sản phẩm (Carousel Slider)
+                    if (product?.images.isNotEmpty ?? false)
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          CarouselSlider(
+                            items: product!.images
+                                .map(
+                                  (image) => Builder(
+                                    builder: (context) => isUrl(image)
+                                        ? CachedNetworkImage(
+                                            imageUrl: image,
+                                            fit: BoxFit.contain,
+                                            height: 250,
+                                            width: double.infinity,
+                                          )
+                                        : imageFromBase64String(
+                                            image,
+                                            fit: BoxFit.contain,
+                                            height: 250,
+                                            width: double.infinity,
+                                          ),
+                                  ),
+                                )
+                                .toList(),
+                            options: CarouselOptions(
+                              viewportFraction: 1,
+                              height: 250,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  activeIndex = index;
+                                });
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 8,
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: activeIndex,
+                              count: product!.images.length,
+                              effect: const WormEffect(
+                                dotWidth: 8,
+                                dotHeight: 8,
+                                activeDotColor: GlobalVariables.primaryColor,
+                                dotColor: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      Container(
+                        height: 250,
+                        alignment: Alignment.center,
+                        color: Colors.grey[200],
+                        child: const Text(
+                          "Không có hình ảnh",
+                          style: TextStyle(fontSize: 16, color: Colors.black54),
+                        ),
+                      ),
+
+                    const SizedBox(height: 10),
+                    Container(color: Colors.black12, height: 5),
+
+                    /// Giá sản phẩm
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Giá: ',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '${formatPrice(product!.price)} đ',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    onRatingUpdate: (rating) {
-                      productDetailsServices.rateProduct(
-                        context: context,
-                        product: product!,
-                        rating: rating,
-                      );
-                    },
-                  )
-                ],
+
+                    /// Mô tả sản phẩm
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        product?.description ?? "Không có mô tả sản phẩm",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+
+                    Container(color: Colors.black12, height: 5),
+
+                    /// Nút Mua ngay
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: CustomButton(
+                        text: 'Mua ngay',
+                        onTap: () => navigateToAddressBuyNowScreen(product!),
+                      ),
+                    ),
+
+                    /// Nút Thêm vào giỏ hàng
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: CustomButton(
+                        text: 'Thêm vào giỏ hàng',
+                        onTap: addToCart,
+                        color: const Color.fromRGBO(254, 216, 19, 1),
+                      ),
+                    ),
+
+                    Container(color: Colors.black12, height: 5),
+
+                    /// Đánh giá sản phẩm
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        'Đánh giá sản phẩm',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
+                    /// Thanh đánh giá
+                    RatingBar.builder(
+                      initialRating: myRating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: GlobalVariables.secondaryColor,
+                      ),
+                      onRatingUpdate: (rating) {
+                        productDetailsServices.rateProduct(
+                          context: context,
+                          product: product!,
+                          rating: rating,
+                        );
+                      },
+                    ),
+
+                    const SizedBox(height: 15),
+                  ],
+                ),
               ),
             ),
       floatingActionButton: FloatingActionButton(

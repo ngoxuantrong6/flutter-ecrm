@@ -42,6 +42,7 @@ class _ManageBranchScreenState extends State<ManageBranchScreen> {
   List<User>? branches;
   final AdminServices adminServices = AdminServices();
   User? user;
+  bool isLoading = false; // Thêm trạng thái tải
 
   final TextEditingController branchNameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
@@ -55,21 +56,48 @@ class _ManageBranchScreenState extends State<ManageBranchScreen> {
     fetchAllBranches();
   }
 
-  fetchAllBranches() async {
-    branches = await adminServices.fetchAllBranches(context);
-    GlobalVariables.branches = branches ?? [];
-    setState(() {});
+  Future<void> fetchAllBranches() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      branches = await adminServices.fetchAllBranches(context);
+      GlobalVariables.branches = branches ?? [];
+    } catch (e) {
+      debugPrint('Error fetching branches: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi tải chi nhánh: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
-  void deleteBranch(User branch, int index) {
-    adminServices.deleteBranch(
-      context: context,
-      branch: branch,
-      onSuccess: () {
-        branches!.removeAt(index);
-        setState(() {});
-      },
-    );
+  Future<void> deleteBranch(User branch, int index) async {
+    try {
+      await adminServices.deleteBranch(
+        context: context,
+        branch: branch,
+        onSuccess: () {
+          if (mounted) {
+            branches!.removeAt(index);
+            setState(() {});
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Xóa chi nhánh thành công!')),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      debugPrint('Error deleting branch: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi xóa chi nhánh: $e')),
+      );
+    }
   }
 
   void navigateToAddBranch() {
@@ -83,55 +111,52 @@ class _ManageBranchScreenState extends State<ManageBranchScreen> {
         passwordController: passwordController,
       ),
     ).then((value) {
-      if (value != null) {
+      if (value != null && mounted) {
         fetchAllBranches();
       }
     });
   }
 
-  // @override
-  // void dispose() {
-  //   context.read<AddProductProvider>().setCategory('Điện thoại');
-  //   context.read<AddProductProvider>().setImages([]);
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return branches == null
+    return isLoading
         ? const Loader()
-        : Scaffold(
-            body: ListView.builder(
-              itemCount: branches!.length,
-              padding: const EdgeInsets.symmetric(vertical: 22),
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      EditBranchScreen.routeName,
-                      arguments: branches![index],
-                    ).then((value) {
-                      if (value != null) {
-                        fetchAllBranches();
-                      }
-                    });
+        : branches == null
+            ? const Center(child: Text('Không có chi nhánh nào'))
+            : Scaffold(
+                body: ListView.builder(
+                  itemCount: branches!.length,
+                  padding: const EdgeInsets.symmetric(vertical: 22),
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          EditBranchScreen.routeName,
+                          arguments: branches![index],
+                        ).then((value) {
+                          if (value != null && mounted) {
+                            fetchAllBranches();
+                          }
+                        });
+                      },
+                      child: BranchItem(
+                        index: index,
+                        branches: branches!,
+                        onDeleteBranch: () =>
+                            deleteBranch(branches![index], index),
+                      ),
+                    );
                   },
-                  child: BranchItem(
-                    index: index,
-                    branches: branches!,
-                    onDeleteBranch: () => deleteBranch(branches![index], index),
-                  ),
-                );
-              },
-            ),
-            floatingActionButton: FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: navigateToAddBranch,
-                tooltip: 'Thêm chi nhánh',
-                backgroundColor: GlobalVariables.primaryColor),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-          );
+                ),
+                floatingActionButton: FloatingActionButton(
+                  child: const Icon(Icons.add),
+                  onPressed: navigateToAddBranch,
+                  tooltip: 'Thêm chi nhánh',
+                  backgroundColor: GlobalVariables.primaryColor,
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+              );
   }
 }

@@ -22,11 +22,13 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   @override
   void initState() {
     super.initState();
-    fetchOrders();
+    fetchOrders(); //phương thúc được khởi tạo
   }
 
   void fetchOrders() async {
-    orders = await accountServices.fetchMyOrders(context: context);
+    orders = await accountServices.fetchMyOrders(
+        context:
+            context); // gửi yêu cầu tới server để lấy danh sách đơn hàng hiện tại của người dùng
     setState(() {});
   }
 
@@ -61,15 +63,18 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                 return ZoomTapAnimation(
                   onTap: () {
                     Navigator.pushNamed(
+                      //chuyển hướng đến màn hình đơn hàng
                       context,
                       OrderDetailScreen.routeName,
-                      arguments: orderData,
+                      arguments:
+                          orderData, //dữ liệu đơn hàng sẽ được truyền vào màn hình thông qua arguments
                     );
                   },
                   child: SizedBox(
                     height: 140,
                     child: SingleProduct(
-                      image: orderData.products[0].images[0],
+                      image: orderData.products[0].images[
+                          0], // sản phẩm sẽ có hình sảnh sản phẩm đầu tiên từ danh sách của đơn hàng
                     ),
                   ),
                 );

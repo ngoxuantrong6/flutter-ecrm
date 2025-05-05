@@ -30,7 +30,7 @@ class AccountScreen extends StatelessWidget {
                 //   color: Colors.black,
                 // ),
                 child: const Text(
-                  "ECRM PRO",
+                  "SHOP BE",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

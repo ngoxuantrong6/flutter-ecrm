@@ -30,7 +30,8 @@ class EncryptionHelper {
     final encrypter = Encrypter(AES(key));
     final encrypted = encrypter.encrypt(plainText, iv: iv);
     print("PLAIN");
-    print(plainText); //generated private key (considered as plain text to be encrypted)
+    print(
+        plainText); //generated private key (considered as plain text to be encrypted)
     print("ENCRYPTED");
     print(encrypted.base64); //encrypted private key in string format
     return encrypted.base64;
@@ -49,7 +50,8 @@ class EncryptionHelper {
     print("ENCRYPTED");
     print(encrypted_private_key); //encrypted private key in string format
     print("DECRYPTED");
-    print(decrypted); //decrypted private key(which was earlier passed as plain text)
+    print(
+        decrypted); //decrypted private key(which was earlier passed as plain text)
     return decrypted;
   }
 
@@ -69,8 +71,10 @@ class EncryptionHelper {
     encryption.AsymmetricKeyPair keyPair;
     keyPair = await getKeyPair();
     print("11111111111111111111111111 ${keyPair.publicKey}");
-    print("22222222222222222222222222 ${encrypt("Tarush", keyPair.publicKey as pointy.RSAPublicKey)}");
-    print("33333333333333333333333333 ${decrypt(encrypt("Tarush", keyPair.publicKey as pointy.RSAPublicKey), keyPair.privateKey as pointy.RSAPrivateKey)}");
+    print(
+        "22222222222222222222222222 ${encrypt("Tarush", keyPair.publicKey as pointy.RSAPublicKey)}");
+    print(
+        "33333333333333333333333333 ${decrypt(encrypt("Tarush", keyPair.publicKey as pointy.RSAPublicKey), keyPair.privateKey as pointy.RSAPrivateKey)}");
     return keyPair;
   }
 

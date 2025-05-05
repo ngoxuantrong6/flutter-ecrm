@@ -17,8 +17,73 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 
 class AdminServices {
+  // Hàm thực hiện yêu cầu HTTP với timeout
+  Future<http.Response> _makeRequestWithTimeout(
+    Uri uri,
+    Map<String, String> headers, {
+    String? body,
+    String method = 'POST', // Thêm tham số method, mặc định là POST
+  }) async {
+    final client = http.Client();
+    try {
+      if (method == 'POST') {
+        return await client
+            .post(uri, headers: headers, body: body)
+            .timeout(const Duration(seconds: 10), onTimeout: () {
+          throw Exception(
+              'Request timeout. Please check your internet connection.');
+        });
+      } else if (method == 'PATCH') {
+        return await client
+            .patch(uri, headers: headers, body: body)
+            .timeout(const Duration(seconds: 10), onTimeout: () {
+          throw Exception(
+              'Request timeout. Please check your internet connection.');
+        });
+      } else if (method == 'DELETE') {
+        return await client
+            .delete(uri, headers: headers, body: body)
+            .timeout(const Duration(seconds: 10), onTimeout: () {
+          throw Exception(
+              'Request timeout. Please check your internet connection.');
+        });
+      } else {
+        return await client
+            .get(uri, headers: headers)
+            .timeout(const Duration(seconds: 10), onTimeout: () {
+          throw Exception(
+              'Request timeout. Please check your internet connection.');
+        });
+      }
+    } finally {
+      client.close();
+    }
+  }
+
+  // Hàm xử lý danh sách sản phẩm trên isolate để tối ưu hiệu suất
+  static List<Product> _parseProducts(List<dynamic> productData) {
+    return productData
+        .map((product) => Product.fromJson(jsonEncode(product)))
+        .toList();
+  }
+
+  // Hàm xử lý danh sách đơn hàng trên isolate
+  static List<Order> _parseOrders(List<dynamic> orderData) {
+    return orderData.map((order) => Order.fromJson(jsonEncode(order))).toList();
+  }
+
+  // Hàm xử lý danh sách chi nhánh trên isolate
+  static List<User> _parseBranches(List<dynamic> branchData) {
+    return branchData
+        .map((branch) => User.fromJson(jsonEncode(branch)))
+        .toList();
+  }
+
+  // Thêm sản phẩm
   Future<void> sellProduct({
     required BuildContext context,
     required String name,
@@ -37,74 +102,58 @@ class AdminServices {
       LoadingShowAble.showLoading();
       final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
       List<String> imageUrls = [];
-      String base64Image = "";
-      List<String> base64Images = [];
 
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
-        imageUrls.add(res.secureUrl);
-        base64Image = await encodeImageFromUrl(res.secureUrl);
-        base64Images.add(base64Image);
+        imageUrls.add(res.secureUrl); // Chỉ lưu URL thay vì Base64
       }
 
       Product product = Product(
         name: name,
         description: description,
         quantity: quantity,
-        // images: imageUrls,
-        images: base64Images,
+        images: imageUrls, // Sử dụng URL trực tiếp
         category: category,
         price: price,
         branchId: branchId,
       );
 
-      http.Response res = await http.post(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/add-product'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: product.toJson(),
+        method: 'POST',
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Đã thêm sản phẩm thành công!');
-          addProductProvider.setCategory('Điện thoại');
-          addProductProvider.setImages([]);
-          Navigator.of(context).pop(true);
+          if (context.mounted) {
+            showSnackBar(context, 'Đã thêm sản phẩm thành công!');
+            addProductProvider.setCategory('Điện thoại');
+            addProductProvider.setImages([]);
+            Navigator.of(context).pop(true);
+          }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  Future<String> encodeImageFromUrl(String imageUrl) async {
-    try {
-      // Tải ảnh từ URL
-      final response = await http.get(Uri.parse(imageUrl));
-      if (response.statusCode == 200) {
-        // Lấy dữ liệu byte từ ảnh
-        Uint8List imageBytes = response.bodyBytes;
-
-        // Mã hóa Base64
-        String base64Image = base64Encode(imageBytes);
-        return base64Image;
-      } else {
-        throw Exception("Failed to load image");
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
       }
-    } catch (e) {
-      print("Error encoding image: $e");
-      return "";
+      rethrow;
+    } finally {
+      LoadingShowAble.hideLoading();
     }
   }
 
-  void editProduct({
+  // Sửa sản phẩm
+  Future<void> editProduct({
     required BuildContext context,
     required String productId,
     required String name,
@@ -120,9 +169,14 @@ class AdminServices {
     try {
       LoadingShowAble.showLoading();
 
-      Product product = Product(
+      // Đảm bảo description không rỗng
+      final validDescription =
+          description.isEmpty ? "Không có mô tả" : description;
+
+      // Tạo đối tượng Product
+      final product = Product(
         name: name,
-        description: description,
+        description: validDescription,
         quantity: quantity,
         images: images,
         category: category,
@@ -130,131 +184,129 @@ class AdminServices {
         branchId: branchId,
       );
 
-      http.Response res = await http.patch(
+      // Gửi yêu cầu PATCH
+      final res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/edit-product/$productId'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: product.toJson(),
+        method: 'PATCH', // Sử dụng PATCH
       );
 
+      // Xử lý phản hồi từ server
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Đã sửa sản phẩm thành công!');
-          Navigator.of(context).pop(true);
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  // get all the products
-  Future<List<Product>> fetchAllProducts(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Product> productList = [];
-    try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-products'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
-              Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
+          if (context.mounted) {
+            showSnackBar(context, 'Đã sửa sản phẩm thành công!');
+            Navigator.of(context).pop(true);
           }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, 'Lỗi khi sửa sản phẩm: ${e.toString()}');
+      }
+      rethrow;
+    } finally {
+      LoadingShowAble.hideLoading();
+    }
+  }
+
+  // Lấy tất cả sản phẩm (với caching)
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Product> productList = [];
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedProducts = prefs.getString('cached_products');
+
+    try {
+      if (cachedProducts != null) {
+        productList = _parseProducts(jsonDecode(cachedProducts));
+      } else {
+        http.Response res = await _makeRequestWithTimeout(
+          Uri.parse('$uri/admin/get-products'),
+          {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          method: 'GET',
+        );
+
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            final List<dynamic> productData = jsonDecode(res.body);
+            productList = _parseProducts(productData);
+            prefs.setString('cached_products', jsonEncode(productData));
+            if (context.mounted && productList.isNotEmpty) {
+              showSnackBar(context, 'Tải danh sách sản phẩm thành công!');
+            }
+          },
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return productList;
   }
 
+  // Lấy sản phẩm theo chi nhánh
   Future<List<Product>> fetchBranchProducts({
     required BuildContext context,
     required String branchId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedProducts = prefs.getString('cached_products_$branchId');
+
     try {
-      http.Response res = await http.get(
+      if (cachedProducts != null) {
+        productList = _parseProducts(jsonDecode(cachedProducts));
+      } else {
+        http.Response res = await _makeRequestWithTimeout(
           Uri.parse('$uri/admin/get-products?branchId=$branchId'),
-          headers: {
+          {
             'Content-Type': 'application/json; charset=UTF-8',
             'x-auth-token': userProvider.user.token,
-          });
+          },
+          method: 'GET',
+        );
 
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
-              Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
-          }
-        },
-      );
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            final List<dynamic> productData = jsonDecode(res.body);
+            productList = _parseProducts(productData);
+            prefs.setString(
+                'cached_products_$branchId', jsonEncode(productData));
+            if (context.mounted && productList.isNotEmpty) {
+              showSnackBar(
+                  context, 'Tải danh sách sản phẩm chi nhánh thành công!');
+            }
+          },
+        );
+      }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return productList;
   }
 
-  Future<Product> getProductDetailForAdmin({
-    required BuildContext context,
-    required String productId,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    Product product = Product(
-      name: '',
-      description: '',
-      quantity: 0,
-      images: [],
-      category: '',
-      price: 0,
-    );
-    try {
-      http.Response res = await http.get(
-        Uri.parse('$uri/admin/get-product/$productId'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-      );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          product = Product.fromJson(jsonEncode(jsonDecode(res.body)));
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-    return product;
-  }
-
-  void deleteProduct({
+  // Xóa sản phẩm
+  Future<void> deleteProduct({
     required BuildContext context,
     required Product product,
     required VoidCallback onSuccess,
@@ -262,62 +314,117 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      http.Response res = await http.post(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/delete-product'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: jsonEncode({
-          'id': product.id,
-        }),
+        body: jsonEncode({'id': product.id}),
+        method: 'DELETE', // Sử dụng DELETE
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          onSuccess();
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  Future<List<Order>> fetchAllOrders(
-      BuildContext context, String branchId) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Order> orderList = [];
-    try {
-      http.Response res = await http
-          .get(Uri.parse('$uri/admin/get-orders?branchId=$branchId'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            orderList.add(
-              Order.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
+          if (context.mounted) {
+            onSuccess();
+            showSnackBar(context, 'Xóa sản phẩm thành công!');
           }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
+    }
+  }
+
+  // Lấy tất cả đơn hàng
+  Future<List<Order>> fetchAllOrders(
+      BuildContext context, String branchId) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Order> orderList = [];
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedOrders = prefs.getString('cached_orders_$branchId');
+    DateTime? cacheTime =
+        prefs.getString('cached_orders_time_$branchId') != null
+            ? DateTime.parse(prefs.getString('cached_orders_time_$branchId')!)
+            : null;
+
+    // Kiểm tra cache
+    if (cachedOrders != null &&
+        cacheTime != null &&
+        DateTime.now().difference(cacheTime).inHours < 1) {
+      final cachedData = jsonDecode(cachedOrders);
+      if (cachedData is List) {
+        orderList = _parseOrders(cachedData);
+      } else {
+        throw Exception('Dữ liệu cache không phải là danh sách: $cachedData');
+      }
+    } else {
+      try {
+        http.Response res = await _makeRequestWithTimeout(
+          Uri.parse('$uri/admin/get-orders?branchId=$branchId'),
+          {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          method: 'GET',
+        );
+
+        debugPrint('fetchAllOrders Response status: ${res.statusCode}');
+        debugPrint('fetchAllOrders Response body: ${res.body}');
+
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            if (res.body.isNotEmpty) {
+              final dynamic responseData = jsonDecode(res.body);
+              List<dynamic> orderData;
+
+              // Kiểm tra định dạng phản hồi
+              if (responseData is List) {
+                orderData = responseData;
+              } else if (responseData is Map<String, dynamic> &&
+                  responseData.containsKey('orders')) {
+                orderData = responseData['orders'];
+                if (orderData is! List) {
+                  throw Exception(
+                      'Dữ liệu orders trong phản hồi không phải là danh sách: $orderData');
+                }
+              } else {
+                throw Exception(
+                    'Dữ liệu trả về không đúng định dạng: $responseData');
+              }
+
+              orderList = _parseOrders(orderData);
+              prefs.setString('cached_orders_$branchId', jsonEncode(orderData));
+              prefs.setString('cached_orders_time_$branchId',
+                  DateTime.now().toIso8601String());
+              if (context.mounted && orderList.isNotEmpty) {
+                showSnackBar(context, 'Tải danh sách đơn hàng thành công!');
+              }
+            } else {
+              throw Exception('Phản hồi từ server trống');
+            }
+          },
+        );
+      } catch (e) {
+        if (context.mounted) {
+          showSnackBar(context, 'Lỗi khi tải đơn hàng: ${e.toString()}');
+        }
+        rethrow;
+      }
     }
     return orderList;
   }
 
-  Future<Order> getOderDetail(BuildContext context, String orderId) async {
+  // Lấy chi tiết đơn hàng
+  Future<Order> getOrderDetail(BuildContext context, String orderId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Order order = Order(
       id: "",
@@ -329,18 +436,17 @@ class AdminServices {
       status: 0,
       totalPrice: 0,
     );
+
     try {
-      http.Response res = await http.post(
-          Uri.parse(
-            '$uri/admin/get-order-detail',
-          ),
-          body: jsonEncode({
-            'id': orderId,
-          }),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          });
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/get-order-detail'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({'id': orderId}),
+        method: 'POST', // Sử dụng POST
+      );
 
       httpErrorHandle(
         response: res,
@@ -350,12 +456,16 @@ class AdminServices {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return order;
   }
 
-  void changeOrderStatus({
+  // Cập nhật trạng thái đơn hàng
+  Future<void> changeOrderStatus({
     required BuildContext context,
     required int status,
     required Order order,
@@ -365,57 +475,92 @@ class AdminServices {
 
     try {
       LoadingShowAble.showLoading();
-      http.Response res = await http.post(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/change-order-status'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: jsonEncode({
-          'id': order.id,
-          'status': status,
-        }),
+        body: jsonEncode({'id': order.id, 'status': status}),
+        method: 'PATCH', // Sử dụng PATCH
       );
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: onSuccess,
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  Future<Map<String, dynamic>> getEarnings(
-      BuildContext context, String branchId) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Sales> sales = [];
-    int totalEarning = 0;
-    try {
-      http.Response res = await http
-          .get(Uri.parse('$uri/admin/analytics?branchId=$branchId'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          var response = jsonDecode(res.body);
-          totalEarning = response['totalEarnings'];
-          sales = [
-            Sales('Điện thoại', response['mobileEarnings']),
-            Sales('Đ.thiết yếu', response['essentialEarnings']),
-            Sales('Đ.gia dụng', response['applianceEarnings']),
-            Sales('Sách', response['booksEarnings']),
-            Sales('Thời trang', response['fashionEarnings']),
-          ];
+          if (context.mounted) {
+            onSuccess();
+            showSnackBar(context, 'Cập nhật trạng thái đơn hàng thành công!');
+          }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
+    } finally {
+      LoadingShowAble.hideLoading();
+    }
+  }
+
+  // Lấy doanh thu
+  Future<Map<String, dynamic>> getEarnings(
+      BuildContext context, String branchId) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Sales> sales = [];
+    int totalEarning = 0;
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedEarnings = prefs.getString('cached_earnings_$branchId');
+
+    try {
+      if (cachedEarnings != null) {
+        final data = jsonDecode(cachedEarnings);
+        totalEarning = data['totalEarnings'];
+        sales = (data['sales'] as List)
+            .map((item) => Sales(item['label'], item['earning']))
+            .toList();
+      } else {
+        http.Response res = await _makeRequestWithTimeout(
+          Uri.parse('$uri/admin/analytics?branchId=$branchId'),
+          {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          method: 'GET',
+        );
+
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            var response = jsonDecode(res.body);
+            totalEarning = response['totalEarnings'];
+            sales = [
+              Sales('Điện thoại', response['mobileEarnings']),
+              Sales('Đ.thiết yếu', response['essentialEarnings']),
+              Sales('Đ.gia dụng', response['applianceEarnings']),
+              Sales('Sách', response['booksEarnings']),
+              Sales('Thời trang', response['fashionEarnings']),
+            ];
+            prefs.setString(
+              'cached_earnings_$branchId',
+              jsonEncode({
+                'totalEarnings': totalEarning,
+                'sales': sales
+                    .map((s) => {'label': s.label, 'earning': s.earning})
+                    .toList()
+              }),
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return {
       'sales': sales,
@@ -423,9 +568,8 @@ class AdminServices {
     };
   }
 
-  // MANAGE BRANCH
-
-  void addBranch({
+  // Thêm chi nhánh
+  Future<void> addBranch({
     required BuildContext context,
     required String branchName,
     required String address,
@@ -436,7 +580,6 @@ class AdminServices {
 
     try {
       LoadingShowAble.showLoading();
-
       Branch branch = Branch(
         branchName: branchName,
         address: address,
@@ -444,29 +587,38 @@ class AdminServices {
         password: password,
       );
 
-      http.Response res = await http.post(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/add-branch'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: branch.toJson(),
+        method: 'POST',
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Đã thêm chi nhánh thành công!');
-          Navigator.of(context).pop(true);
+          if (context.mounted) {
+            showSnackBar(context, 'Đã thêm chi nhánh thành công!');
+            Navigator.of(context).pop(true);
+          }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
+    } finally {
+      LoadingShowAble.hideLoading();
     }
   }
 
-  void editBranch({
+  // Sửa chi nhánh
+  Future<void> editBranch({
     required BuildContext context,
     required String branchName,
     required String address,
@@ -477,74 +629,92 @@ class AdminServices {
 
     try {
       LoadingShowAble.showLoading();
-
       User user = User(
-        id: userProvider.user.id,
+        id: branchId,
         name: branchName,
         email: email,
         password: userProvider.user.password,
         address: address,
         type: "branch",
         token: userProvider.user.token,
-        cart: userProvider.user.cart,
-        publicKey: userProvider.user.publicKey,
-        privateKey: userProvider.user.privateKey,
+        cart: [],
+        publicKey: "",
+        privateKey: "",
       );
 
-      http.Response res = await http.patch(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/edit-branch/$branchId'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: user.toJson(),
+        method: 'PATCH', // Sử dụng PATCH
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          showSnackBar(context, 'Đã sửa chi nhánh thành công!');
-          Navigator.of(context).pop(true);
-        },
-      );
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  // get all the branches
-  Future<List<User>> fetchAllBranches(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<User> branchList = [];
-    try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-branches'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
-
-      httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () {
-          for (int i = 0; i < jsonDecode(res.body).length; i++) {
-            branchList.add(
-              User.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
-              ),
-            );
+          if (context.mounted) {
+            showSnackBar(context, 'Đã sửa chi nhánh thành công!');
+            Navigator.of(context).pop(true);
           }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
+    } finally {
+      LoadingShowAble.hideLoading();
+    }
+  }
+
+  // Lấy tất cả chi nhánh
+  Future<List<User>> fetchAllBranches(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<User> branchList = [];
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedBranches = prefs.getString('cached_branches');
+
+    try {
+      if (cachedBranches != null) {
+        branchList = _parseBranches(jsonDecode(cachedBranches));
+      } else {
+        http.Response res = await _makeRequestWithTimeout(
+          Uri.parse('$uri/admin/get-branches'),
+          {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          method: 'GET',
+        );
+
+        httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            final List<dynamic> branchData = jsonDecode(res.body);
+            branchList = _parseBranches(branchData);
+            prefs.setString('cached_branches', jsonEncode(branchData));
+            if (context.mounted && branchList.isNotEmpty) {
+              showSnackBar(context, 'Tải danh sách chi nhánh thành công!');
+            }
+          },
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return branchList;
   }
 
+  // Lấy chi tiết chi nhánh
   Future<User> getBranchDetailForAdmin({
     required BuildContext context,
     required String branchId,
@@ -562,13 +732,15 @@ class AdminServices {
       publicKey: "",
       privateKey: "",
     );
+
     try {
-      http.Response res = await http.get(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/get-branch/$branchId'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
+        method: 'GET',
       );
 
       httpErrorHandle(
@@ -579,12 +751,16 @@ class AdminServices {
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
     return branch;
   }
 
-  void deleteBranch({
+  // Xóa chi nhánh
+  Future<void> deleteBranch({
     required BuildContext context,
     required User branch,
     required VoidCallback onSuccess,
@@ -592,26 +768,31 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      http.Response res = await http.post(
+      http.Response res = await _makeRequestWithTimeout(
         Uri.parse('$uri/admin/delete-branch'),
-        headers: {
+        {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: jsonEncode({
-          'id': branch.id,
-        }),
+        body: jsonEncode({'id': branch.id}),
+        method: 'DELETE', // Sử dụng DELETE
       );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          onSuccess();
+          if (context.mounted) {
+            onSuccess();
+            showSnackBar(context, 'Xóa chi nhánh thành công!');
+          }
         },
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (context.mounted) {
+        showSnackBar(context, e.toString());
+      }
+      rethrow;
     }
   }
 }

@@ -12,29 +12,47 @@ class BelowAppBar extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        gradient: GlobalVariables.appBarGradient,
+        gradient:
+            GlobalVariables.appBarGradient, // Nền gradient đồng bộ với AppBar
       ),
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+      padding: const EdgeInsets.symmetric(
+          horizontal: 15, vertical: 10), // Cân đối khoảng cách
       child: Row(
         children: [
-          RichText(
-            text: TextSpan(
-              text: 'Xin chào, ',
-              style: const TextStyle(
-                fontSize: 22,
-                color: Colors.black,
-              ),
-              children: [
-                TextSpan(
-                  text: user.name,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.white,
+            child: Icon(Icons.person,
+                color: Colors.grey.shade700), // Biểu tượng đại diện người dùng
+          ),
+          const SizedBox(width: 10), // Khoảng cách giữa avatar và văn bản
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                text: 'Xin chào, ',
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black87,
                 ),
-              ],
+                children: [
+                  TextSpan(
+                    text: user.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.black54),
+            onPressed: () {
+              // Chuyển hướng đến trang thông tin cá nhân
+              Navigator.pushNamed(context, '/update-profile');
+            },
           ),
         ],
       ),

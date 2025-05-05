@@ -23,13 +23,17 @@ class CategoryDealsScreen extends StatefulWidget {
 }
 
 class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
-  List<Product>? productList;
-  final HomeServices homeServices = HomeServices();
+  List<Product>? productList; // chứa danh sách các sản phẩm
+  final HomeServices homeServices =
+      HomeServices(); // dùng để gọi cac phương thức ở homservices
 
   @override
   void initState() {
+    // khởi tạo
     super.initState();
-    fetchCategoryProducts(branchId: "");
+    fetchCategoryProducts(
+        branchId:
+            ""); //để lấy danh sách sản phẩm ngay khi màn hình được khởi tạo.
     // Trì hoãn việc gọi setListBranch() cho đến khi build hoàn tất
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
@@ -39,6 +43,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
   fetchCategoryProducts({required String branchId}) async {
     productList = null;
     productList = await homeServices.fetchCategoryProducts(
+      // lấy danh sách sản phẩm từ API với các tham số
       context: context,
       category: widget.category,
       branchId: branchId,

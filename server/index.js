@@ -9,7 +9,7 @@ const userRouter = require("./routes/user");
 const branchRouter = require("./routes/branch");
 const messageRouter = require("./routes/message");
 
-const {server, app} = require("./SocketIO/server");
+const { server, app } = require("./SocketIO/server");
 
 
 // INIT
@@ -31,7 +31,7 @@ app.use(messageRouter);
 mongoose
   .connect(DB)
   .then(() => {
-    console.log("Connection Successful");
+    console.log("onnection SuccessCful");
   })
   .catch((e) => {
     console.log(e);

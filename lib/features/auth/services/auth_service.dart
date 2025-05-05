@@ -22,28 +22,32 @@ import 'package:pointycastle/export.dart' as pointy;
 class AuthService {
   // sign up user
   void signUpUser({
+    // đăng ký tài khoản
     required BuildContext context,
     required String email,
     required String password,
     required String name,
   }) async {
     try {
-      LoadingShowAble.showLoading();
-      List<String> divided_hashed_password =
-          EncryptionHelper.hashPassword(password);
-      encryption.AsymmetricKeyPair keyPair =
-          await EncryptionHelper.generateKeyPair();
+      LoadingShowAble
+          .showLoading(); // hiển thị một màn hình cho người dùng để thông báo
+      List<String> divided_hashed_password = EncryptionHelper.hashPassword(
+          password); // mật khẩu người dùng nhập vào được mã hóa phương thức hashPassword từ EncryptionHelper
+      encryption.AsymmetricKeyPair keyPair = await EncryptionHelper
+          .generateKeyPair(); // tạo cặp khóa bất đối xứng dùng thuật toán RSA
       pointy.PrivateKey pk = EncryptionHelper.convertStringToPrivateKey(
-          EncryptionHelper.convertPrivateKeyToString(
-              keyPair.privateKey as pointy.RSAPrivateKey));
+          EncryptionHelper.convertPrivateKeyToString(keyPair.privateKey as pointy
+              .RSAPrivateKey)); // chuyển đổi private key . chuyển đổi khóa riêng private key từ dạng đối tượng RSAprivarky sang dạng chuỗi sau đó chuyển lại thành một đối tượng private key có thể sử dụng
+
       //encrypted_private_key below is stored in database
       String encrypted_private_key = EncryptionHelper.encryptPrivateKey(
           divided_hashed_password[1],
-          EncryptionHelper.convertPrivateKeyToString(
-              keyPair.privateKey as pointy.RSAPrivateKey));
+          EncryptionHelper.convertPrivateKeyToString(keyPair.privateKey as pointy
+              .RSAPrivateKey)); // mã hóa private key được mã hóa với key thứ 2 lấy từ divided_hashed_password
       //decrypted_private_key below is to be stored in local storage. This key is decrpted upon logging in
       String decrypted_private_key = EncryptionHelper.decryptPrivateKey(
-          divided_hashed_password[1], encrypted_private_key);
+          divided_hashed_password[1],
+          encrypted_private_key); //Giải mã private key: Để sử dụng private key trong các bước tiếp theo (ví dụ: khi đăng nhập), khóa riêng phải được giải mã bằng "key" thứ hai.
       User user = User(
         id: '',
         name: name,
@@ -90,27 +94,36 @@ class AuthService {
     bool isFingerPrint = false,
     required List<String> hashedPasswordArg,
   }) async {
-    String deviceId = "";
+    String deviceId =
+        ""; // khởi tạo 1 biến deviceID rỗng để lưu ID của thiết bị
     try {
-      LoadingShowAble.showLoading();
+      LoadingShowAble
+          .showLoading(); // tạo loading để load , để thông báo cho người dùng rằng ứng dụng đang được thực hiện một tác vụ
       await getDeviceId().then((value) {
+        // gọi hàm getDeviedId để lấy ID của thiết bị , có thể tự động nhận diện khi người dùng thực hiện đăng nhập
         GlobalVariables.DEVICE_ID = value ?? "";
         print("DEVICE_ID: " + GlobalVariables.DEVICE_ID);
       });
-      List<String>? hashedPassword = [];
+      List<String>? hashedPassword = []; // xử lý đăng nhập bằng vân vay
       if (isFingerPrint) {
-        await EncryptedSharedPreferences.initialize(key);
+        // nếu dùng xác thực vân tay
+        await EncryptedSharedPreferences.initialize(
+            key); // khởi tạo để làm việc với dữ liệu đã mã hóa trong bộ nhớ
         EncryptedSharedPreferences prefs =
             EncryptedSharedPreferences.getInstance();
-        hashedPassword = prefs.getStringList('hashedPassword');
+        hashedPassword = prefs.getStringList(
+            'hashedPassword'); // lấy danh sách mật khẩu đã mã hóa từ sharePreferences
       }
       http.Response res = await http.post(
-        Uri.parse('$uri/api/signin'),
+        // gửi yêu cầu đăng nhập đến backend
+        Uri.parse('$uri/api/signin'), // gửi POST đến api đăng nhập
         body: jsonEncode({
           'email': email,
-          'password': isFingerPrint ? "" : hashedPassword0,
-          'deviceId':
-              sha256Convert("${GlobalVariables.DEVICE_ID}bo").toString(),
+          'password': isFingerPrint
+              ? ""
+              : hashedPassword0, // nếu đăng nhập bằng vân tay thì pass == nuill. còn không mật khẩu đã mã hóa hashedPasssword0 sẽ được gửi
+          'deviceId': sha256Convert("${GlobalVariables.DEVICE_ID}bo")
+              .toString(), // mã hóa deviceId bằng thuật toán SHA-256 để bảo mật và làm cho nó trở thành một giá trị duy nhât cho một thiết bị
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/cart/services/cart_services.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_ecrm/features/product_details/services/product_details_s
 import 'package:flutter_ecrm/models/product.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartProduct extends StatefulWidget {
@@ -46,88 +46,82 @@ class _CartProductState extends State<CartProduct> {
     final product = Product.fromMap(productCart['product']);
     final quantity = productCart['quantity'];
 
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 10,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            spreadRadius: 1,
+            blurRadius: 5,
           ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                ProductDetailScreen.routeName,
-                arguments: product.id,
-              );
-            },
-            child: Row(
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 🖼 Hình ảnh sản phẩm (Giới hạn kích thước để tránh lỗi tràn)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: isUrl(product.images[0])
+                ? CachedNetworkImage(
+                    imageUrl: product.images[0],
+                    fit: BoxFit.cover,
+                    width: 90, // ✅ Giới hạn chiều rộng
+                    height: 90, // ✅ Giới hạn chiều cao
+                  )
+                : imageFromBase64String(
+                    product.images[0],
+                    fit: BoxFit.cover,
+                    width: 90,
+                    height: 90,
+                  ),
+          ),
+
+          const SizedBox(width: 10), // Khoảng cách giữa ảnh & nội dung
+
+          // 📝 Phần thông tin sản phẩm
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                isUrl(product.images[0])
-                    ? CachedNetworkImage(
-                        imageUrl: product.images[0],
-                        fit: BoxFit.contain,
-                        height: 135,
-                        width: 135,
-                      )
-                    : imageFromBase64String(
-                        product.images[0],
-                        fit: BoxFit.contain,
-                        height: 135,
-                        width: 135,
-                      ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 225,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        product.name,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Container(
-                      width: 225,
-                      padding: const EdgeInsets.only(left: 10, top: 5),
-                      child: Text(
-                        '${formatPrice(product.price)} đ',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                      ),
-                    ),
-                    Container(
-                      width: 225,
-                      padding: const EdgeInsets.only(left: 10),
-                      child: const Text('Đủ điều kiện FREE Ship'),
-                    ),
-                    Container(
-                      width: 225,
-                      padding: const EdgeInsets.only(left: 10, top: 5),
-                      child: const Text(
-                        'Còn trong kho',
-                        style: TextStyle(
-                          color: GlobalVariables.primaryColor,
-                        ),
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
+                // Tên sản phẩm (Chống lỗi tràn bằng `maxLines`)
+                Text(
+                  product.name,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2, // ✅ Giới hạn 2 dòng để tránh tràn
+                ),
+                const SizedBox(height: 5),
+
+                // Giá sản phẩm
+                Text(
+                  '${formatPrice(product.price)} đ',
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                ),
+
+                // Thông tin Free Ship & Kho hàng
+                const Text("Đủ điều kiện FREE Ship",
+                    style: TextStyle(fontSize: 13, color: Colors.green)),
+                const SizedBox(height: 5),
+                const Text(
+                  "Còn trong kho",
+                  style: TextStyle(
+                      fontSize: 13, color: GlobalVariables.primaryColor),
                 ),
               ],
             ),
           ),
-        ),
-        Container(
-          margin: const EdgeInsets.all(10).copyWith(left: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+          // 📦 Bộ đếm số lượng sản phẩm
+          Column(
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -136,7 +130,7 @@ class _CartProductState extends State<CartProduct> {
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                  color: Colors.black12,
+                  color: Colors.white,
                 ),
                 child: Row(
                   children: [
@@ -146,25 +140,27 @@ class _CartProductState extends State<CartProduct> {
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            right:
+                                BorderSide(color: Colors.black12, width: 1.5),
+                          ),
+                        ),
                         child: const Icon(
                           Icons.remove,
                           size: 18,
+                          color: Colors.black54,
                         ),
                       ),
                     ),
-                    DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black12, width: 1.5),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                      child: Container(
-                        width: 35,
-                        height: 32,
-                        alignment: Alignment.center,
-                        child: Text(
-                          quantity.toString(),
-                        ),
+                    Container(
+                      width: 35,
+                      height: 32,
+                      alignment: Alignment.center,
+                      color: Colors.white,
+                      child: Text(
+                        quantity.toString(),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
                     InkWell(
@@ -173,9 +169,15 @@ class _CartProductState extends State<CartProduct> {
                         width: 35,
                         height: 32,
                         alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            left: BorderSide(color: Colors.black12, width: 1.5),
+                          ),
+                        ),
                         child: const Icon(
                           Icons.add,
                           size: 18,
+                          color: Colors.black54,
                         ),
                       ),
                     ),
@@ -184,8 +186,8 @@ class _CartProductState extends State<CartProduct> {
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

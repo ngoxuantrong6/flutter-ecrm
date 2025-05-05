@@ -10,13 +10,12 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
     const { id } = req.body;
     const product = await Product.findById(id);
-    // Kiểm tra nếu product không tồn tại hoặc không có branchId
     if (!product || !product.branchId) {
       return res.status(400).json({ error: "Product not found or missing branch information" });
     }
     let user = await User.findById(req.user);
 
-    if (user.cart.length == 0) {
+    if (user.cart.length === 0) {
       user.cart.push({ product, quantity: 1 });
     } else {
       let isProductFound = false;
@@ -27,9 +26,7 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
       }
 
       if (isProductFound) {
-        let producttt = user.cart.find((productt) =>
-          productt.product._id.equals(product._id)
-        );
+        let producttt = user.cart.find((productt) => productt.product._id.equals(product._id));
         producttt.quantity += 1;
       } else {
         user.cart.push({ product, quantity: 1 });
@@ -50,7 +47,7 @@ userRouter.delete("/api/remove-from-cart/:id", auth, async (req, res) => {
 
     for (let i = 0; i < user.cart.length; i++) {
       if (user.cart[i].product._id.equals(product._id)) {
-        if (user.cart[i].quantity == 1) {
+        if (user.cart[i].quantity === 1) {
           user.cart.splice(i, 1);
         } else {
           user.cart[i].quantity -= 1;
@@ -64,7 +61,6 @@ userRouter.delete("/api/remove-from-cart/:id", auth, async (req, res) => {
   }
 });
 
-// save user address
 userRouter.post("/api/save-user-address", auth, async (req, res) => {
   try {
     const { address } = req.body;
@@ -77,7 +73,6 @@ userRouter.post("/api/save-user-address", auth, async (req, res) => {
   }
 });
 
-// order product
 userRouter.post("/api/order", auth, async (req, res) => {
   try {
     const { cart, totalPrice, address } = req.body;
@@ -90,9 +85,7 @@ userRouter.post("/api/order", auth, async (req, res) => {
         products.push({ product, quantity: cart[i].quantity });
         await product.save();
       } else {
-        return res
-          .status(400)
-          .json({ msg: `${product.name} đã hết hàng!` });
+        return res.status(400).json({ msg: `${product.name} đã hết hàng!` });
       }
     }
 
@@ -117,9 +110,19 @@ userRouter.post("/api/order", auth, async (req, res) => {
 
 userRouter.post("/api/buy-now", auth, async (req, res) => {
   try {
-    const { id, address } = req.body;
+    const { id, address, paymentMethod = 'online', branchId } = req.body;
+
     let products = [];
     let product = await Product.findById(id);
+    if (!product) {
+      return res.status(400).json({ msg: "Product not found" });
+    }
+
+    const finalBranchId = branchId || product.branchId;
+    if (!finalBranchId) {
+      return res.status(400).json({ msg: "Product is missing branchId" });
+    }
+
     let price = product.price;
 
     if (product.quantity >= 1) {
@@ -127,9 +130,7 @@ userRouter.post("/api/buy-now", auth, async (req, res) => {
       products.push({ product, quantity: 1 });
       await product.save();
     } else {
-      return res
-        .status(400)
-        .json({ msg: `${product.name} đã hết hàng!` });
+      return res.status(400).json({ msg: `${product.name} đã hết hàng!` });
     }
 
     let order = new Order({
@@ -138,6 +139,8 @@ userRouter.post("/api/buy-now", auth, async (req, res) => {
       address,
       userId: req.user,
       orderedAt: new Date().getTime(),
+      paymentMethod: paymentMethod,
+      branchId: finalBranchId,
     });
     order = await order.save();
     res.json(order);
@@ -157,11 +160,7 @@ userRouter.get("/api/orders/me", auth, async (req, res) => {
 
 userRouter.patch("/api/update-profile", auth, async (req, res) => {
   try {
-    let user = await User.findByIdAndUpdate(
-      req.user,
-      req.body,
-      { new: true },
-    );
+    let user = await User.findByIdAndUpdate(req.user, req.body, { new: true });
     res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });

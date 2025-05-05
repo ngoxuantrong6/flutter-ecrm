@@ -47,82 +47,100 @@ class _DealOfDayState extends State<DealOfDay> {
                 onTap: navigateToDetailScreen,
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(left: 10, top: 15),
-                      child: const Text(
-                        'Deal HOT nhất trong ngày',
-                        style: TextStyle(fontSize: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 15),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          '⚡ Siêu khuyến mãi hôm nay - Mua ngay kẻo lỡ! ⚡',
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.redAccent),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    isUrl(product!.images[0])
-                        ? CachedNetworkImage(
-                            imageUrl: product!.images[0],
-                            height: 235,
-                            fit: BoxFit.fitHeight,
-                          )
-                        : imageFromBase64String(
-                            product!.images[0],
-                            height: 235,
-                            fit: BoxFit.fitHeight,
-                          ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: isUrl(product!.images[0])
+                          ? CachedNetworkImage(
+                              imageUrl: product!.images[0],
+                              height: 250,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : imageFromBase64String(
+                              product!.images[0],
+                              height: 250,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
                     const SizedBox(height: 10),
                     Container(
-                      padding: const EdgeInsets.only(left: 15),
-                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         '${formatPrice(product!.price)} đ',
-                        style: const TextStyle(fontSize: 18),
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.redAccent),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Container(
-                    //   alignment: Alignment.topLeft,
-                    //   padding:
-                    //       const EdgeInsets.only(left: 15, top: 5, right: 40),
-                    //   child: const Text(
-                    //     'Rivaan',
-                    //     maxLines: 2,
-                    //     overflow: TextOverflow.ellipsis,
-                    //   ),
-                    // ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: product!.images
-                            .map(
-                              (e) => isUrl(e)
-                                  ? CachedNetworkImage(
-                                      imageUrl: e,
-                                      fit: BoxFit.fitWidth,
-                                      width: 100,
-                                      height: 100,
-                                    )
-                                  : imageFromBase64String(
-                                      e,
-                                      fit: BoxFit.fitWidth,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                            )
-                            .toList(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: product!.images
+                              .map(
+                                (e) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: isUrl(e)
+                                        ? CachedNetworkImage(
+                                            imageUrl: e,
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          )
+                                        : imageFromBase64String(
+                                            e,
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // Container(
-                    //   padding: const EdgeInsets.symmetric(
-                    //     vertical: 15,
-                    //   ).copyWith(left: 15),
-                    //   alignment: Alignment.topLeft,
-                    //   child: const Text(
-                    //     'See all deals',
-                    //     style: TextStyle(
-                    //       color: GlobalVariables.primaryColor,
-                    //     ),
-                    //   ),
-                    // ),
+                    ElevatedButton(
+                      onPressed: navigateToDetailScreen,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orangeAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
+                      ),
+                      child: const Text(
+                        'Mua ngay',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               );

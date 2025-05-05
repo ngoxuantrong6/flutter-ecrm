@@ -38,24 +38,27 @@ class BranchServices {
       LoadingShowAble.showLoading();
       final cloudinary = CloudinaryPublic('denz4r8iw', 'mr3ntizn');
       List<String> imageUrls = [];
-      String base64Image = "";
       List<String> base64Images = [];
 
+      // Upload ảnh lên Cloudinary và mã hóa Base64
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
         imageUrls.add(res.secureUrl);
-        base64Image = await encodeImageFromUrl(res.secureUrl);
-        base64Images.add(base64Image);
+        String base64Image = await encodeImageFromUrl(res.secureUrl);
+        if (base64Image.isNotEmpty) {
+          base64Images.add(base64Image);
+        } else {
+          throw Exception('Failed to encode image to Base64');
+        }
       }
 
       Product product = Product(
         name: name,
         description: description,
         quantity: quantity,
-        // images: imageUrls,
-        images: base64Images,
+        images: base64Images, // Sử dụng Base64 thay vì URL
         category: category,
         price: price,
       );
@@ -81,30 +84,28 @@ class BranchServices {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    } finally {
+      LoadingShowAble.hideLoading(); // Đảm bảo ẩn loading
     }
   }
 
   Future<String> encodeImageFromUrl(String imageUrl) async {
     try {
-      // Tải ảnh từ URL
       final response = await http.get(Uri.parse(imageUrl));
       if (response.statusCode == 200) {
-        // Lấy dữ liệu byte từ ảnh
         Uint8List imageBytes = response.bodyBytes;
-
-        // Mã hóa Base64
         String base64Image = base64Encode(imageBytes);
         return base64Image;
       } else {
-        throw Exception("Failed to load image");
+        throw Exception('Failed to load image from URL: $imageUrl');
       }
     } catch (e) {
-      print("Error encoding image: $e");
-      return "";
+      debugPrint('Error encoding image: $e');
+      return '';
     }
   }
 
-  void editProduct({
+  Future<void> editProduct({
     required BuildContext context,
     required String productId,
     required String name,
@@ -149,19 +150,22 @@ class BranchServices {
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    } finally {
+      LoadingShowAble.hideLoading();
     }
   }
 
-  // get all the products
   Future<List<Product>> fetchAllProducts(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/branch/get-products'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+        Uri.parse('$uri/branch/get-products'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
@@ -170,9 +174,7 @@ class BranchServices {
           for (int i = 0; i < jsonDecode(res.body).length; i++) {
             productList.add(
               Product.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
+                jsonEncode(jsonDecode(res.body)[i]),
               ),
             );
           }
@@ -219,7 +221,7 @@ class BranchServices {
     return product;
   }
 
-  void deleteProduct({
+  Future<void> deleteProduct({
     required BuildContext context,
     required Product product,
     required VoidCallback onSuccess,
@@ -243,6 +245,7 @@ class BranchServices {
         context: context,
         onSuccess: () {
           onSuccess();
+          showSnackBar(context, 'Xóa sản phẩm thành công!');
         },
       );
     } catch (e) {
@@ -254,11 +257,13 @@ class BranchServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/branch/get-orders'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+        Uri.parse('$uri/branch/get-orders'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
@@ -267,9 +272,7 @@ class BranchServices {
           for (int i = 0; i < jsonDecode(res.body).length; i++) {
             orderList.add(
               Order.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
+                jsonEncode(jsonDecode(res.body)[i]),
               ),
             );
           }
@@ -295,16 +298,15 @@ class BranchServices {
     );
     try {
       http.Response res = await http.post(
-          Uri.parse(
-            '$uri/branch/get-order-detail',
-          ),
-          body: jsonEncode({
-            'id': orderId,
-          }),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          });
+        Uri.parse('$uri/branch/get-order-detail'),
+        body: jsonEncode({
+          'id': orderId,
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
@@ -319,7 +321,7 @@ class BranchServices {
     return order;
   }
 
-  void changeOrderStatus({
+  Future<void> changeOrderStatus({
     required BuildContext context,
     required int status,
     required Order order,
@@ -344,10 +346,15 @@ class BranchServices {
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: onSuccess,
+        onSuccess: () {
+          onSuccess();
+          showSnackBar(context, 'Cập nhật trạng thái đơn hàng thành công!');
+        },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    } finally {
+      LoadingShowAble.hideLoading();
     }
   }
 
@@ -356,11 +363,13 @@ class BranchServices {
     List<Sales> sales = [];
     int totalEarning = 0;
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/branch/analytics'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+        Uri.parse('$uri/branch/analytics'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
@@ -394,11 +403,12 @@ class BranchServices {
     List<MessageModel> messageList = [];
     try {
       http.Response res = await http.get(
-          Uri.parse('$uri/branch/message/get-message/$chatUserId'),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          });
+        Uri.parse('$uri/branch/message/get-message/$chatUserId'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
@@ -407,9 +417,7 @@ class BranchServices {
           for (int i = 0; i < jsonDecode(res.body).length; i++) {
             messageList.add(
               MessageModel.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
+                jsonEncode(jsonDecode(res.body)[i]),
               ),
             );
           }
@@ -429,13 +437,14 @@ class BranchServices {
     XFile? image,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    var messageModel = MessageModel(
-        id: "",
-        senderId: "",
-        receiverId: "",
-        messageEncryptForMe: "",
-        messageEncryptForReveiver: "",
-        createdAt: 0);
+    MessageModel messageModel = MessageModel(
+      id: "",
+      senderId: "",
+      receiverId: "",
+      messageEncryptForMe: "",
+      messageEncryptForReveiver: "",
+      createdAt: 0,
+    );
 
     try {
       LoadingShowAble.showLoading();
@@ -456,7 +465,7 @@ class BranchServices {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: json.encode({
+        body: jsonEncode({
           'messageEncryptForMe': messageEncryptForMe,
           'messageEncryptForReveiver': messageEncryptForReveiver,
           'image': imageUrl,
@@ -469,11 +478,13 @@ class BranchServices {
         onSuccess: () {
           messageModel =
               MessageModel.fromJson(jsonEncode(jsonDecode(res.body)));
-          // showSnackBar(context, 'Gửi tin nhắn thành công!');
+          showSnackBar(context, 'Gửi tin nhắn thành công!');
         },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
+    } finally {
+      LoadingShowAble.hideLoading();
     }
     return messageModel;
   }
@@ -484,23 +495,23 @@ class BranchServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<ChatModel> conversationList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$uri/branch/conversation/list'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.get(
+        Uri.parse('$uri/branch/conversation/list'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
 
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          log("mmmmmmmmmmmmmmm ${res.body}");
+          log("Conversations: ${res.body}");
           for (int i = 0; i < jsonDecode(res.body).length; i++) {
             conversationList.add(
               ChatModel.fromJson(
-                jsonEncode(
-                  jsonDecode(res.body)[i],
-                ),
+                jsonEncode(jsonDecode(res.body)[i]),
               ),
             );
           }

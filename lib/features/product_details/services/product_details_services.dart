@@ -58,7 +58,7 @@ class ProductDetailsServices {
     try {
       LoadingShowAble.showLoading();
       http.Response res = await http.post(
-        Uri.parse('$uri/api/add-to-cart'),
+        Uri.parse('$uri/api/add-to-cart'), // thêm sản phẩm vào giỏ hàng
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -94,7 +94,7 @@ class ProductDetailsServices {
 
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/api/rate-product'),
+        Uri.parse('$uri/api/rate-product'), //đánh giá sản phẩm
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -135,7 +135,7 @@ class ProductDetailsServices {
     );
     try {
       http.Response res = await http.get(
-        Uri.parse('$uri/api/users/$branchId'),
+        Uri.parse('$uri/api/users/$branchId'), // lấy thông tin sản phẩm
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,

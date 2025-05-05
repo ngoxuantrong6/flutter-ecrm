@@ -16,6 +16,7 @@ import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
 enum Auth {
+  // chức năng đăng nhập
   signin,
   signup,
 }
@@ -29,46 +30,58 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Auth _auth = Auth.signup;
-  final _signUpFormKey = GlobalKey<FormState>();
-  final _signInFormKey = GlobalKey<FormState>();
+  Auth _auth = Auth.signup; // mặc định hiển thị màn hình đăng ký
+  final _signUpFormKey = GlobalKey<
+      FormState>(); // khóa được dùng để xác nhận trạng thái của các form đang nhập
+  final _signInFormKey = GlobalKey<
+      FormState>(); // khóa được dùng để xác nhận trạng thái của các form đang nhập
   final AuthService authService = AuthService();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(); // Các controller liên quan tới trường nhập dữ liệu
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  List<String> hashedPassword = [];
+  List<String> hashedPassword = []; // Tạo mảng chứa giá trị mật khẩu đã mã hóa
   String? userName = "";
   String? email = "";
-  final LocalAuthentication auth = LocalAuthentication();
-  bool isFingerPrint = false;
+  final LocalAuthentication auth =
+      LocalAuthentication(); // tạo biến xác thực người dùng sẽ yêu cầu xác thực sinh trắc học
+  bool isFingerPrint =
+      false; // Kiểm tra xem người dùng đã chọn đăng nhập bằng vân tay hay chưa
 
   @override
   void initState() {
-    getUserName();
+    //lấy thông tin tài khoản đã lưu
+    getUserName(); // gọi username
     super.initState();
   }
 
   void getUserName() async {
     await EncryptedSharedPreferences.initialize(key);
-    EncryptedSharedPreferences prefs = EncryptedSharedPreferences.getInstance();
+    EncryptedSharedPreferences prefs = EncryptedSharedPreferences
+        .getInstance(); // lấy data của encry.. để truy cập dữ liệu đã lưu
     userName = prefs.getString('userName');
     email = prefs.getString('email');
     if (userName != null && userName != "") {
+      // kiểm tra xem người dùng đã có thông tin username hay chưa
       _emailController.text = email ?? "";
-      GlobalVariables.checkUserExist = true;
+      GlobalVariables.checkUserExist = true; // nếu có thì điền email vào
     } else {
       GlobalVariables.checkUserExist = false;
     }
   }
 
   void loginAnotherAccount() {
+    // khi người dùng muốn login bằng tài khoản khác
     setState(() {
-      GlobalVariables.checkUserExist = false;
-      _emailController.text = "";
+      // cập nhật trang thái của widget
+      GlobalVariables.checkUserExist =
+          false; // đặt Lại trạng thái globalVariables bằng không
+      _emailController.text = ""; // xóa nội dung trường email trong form
     });
   }
 
   @override
+  // phương thức được gọi khi Widget không còn tồn tại hoặc không được sử udnjg nữa, giải phóng bộ tró của các contronller
   void dispose() {
     super.dispose();
     _emailController.dispose();
@@ -77,31 +90,46 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void signUpUser() {
+    // khi người dùng click vào nút đăng ký , gửi thông tin đến client
     authService.signUpUser(
       context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-      name: _nameController.text,
+      email: _emailController.text, // Truyền giá trị trường email từ controller
+      password: _passwordController
+          .text, //Truyền giá trị trường mật khẩu từ controller
+      name: _nameController.text, //Truyền giá trị trường name từ controller
     );
   }
 
   void signInUser() async {
     if (_passwordController.text.isNotEmpty) {
-      hashedPassword =
-          EncryptionHelper.hashPassword(_passwordController.text.trim());
+      // kiểm tra xem người dùng nhập pass hay không
+      //notEmty không rỗng
+      hashedPassword = EncryptionHelper.hashPassword(_passwordController.text
+          .trim()); // mã hóa mật khẩu người dùng bằng phương thức hashPassWord từ lớp EncrytionHelper
     }
+    print("hash password${hashedPassword[0]}");
+    print("hash password${hashedPassword[1]}");
+
     authService.signInUser(
+      // gọi phương thức signInUser đến authenService để thực hiện đăng nhập
       context: context,
       email: _emailController.text,
-      hashedPassword0: isFingerPrint ? "" : hashedPassword[0],
-      encryption_key: isFingerPrint ? "" : hashedPassword[1],
-      isFingerPrint: isFingerPrint,
-      hashedPasswordArg: hashedPassword,
+      hashedPassword0: isFingerPrint
+          ? ""
+          : hashedPassword[
+              0], // mật khẩu đã hóa nếu đăng nhập bằng vân tay sẽ bỏ qua
+      encryption_key: isFingerPrint ? "" : hashedPassword[1], // mã hóa khóa
+      isFingerPrint:
+          isFingerPrint, // kiểm tra xem người dùng có đăng nhập bằng vân tay không
+      hashedPasswordArg:
+          hashedPassword, // mảng chưa các giá trị liên quan tới mật khẩu đã mã hóa
     );
   }
 
   void loginFinger(BuildContext context) async {
+    // xử lý đăng nhập qua vân tay ,
     if (_emailController.text.trim().isEmpty) {
+      // kiểm tra xem người email có đang bị bỏ trống hay không , nếu người dùng nhập thông tin đăng nhập và dừng lại
       PopupNotificationCustom.showMessgae(
         context: context,
         title: 'THÔNG BÁO',
@@ -111,18 +139,21 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       return;
     }
-    await EncryptedSharedPreferences.initialize(key);
+    await EncryptedSharedPreferences.initialize(
+        key); // khởi tạo và cài đặt vân tay từ EncryptedSharedPreferences
     EncryptedSharedPreferences prefs = EncryptedSharedPreferences.getInstance();
-    bool biometric = prefs.getBoolean('biometric') ?? false;
+    bool biometric = prefs.getBoolean('biometric') ??
+        false; // kiểm tra xem người dùng đã kích hoạt chức năng vân tay hay chưa
     // trước khi kiểm tra phải xem đã đk vân tay chưa
     if (biometric == true) {
-      funcFingerPrint(context);
+      funcFingerPrint(
+          context); // nếu chức năng vân tay đã được kích hoạt, gọi hàm funcFingerPrint
     } else {
       PopupNotificationCustom.showMessgae(
         context: context,
         title: 'THÔNG BÁO',
         message:
-            'Quý khách vui lòng đăng nhập ứng dụng eCRM Pro và sử dụng chức năng Cài đặt đăng nhập Face ID/ vân tay để kích hoạt tính năng này!',
+            'Quý khách vui lòng đăng nhập ứng dụng Shop Be và sử dụng chức năng Cài đặt đăng nhập Face ID/ vân tay để kích hoạt tính năng này!',
         buttonTitleLeft: "Đồng ý",
         hiddenButtonRight: true,
       );
@@ -130,11 +161,14 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> funcFingerPrint(BuildContext context) async {
+    // xử lý việc
     bool canCheckBiometrics = await auth.canCheckBiometrics;
     if (canCheckBiometrics) {
+      // check xem thiết bị có thể sinh trắc học hay không
       bool isAuthorized = false;
       try {
         isAuthorized = await LocalAuthentication().authenticate(
+            //yêu cầu người dùng xác thực vân tya hoặc Face ID
             localizedReason: "Vui lòng xác thực để đăng nhập",
             authMessages: <AuthMessages>[
               const AndroidAuthMessages(

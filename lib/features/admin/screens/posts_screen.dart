@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart';
 import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
@@ -57,44 +59,86 @@ class _PostsScreenState extends State<PostsScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
     user = Provider.of<UserProvider>(context, listen: false).user;
-    fetchAllProducts();
-    if (user?.type == "admin") {
-      fetchAllBranches();
-    }
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      context.read<AddProductProvider>().setCategory('Điện thoại');
-      context.read<AddProductProvider>().setImages([]);
+    loadInitialData();
+  }
+
+  Future<void> loadInitialData() async {
+    setState(() {
+      isLoading = true;
     });
-  }
-
-  fetchAllBranches() async {
-    branches = await adminServices.fetchAllBranches(context);
-    GlobalVariables.branches = branches ?? [];
-    Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
-    setState(() {});
-  }
-
-  fetchAllProducts() async {
-    if (user?.type == "admin") {
-      // products = await adminServices.fetchAllProducts(context);
-      fetchBranchProducts(branchId: "");
-    } else {
-      products = await branchServices.fetchAllProducts(context);
+    try {
+      await fetchAllProducts();
+      if (user?.type == "admin") {
+        await fetchAllBranches();
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.read<AddProductProvider>().setCategory('Điện thoại');
+        context.read<AddProductProvider>().setImages([]);
+      });
+    } catch (e) {
+      debugPrint('Error loading initial data: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi tải dữ liệu: $e')),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
-    setState(() {});
   }
 
-  fetchBranchProducts({required String branchId}) async {
-    products = null;
-    products = await adminServices.fetchBranchProducts(
-      context: context,
-      branchId: branchId,
-    );
-    setState(() {});
+  Future<void> fetchAllBranches() async {
+    try {
+      branches = await adminServices.fetchAllBranches(context);
+      GlobalVariables.branches = branches ?? [];
+      Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
+    } catch (e) {
+      debugPrint('Error fetching branches: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi tải chi nhánh: $e')),
+      );
+    }
+    if (mounted) setState(() {});
+  }
+
+  Future<void> fetchAllProducts() async {
+    try {
+      if (user?.type == "admin") {
+        await fetchBranchProducts(branchId: "");
+      } else {
+        products = await branchServices.fetchAllProducts(context);
+      }
+    } catch (e) {
+      debugPrint('Error fetching products: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi tải sản phẩm: $e')),
+      );
+    }
+    if (mounted) setState(() {});
+  }
+
+  Future<void> fetchBranchProducts({required String branchId}) async {
+    setState(() {
+      products = null;
+    });
+    try {
+      products = await adminServices.fetchBranchProducts(
+        context: context,
+        branchId: branchId,
+      );
+    } catch (e) {
+      debugPrint('Error fetching branch products: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi tải sản phẩm chi nhánh: $e')),
+      );
+    }
+    if (mounted) setState(() {});
   }
 
   void deleteProduct(Product product, int index) {
@@ -103,8 +147,10 @@ class _PostsScreenState extends State<PostsScreen> {
         context: context,
         product: product,
         onSuccess: () {
-          products!.removeAt(index);
-          setState(() {});
+          if (mounted) {
+            products!.removeAt(index);
+            setState(() {});
+          }
         },
       );
     } else {
@@ -112,8 +158,10 @@ class _PostsScreenState extends State<PostsScreen> {
         context: context,
         product: product,
         onSuccess: () {
-          products!.removeAt(index);
-          setState(() {});
+          if (mounted) {
+            products!.removeAt(index);
+            setState(() {});
+          }
         },
       );
     }
@@ -132,127 +180,161 @@ class _PostsScreenState extends State<PostsScreen> {
         images: context.read<AddProductProvider>().images,
       ),
     ).then((value) {
-      if (value != null) {
+      if (value != null && mounted) {
         fetchAllProducts();
       }
     });
   }
 
-  // @override
-  // void dispose() {
-  //   context.read<AddProductProvider>().setCategory('Điện thoại');
-  //   context.read<AddProductProvider>().setImages([]);
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final fetchBranchProvider = context.watch<FetchBranchProvider>();
-    return products == null
+    return isLoading
         ? const Loader()
-        : Scaffold(
-            body: Column(
-              children: [
-                if (user?.type == "admin") ...[
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: DropdownButton(
-                        value: fetchBranchProvider.branch,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: fetchBranchProvider.listBranch.map((User item) {
-                          return DropdownMenuItem(
-                            value: item,
-                            child: Text(item.name),
-                          );
-                        }).toList(),
-                        onChanged: (User? newVal) {
-                          fetchBranchProvider.setBranch(newVal!);
-                          fetchBranchProducts(
-                              branchId: fetchBranchProvider.branch.id);
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-                Expanded(
-                  child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: products!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    itemBuilder: (context, index) {
-                      final productData = products![index];
-                      return Column(
-                        children: [
-                          ZoomTapAnimation(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                EditProductScreen.routeName,
-                                arguments: productData,
-                              ).then((value) {
-                                if (value != null) {
-                                  fetchBranchProvider.setBranch(
-                                      fetchBranchProvider.listBranch[0]);
-                                  fetchAllProducts();
-                                }
-                              });
+        : products == null
+            ? const Center(child: Text('Không có sản phẩm nào'))
+            : Scaffold(
+                body: Column(
+                  children: [
+                    if (user?.type == "admin") ...[
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: DropdownButton(
+                            value: fetchBranchProvider.branch,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items:
+                                fetchBranchProvider.listBranch.map((User item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text(item.name),
+                              );
+                            }).toList(),
+                            onChanged: (User? newVal) {
+                              if (newVal != null) {
+                                fetchBranchProvider.setBranch(newVal);
+                                fetchBranchProducts(
+                                    branchId: fetchBranchProvider.branch.id);
+                              }
                             },
-                            child: Container(
-                              constraints: const BoxConstraints(maxHeight: 140),
-                              child: SingleProduct(
-                                image: productData.images[0],
-                              ),
-                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 15.0),
-                                  child: Text(
-                                    productData.name,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                        ),
+                      ),
+                    ],
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                            8.0), // Thêm padding xung quanh GridView
+                        child: GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: products!.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing:
+                                10.0, // Khoảng cách ngang giữa các item
+                            mainAxisSpacing:
+                                10.0, // Khoảng cách dọc giữa các item
+                            childAspectRatio:
+                                0.75, // Tỷ lệ chiều cao/chiều rộng của item
+                          ),
+                          itemBuilder: (context, index) {
+                            final productData = products![index];
+                            final imageUrl = productData.images.isNotEmpty
+                                ? productData.images[0]
+                                : 'https://via.placeholder.com/150'; // Ảnh mặc định nếu không có ảnh
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ZoomTapAnimation(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      EditProductScreen.routeName,
+                                      arguments: productData,
+                                    ).then((value) {
+                                      if (value != null && mounted) {
+                                        fetchBranchProvider.setBranch(
+                                            fetchBranchProvider.listBranch[0]);
+                                        fetchAllProducts();
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    constraints: const BoxConstraints(
+                                        maxHeight:
+                                            120), // Giới hạn chiều cao ảnh
+                                    child: SingleProduct(
+                                      image: imageUrl,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  PopupNotificationCustom.showMessgae(
-                                    context: context,
-                                    title: 'XÓA SẢN PHẨM',
-                                    message:
-                                        'Bạn có chắc muốn xóa ${productData.name}?',
-                                    pressButtonLeft: () =>
-                                        deleteProduct(productData, index),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.delete_outline,
+                                const SizedBox(
+                                    height: 5), // Khoảng cách giữa ảnh và tên
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          productData.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines:
+                                              1, // Giới hạn tên sản phẩm 1 dòng
+                                          style: const TextStyle(
+                                            fontSize:
+                                                14, // Điều chỉnh kích thước font
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(
+                                        minWidth: 32,
+                                        minHeight: 32,
+                                      ),
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        size: 20, // Kích thước icon hợp lý
+                                      ),
+                                      onPressed: () {
+                                        PopupNotificationCustom.showMessgae(
+                                          context: context,
+                                          title: 'XÓA SẢN PHẨM',
+                                          message:
+                                              'Bạn có chắc muốn xóa ${productData.name}?',
+                                          pressButtonLeft: () =>
+                                              deleteProduct(productData, index),
+                                        );
+                                      },
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: navigateToAddProduct,
-                tooltip: 'Thêm sản phẩm',
-                backgroundColor: GlobalVariables.primaryColor),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-          );
+                floatingActionButton: FloatingActionButton(
+                  child: const Icon(Icons.add),
+                  onPressed: navigateToAddProduct,
+                  tooltip: 'Thêm sản phẩm',
+                  backgroundColor: GlobalVariables.primaryColor,
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerFloat,
+              );
   }
 }

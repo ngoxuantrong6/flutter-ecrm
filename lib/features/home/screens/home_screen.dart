@@ -20,8 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController searchTextController = TextEditingController();
-  late StreamSubscription<SpeechRecognitionEvent> subscription;
+  TextEditingController searchTextController =
+      TextEditingController(); // tạo điều khiển văn bản trong ô tìm kiếm
+  late StreamSubscription<SpeechRecognitionEvent>
+      subscription; // dùng để lắng nghe tới các sự kiện giọng nói , khi người dùng nói
   bool _isListening = false;
   String _text = '';
   String _hintText = 'Tìm kiếm';
@@ -29,12 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    getListBranch();
+    getListBranch(); // khởi tạo
     super.initState();
   }
 
   void getListBranch() async {
-    GlobalVariables.branches =  await homeServices.getListBranch(context: context);
+    // phương thức này lấy thực hiện lấy danh sách các chi nhánh thông qua homeSerrvices
+    GlobalVariables.branches =
+        await homeServices.getListBranch(context: context); //
     setState(() {});
   }
 

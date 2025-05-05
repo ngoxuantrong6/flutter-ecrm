@@ -7,8 +7,11 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool? passwordField;
   final bool? isNotSamePass;
-  final onTextChanged;
+  final Function(String)? onTextChanged;
   final AutovalidateMode? autovalidateMode;
+  final String? Function(String?)? validator;
+  final double hintFontSize; // Thêm thuộc tính để điều chỉnh phông chữ hintText
+
   const CustomTextField({
     Key? key,
     required this.controller,
@@ -19,6 +22,8 @@ class CustomTextField extends StatefulWidget {
     this.isNotSamePass,
     this.onTextChanged,
     this.autovalidateMode,
+    this.validator,
+    this.hintFontSize = 14.0, // Mặc định là 14
   }) : super(key: key);
 
   @override
@@ -26,42 +31,54 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool _invisible = true;
+  bool _isInvisible = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      autovalidateMode: widget.autovalidateMode,
+      autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       keyboardType: widget.keyboardType,
-      obscureText: widget.passwordField == true ? _invisible : false,
+      obscureText: widget.passwordField == true ? _isInvisible : false,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        hintStyle: TextStyle(fontSize: widget.hintFontSize), // Áp dụng kích thước phông chữ
         border: const OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black38,
-        )),
+          borderSide: BorderSide(color: Colors.black38),
+        ),
         enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black38,
-        )),
+          borderSide: BorderSide(color: Colors.black38),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black87),
+        ),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
         suffixIcon: widget.passwordField == true
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _invisible = !_invisible;
-                  });
-                },
-                child: _invisible == true
-                    ? const Icon(Icons.visibility)
-                    : const Icon(Icons.visibility_off),
-              )
+            ? IconButton(
+          icon: Icon(
+            _isInvisible ? Icons.visibility : Icons.visibility_off,
+            color: Colors.grey,
+          ),
+          onPressed: () {
+            setState(() {
+              _isInvisible = !_isInvisible;
+            });
+          },
+        )
             : null,
       ),
       onChanged: widget.onTextChanged,
-      validator: (val) {
-        if (val == null || val.isEmpty) {
-          return 'Nhập ${widget.hintText} của bạn';
+      validator: (value) {
+        if (widget.validator != null) {
+          return widget.validator!(value);
+        }
+        if (value == null || value.isEmpty) {
+          return 'Vui lòng nhập ${widget.hintText.toLowerCase()}';
         }
         if (widget.isNotSamePass == true) {
           return 'Mật khẩu xác nhận không khớp với mật khẩu mới';

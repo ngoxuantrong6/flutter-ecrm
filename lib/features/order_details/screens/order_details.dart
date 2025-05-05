@@ -29,11 +29,13 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int currentStep = 0;
-  final BranchServices adminServices = BranchServices();
-  TextEditingController searchTextController = TextEditingController();
+  final BranchServices adminServices =
+      BranchServices(); //adminService = OOP gọi API cập nhật đơn hàng
+  TextEditingController searchTextController =
+      TextEditingController(); // searchTextController điều khiển ô tìm kiếm
   late StreamSubscription<SpeechRecognitionEvent> subscription;
-  bool _isListening = false;
-  String _text = '';
+  bool _isListening = false; // kiểm tra xem mic có đang bật hay không
+  String _text = ''; // lưu trữ và nhận diện giọng nói
   String _hintText = 'Tìm kiếm';
 
   void navigateToSearchScreen(String query) {
@@ -44,7 +46,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting();
-    currentStep = widget.order.status;
+    currentStep =
+        widget.order.status; //Gán trạng thái đơn hàng từ dữ liệu nhận được
   }
 
   @override

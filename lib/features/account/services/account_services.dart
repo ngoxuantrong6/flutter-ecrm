@@ -18,7 +18,8 @@ class AccountServices {
   Future<List<Order>> fetchMyOrders({
     required BuildContext context,
   }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider =
+        Provider.of<UserProvider>(context, listen: false); //xác thực
     List<Order> orderList = [];
     try {
       http.Response res =
@@ -151,7 +152,8 @@ class AccountServices {
   void logOut(BuildContext context) async {
     try {
       await EncryptedSharedPreferences.initialize(key);
-      EncryptedSharedPreferences sharedPreferences = EncryptedSharedPreferences.getInstance();
+      EncryptedSharedPreferences sharedPreferences =
+          EncryptedSharedPreferences.getInstance();
       await sharedPreferences.setString('x-auth-token', '');
       await sharedPreferences.setString('user', '');
       Navigator.pushNamedAndRemoveUntil(
