@@ -1,0 +1,376 @@
+Analyzing flutter-ecrm...                                       
+
+  error • The argument type 'Object?' can't be assigned to the parameter type 'String' • encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart:144:23 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'String' • encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart:144:32 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'String' • encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart:145:62 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'String' • encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart:147:21 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'String' • encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart:217:44 • argument_type_not_assignable
+   info • Use key in widget constructors • encrypt_shared_preferences/lib/src/ui/shared_builder.dart:24:3 • use_key_in_widget_constructors
+  error • This requires the 'super-parameters' language feature to be enabled • encrypt_shared_preferences/lib/src/ui/shared_builder.dart:25:5 • experiment_not_enabled
+   info • Unused import: 'dart:math' • encrypt_shared_preferences/test/encrypted_shared_preferences_test.dart:1:8 • unused_import
+   info • 'listen' is deprecated and shouldn't be used. Use the observe() instead. • encrypt_shared_preferences/test/encrypted_shared_preferences_test.dart:14:16 • deprecated_member_use_from_same_package
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/AvtarCard.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/CustomUI/AvtarCard.dart:28:15 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/AvtarCard.dart:31:24 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/AvtarCard.dart:34:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/AvtarCard.dart:43:11 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/AvtarCard.dart:48:20 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/ButtonCard.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/CustomUI/ButtonCard.dart:18:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ButtonCard.dart:22:16 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/ContactCard.dart:1:1 • file_names
+   info • SizedBox for whitespace • lib/CustomUI/ContactCard.dart:12:16 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:42:13 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:45:22 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:48:24 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:60:16 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:65:17 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ContactCard.dart:68:16 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/CustomCard.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_svg/flutter_svg.dart' • lib/CustomUI/CustomCard.dart:10:8 • unused_import
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/CustomUI/CustomCard.dart:14:8 • unused_import
+   info • Name non-constant identifiers using lowerCamelCase • lib/CustomUI/CustomCard.dart:27:10 • non_constant_identifier_names
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:76:22 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:83:17 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:84:17 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:107:28 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:120:11 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/CustomCard.dart:122:20 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/OwnFileCard.dart:1:1 • file_names
+   info • Unused import: 'dart:io' • lib/CustomUI/OwnFileCard.dart:1:8 • unused_import
+   info • Prefer const with constant constructors • lib/CustomUI/OwnFileCard.dart:47:23 • prefer_const_constructors
+   info • Use isNotEmpty instead of length • lib/CustomUI/OwnFileCard.dart:72:19 • prefer_is_empty
+   info • Prefer const with constant constructors • lib/CustomUI/OwnFileCard.dart:75:36 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/OwnFileCard.dart:82:36 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/OwnMessgaeCrad.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/CustomUI/OwnMessgaeCrad.dart:21:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/OwnMessgaeCrad.dart:51:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/OwnMessgaeCrad.dart:54:21 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/ReplyCard.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/CustomUI/ReplyCard.dart:20:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ReplyCard.dart:32:26 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/CustomUI/ReplyFileCard.dart:1:1 • file_names
+   info • Unused import: 'dart:io' • lib/CustomUI/ReplyFileCard.dart:1:8 • unused_import
+   info • Prefer const with constant constructors • lib/CustomUI/ReplyFileCard.dart:46:23 • prefer_const_constructors
+   info • Use isNotEmpty instead of length • lib/CustomUI/ReplyFileCard.dart:71:19 • prefer_is_empty
+   info • Prefer const with constant constructors • lib/CustomUI/ReplyFileCard.dart:74:36 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/CustomUI/ReplyFileCard.dart:81:36 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/Model/ChatModel.dart:1:1 • file_names
+   info • Name source files using `lowercase_with_underscores` • lib/Model/MessageModel.dart:1:1 • file_names
+   info • Name source files using `lowercase_with_underscores` • lib/Pages/CameraPage.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_ecrm/Model/ChatModel.dart' • lib/Pages/CameraPage.dart:2:8 • unused_import
+   info • Name source files using `lowercase_with_underscores` • lib/Pages/ChatPage.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_ecrm/Model/MessageModel.dart' • lib/Pages/ChatPage.dart:4:8 • unused_import
+   info • Prefer declaring const constructors on `@immutable` classes • lib/Pages/ChatPage.dart:15:3 • prefer_const_constructors_in_immutables
+   info • Name source files using `lowercase_with_underscores` • lib/Pages/ChatPageServices.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_ecrm/common/widgets/loading_show_able.dart' • lib/Pages/ChatPageServices.dart:4:8 • unused_import
+   info • Name source files using `lowercase_with_underscores` • lib/Screens/CameraScreen.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_ecrm/Model/ChatModel.dart' • lib/Screens/CameraScreen.dart:5:8 • unused_import
+   info • Prefer declaring const constructors on `@immutable` classes • lib/Screens/CameraScreen.dart:13:3 • prefer_const_constructors_in_immutables
+   info • Avoid `print` calls in production code • lib/Screens/CameraScreen.dart:42:7 • avoid_print
+   info • SizedBox for whitespace • lib/Screens/CameraScreen.dart:61:26 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:66:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:67:28 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:75:24 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:122:31 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:127:31 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:136:36 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:154:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:157:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraScreen.dart:159:28 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/Screens/CameraView.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:30:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:36:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:42:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:48:21 • prefer_const_constructors
+   info • SizedBox for whitespace • lib/Screens/CameraView.dart:55:13 • sized_box_for_whitespace
+   info • SizedBox for whitespace • lib/Screens/CameraView.dart:60:13 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:73:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:76:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:85:35 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:90:34 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/CameraView.dart:106:34 • prefer_const_constructors
+   info • Name source files using `lowercase_with_underscores` • lib/Screens/IndividualPage.dart:1:1 • file_names
+   info • Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart' • lib/Screens/IndividualPage.dart:10:8 • unused_import
+   info • Unused import: 'package:flutter_svg/svg.dart' • lib/Screens/IndividualPage.dart:13:8 • unused_import
+   info • Unused import: 'package:rsa_encrypt/rsa_encrypt.dart' • lib/Screens/IndividualPage.dart:16:8 • unused_import
+   info • Prefer declaring const constructors on `@immutable` classes • lib/Screens/IndividualPage.dart:20:3 • prefer_const_constructors_in_immutables
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:68:28 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:79:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:98:27 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:105:32 • prefer_const_constructors
+   info • SizedBox for whitespace • lib/Screens/IndividualPage.dart:160:17 • sized_box_for_whitespace
+   info • SizedBox for whitespace • lib/Screens/IndividualPage.dart:249:28 • sized_box_for_whitespace
+   info • SizedBox for whitespace • lib/Screens/IndividualPage.dart:256:31 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:259:43 • prefer_const_constructors
+   info • Use isNotEmpty instead of length • lib/Screens/IndividualPage.dart:272:43 • prefer_is_empty
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:285:50 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:317:51 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:336:55 • prefer_const_constructors
+   info • SizedBox for whitespace • lib/Screens/IndividualPage.dart:410:12 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:425:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:429:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:435:15 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:442:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:446:19 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:474:11 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:479:20 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/IndividualPage.dart:492:19 • prefer_const_constructors
+   info • Avoid `print` calls in production code • lib/Screens/IndividualPage.dart:498:13 • avoid_print
+warning • The '!' will have no effect because the receiver can't be null • lib/Screens/IndividualPage.dart:500:72 • unnecessary_non_null_assertion
+   info • Name source files using `lowercase_with_underscores` • lib/Screens/IndividualServices.dart:1:1 • file_names
+   info • Name source files using `lowercase_with_underscores` • lib/Screens/VideoView.dart:1:1 • file_names
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:35:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:41:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:47:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:53:21 • prefer_const_constructors
+   info • SizedBox for whitespace • lib/Screens/VideoView.dart:60:13 • sized_box_for_whitespace
+   info • SizedBox for whitespace • lib/Screens/VideoView.dart:65:13 • sized_box_for_whitespace
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:80:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:82:26 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:91:35 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:96:34 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/Screens/VideoView.dart:103:32 • prefer_const_constructors
+   info • Unused import: 'package:flutter_ecrm/Model/ChatModel.dart' • lib/common/widgets/bottom_bar.dart:1:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/Model/MessageModel.dart' • lib/common/widgets/bottom_bar.dart:2:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/Pages/ChatPageServices.dart' • lib/common/widgets/bottom_bar.dart:4:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart' • lib/common/widgets/bottom_bar.dart:10:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart' • lib/common/widgets/bottom_bar.dart:11:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/providers/individual_page_provider.dart' • lib/common/widgets/bottom_bar.dart:13:8 • unused_import
+   info • Prefer using lowerCamelCase for constant names • lib/common/widgets/core_toast.dart:4:17 • constant_identifier_names
+   info • Prefer using lowerCamelCase for constant names • lib/common/widgets/core_toast.dart:4:22 • constant_identifier_names
+   info • Prefer using lowerCamelCase for constant names • lib/common/widgets/core_toast.dart:4:30 • constant_identifier_names
+   info • The operand can't be null, so the condition is always false • lib/common/widgets/core_toast.dart:17:13 • unnecessary_null_comparison
+   info • The operand can't be null, so the condition is always false • lib/common/widgets/core_toast.dart:41:13 • unnecessary_null_comparison
+   info • The operand can't be null, so the condition is always false • lib/common/widgets/core_toast.dart:79:13 • unnecessary_null_comparison
+   info • Unused import: 'dart:async' • lib/common/widgets/dialog_alert.dart:1:8 • unused_import
+   info • Unused import: 'package:one_context/one_context.dart' • lib/common/widgets/dialog_alert.dart:8:8 • unused_import
+   info • Avoid `print` calls in production code • lib/common/widgets/dialog_alert.dart:32:34 • avoid_print
+   info • The value of the local variable 'presenter' isn't used • lib/common/widgets/dialog_alert.dart:71:38 • unused_local_variable
+   info • Name non-constant identifiers using lowerCamelCase • lib/constants/global_variables.dart:73:18 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/constants/global_variables.dart:74:17 • non_constant_identifier_names
+   info • Prefer const over final for declarations • lib/constants/utils.dart:70:3 • prefer_const_declarations
+   info • Prefer using lowerCamelCase for constant names • lib/constants/utils.dart:86:11 • constant_identifier_names
+   info • Avoid `print` calls in production code • lib/constants/utils.dart:123:5 • avoid_print
+   info • Don't import implementation files from another package • lib/features/account/screens/register_biometric_screen.dart:4:8 • implementation_imports
+   info • The import of 'package:flutter/src/foundation/key.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/features/account/screens/register_biometric_screen.dart:4:8 • unnecessary_import
+   info • Don't import implementation files from another package • lib/features/account/screens/register_biometric_screen.dart:5:8 • implementation_imports
+   info • The import of 'package:flutter/src/widgets/framework.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/features/account/screens/register_biometric_screen.dart:5:8 • unnecessary_import
+   info • Don't import implementation files from another package • lib/features/account/screens/register_biometric_screen.dart:6:8 • implementation_imports
+   info • Unused import: 'package:flutter/src/widgets/placeholder.dart' • lib/features/account/screens/register_biometric_screen.dart:6:8 • unused_import
+   info • Avoid `print` calls in production code • lib/features/account/screens/register_biometric_screen.dart:59:7 • avoid_print
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/features/account/services/account_services.dart:15:8 • unused_import
+   info • Prefer const literals as parameters of constructors on @immutable classes • lib/features/account/widgets/account_button.dart:22:22 • prefer_const_literals_to_create_immutables
+   info • Prefer const with constant constructors • lib/features/account/widgets/account_button.dart:23:13 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/account/widgets/account_button.dart:26:23 • prefer_const_constructors
+  error • The named parameter 'backgroundColor' isn't defined • lib/features/account/widgets/account_button.dart:32:13 • undefined_named_parameter
+   info • Prefer const with constant constructors • lib/features/address/screens/address_buy_now_screen.dart:273:23 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_buy_now_screen.dart:274:32 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_buy_now_screen.dart:293:23 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_buy_now_screen.dart:294:32 • prefer_const_constructors
+   info • 'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples • lib/features/address/screens/address_buy_now_screen.dart:312:23 • deprecated_member_use
+   info • 'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples • lib/features/address/screens/address_buy_now_screen.dart:322:23 • deprecated_member_use
+  error • The named parameter 'backgroundColor' isn't defined • lib/features/address/screens/address_buy_now_screen.dart:337:21 • undefined_named_parameter
+   info • Prefer const with constant constructors • lib/features/address/screens/address_screen.dart:278:23 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_screen.dart:279:32 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_screen.dart:298:23 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/address/screens/address_screen.dart:299:32 • prefer_const_constructors
+   info • 'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples • lib/features/address/screens/address_screen.dart:317:23 • deprecated_member_use
+   info • 'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples • lib/features/address/screens/address_screen.dart:327:23 • deprecated_member_use
+  error • The named parameter 'backgroundColor' isn't defined • lib/features/address/screens/address_screen.dart:342:21 • undefined_named_parameter
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:22:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:36:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:37:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:47:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:51:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:62:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:76:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:77:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:88:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:92:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:103:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:114:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:115:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:124:13 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:129:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:144:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:148:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:163:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:164:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:178:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:188:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:192:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:204:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:208:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:209:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:210:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:231:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:232:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:244:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:254:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:258:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:269:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:280:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:281:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:288:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:292:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:305:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:320:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:321:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:328:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:333:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:337:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:348:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:362:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:363:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/address/services/address_services.dart:371:7 • avoid_print
+   info • Unused import: 'package:flutter_ecrm/Model/ChatModel.dart' • lib/features/admin/screens/admin_screen.dart:1:8 • unused_import
+   info • Prefer const with constant constructors • lib/features/admin/screens/admin_screen.dart:122:24 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/admin/screens/admin_screen.dart:125:24 • prefer_const_constructors
+   info • Unused import: 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart' • lib/features/admin/screens/manage_branch_screen.dart:1:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/account/widgets/single_product.dart' • lib/features/admin/screens/manage_branch_screen.dart:4:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/admin/screens/add_product_screen.dart' • lib/features/admin/screens/manage_branch_screen.dart:6:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/admin/screens/edit_product_screen.dart' • lib/features/admin/screens/manage_branch_screen.dart:8:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/admin/services/branch_services.dart' • lib/features/admin/screens/manage_branch_screen.dart:10:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/models/product.dart' • lib/features/admin/screens/manage_branch_screen.dart:12:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/providers/add_product_provider.dart' • lib/features/admin/screens/manage_branch_screen.dart:14:8 • unused_import
+   info • Unused import: 'package:zoom_tap_animation/zoom_tap_animation.dart' • lib/features/admin/screens/manage_branch_screen.dart:18:8 • unused_import
+   info • Unused import: 'dart:convert' • lib/features/admin/screens/posts_screen.dart:1:8 • unused_import
+   info • Unused import: 'package:cached_network_image/cached_network_image.dart' • lib/features/admin/screens/posts_screen.dart:2:8 • unused_import
+  error • The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null' • lib/features/admin/screens/posts_screen.dart:80:31 • unchecked_use_of_nullable_value
+   info • Unused import: 'package:flutter_ecrm/features/account/widgets/top_buttons.dart' • lib/features/admin/screens/setting_screen.dart:7:8 • unused_import
+   info • Unused import: 'dart:io' • lib/features/admin/services/admin_services.dart:2:8 • unused_import
+   info • Unused import: 'dart:typed_data' • lib/features/admin/services/admin_services.dart:3:8 • unused_import
+   info • The import of 'package:flutter/foundation.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/features/admin/services/admin_services.dart:21:8 • unnecessary_import
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:137:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:146:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:203:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:210:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:246:25 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:253:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:292:25 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:300:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:331:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:338:19 • undefined_getter
+   info • Unnecessary type check; the result is always 'false' • lib/features/admin/services/admin_services.dart:395:21 • unnecessary_type_check
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:408:27 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:417:21 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:459:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:492:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:499:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:560:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:604:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:611:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:659:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:666:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:702:25 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:709:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:754:19 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:785:23 • undefined_getter
+  error • The getter 'mounted' isn't defined for the type 'BuildContext' • lib/features/admin/services/admin_services.dart:792:19 • undefined_getter
+   info • Unused import: 'dart:io' • lib/features/admin/services/branch_services.dart:3:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/models/branch.dart' • lib/features/admin/services/branch_services.dart:12:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart' • lib/features/admin/widgets/branch_item.dart:2:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/constants/global_variables.dart' • lib/features/admin/widgets/branch_item.dart:3:8 • unused_import
+   info • Prefer const with constant constructors • lib/features/admin/widgets/branch_item.dart:26:12 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/admin/widgets/branch_item.dart:100:14 • prefer_const_constructors
+   info • Unused import: 'package:flutter_svg/flutter_svg.dart' • lib/features/admin/widgets/setting_item.dart:3:8 • unused_import
+   info • Prefer const with constant constructors • lib/features/admin/widgets/setting_item.dart:29:17 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/admin/widgets/setting_item.dart:50:29 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/admin/widgets/setting_item.dart:60:29 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/admin/widgets/setting_item.dart:61:28 • prefer_const_constructors
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/features/auth/screens/auth_screen.dart:13:8 • unused_import
+   info • Avoid `print` calls in production code • lib/features/auth/screens/auth_screen.dart:110:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/auth/screens/auth_screen.dart:111:5 • avoid_print
+   info • Unused import: 'dart:developer' • lib/features/auth/services/auth_service.dart:2:8 • unused_import
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/features/auth/services/auth_service.dart:18:8 • unused_import
+   info • Name non-constant identifiers using lowerCamelCase • lib/features/auth/services/auth_service.dart:34:20 • non_constant_identifier_names
+   info • The value of the local variable 'pk' isn't used • lib/features/auth/services/auth_service.dart:38:25 • unused_local_variable
+   info • Name non-constant identifiers using lowerCamelCase • lib/features/auth/services/auth_service.dart:43:14 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/features/auth/services/auth_service.dart:48:14 • non_constant_identifier_names
+   info • The value of the local variable 'decrypted_private_key' isn't used • lib/features/auth/services/auth_service.dart:48:14 • unused_local_variable
+   info • Name non-constant identifiers using lowerCamelCase • lib/features/auth/services/auth_service.dart:93:21 • non_constant_identifier_names
+   info • The value of the local variable 'deviceId' isn't used • lib/features/auth/services/auth_service.dart:97:12 • unused_local_variable
+   info • Avoid `print` calls in production code • lib/features/auth/services/auth_service.dart:105:9 • avoid_print
+   info • The value of the local variable 'response' isn't used • lib/features/auth/services/auth_service.dart:271:11 • unused_local_variable
+   info • Name non-constant identifiers using lowerCamelCase • lib/features/auth/services/auth_service.dart:283:21 • non_constant_identifier_names
+   info • Unused import: 'package:flutter_ecrm/common/widgets/custom_button.dart' • lib/features/cart/screens/cart_screen.dart:2:8 • unused_import
+  error • The named parameter 'backgroundColor' isn't defined • lib/features/cart/screens/cart_screen.dart:165:21 • undefined_named_parameter
+   info • Avoid `print` calls in production code • lib/features/cart/screens/cart_screen.dart:228:11 • avoid_print
+   info • Unused import: 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart' • lib/features/cart/widgets/cart_product.dart:5:8 • unused_import
+  error • The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null' • lib/features/home/screens/category_deals_screen.dart:38:29 • unchecked_use_of_nullable_value
+   info • Avoid `print` calls in production code • lib/features/home/screens/home_screen.dart:190:11 • avoid_print
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:21:9 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:35:37 • prefer_const_constructors
+   info • Prefer const literals as parameters of constructors on @immutable classes • lib/features/home/widgets/carousel_image.dart:36:38 • prefer_const_literals_to_create_immutables
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:37:29 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:40:39 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:57:42 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:65:42 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:81:35 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/carousel_image.dart:82:44 • prefer_const_constructors
+   info • Unused import: 'package:flutter_ecrm/constants/global_variables.dart' • lib/features/home/widgets/deal_of_day.dart:2:8 • unused_import
+   info • Prefer const with constant constructors • lib/features/home/widgets/deal_of_day.dart:50:21 • prefer_const_constructors
+   info • Prefer const with constant constructors • lib/features/home/widgets/deal_of_day.dart:53:30 • prefer_const_constructors
+  error • The named parameter 'backgroundColor' isn't defined • lib/features/home/widgets/deal_of_day.dart:128:25 • undefined_named_parameter
+   info • Avoid `print` calls in production code • lib/features/order_details/screens/order_details.dart:449:11 • avoid_print
+   info • Prefer const with constant constructors • lib/features/product_details/screens/product_details_screen.dart:418:16 • prefer_const_constructors
+   info • Avoid `print` calls in production code • lib/features/product_details/screens/product_details_screen.dart:455:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/product_details/services/product_details_services.dart:41:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/product_details/services/product_details_services.dart:149:11 • avoid_print
+   info • Avoid `print` calls in production code • lib/features/search/screens/search_screen.dart:206:11 • avoid_print
+   info • Duplicate import • lib/helper/encryption_helper.dart:8:8 • duplicate_import
+   info • Unused import: 'dart:math' • lib/helper/encryption_helper.dart:9:8 • unused_import
+   info • Name non-constant identifiers using lowerCamelCase • lib/helper/encryption_helper.dart:17:18 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/helper/encryption_helper.dart:26:14 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/helper/encryption_helper.dart:26:42 • non_constant_identifier_names
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:32:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:33:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:35:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:36:5 • avoid_print
+   info • Name non-constant identifiers using lowerCamelCase • lib/helper/encryption_helper.dart:41:14 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/helper/encryption_helper.dart:41:42 • non_constant_identifier_names
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:50:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:51:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:52:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:53:5 • avoid_print
+   info • The value of the local variable 'futureKeyPair' isn't used • lib/helper/encryption_helper.dart:70:42 • unused_local_variable
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:73:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:74:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/helper/encryption_helper.dart:76:5 • avoid_print
+   info • Unnecessary string interpolation • lib/helper/encryption_helper.dart:88:12 • unnecessary_string_interpolations
+   info • The value of the local variable 'header' isn't used • lib/helper/encryption_helper.dart:113:11 • unused_local_variable
+   info • 'd' is deprecated and shouldn't be used. Use privateExponent. • lib/helper/encryption_helper.dart:123:50 • deprecated_member_use
+   info • 'd' is deprecated and shouldn't be used. Use privateExponent. • lib/helper/encryption_helper.dart:126:25 • deprecated_member_use
+   info • 'd' is deprecated and shouldn't be used. Use privateExponent. • lib/helper/encryption_helper.dart:128:25 • deprecated_member_use
+   info • Unnecessary string interpolation • lib/helper/encryption_helper.dart:145:12 • unnecessary_string_interpolations
+   info • The value of the local variable 'header' isn't used • lib/helper/encryption_helper.dart:159:11 • unused_local_variable
+   info • Unused import: 'dart:convert' • lib/main.dart:2:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/common/widgets/bottom_bar.dart' • lib/main.dart:6:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/account/services/account_services.dart' • lib/main.dart:9:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/features/admin/screens/admin_screen.dart' • lib/main.dart:10:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart' • lib/main.dart:14:8 • unused_import
+   info • Unused import: 'package:flutter_ecrm/providers/individual_page_provider.dart' • lib/main.dart:18:8 • unused_import
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/main.dart:24:8 • unused_import
+   info • Unnecessary new keyword • lib/main.dart:65:19 • unnecessary_new
+   info • The value of the local variable 'token' isn't used • lib/main.dart:77:13 • unused_local_variable
+   info • The value of the local variable 'userString' isn't used • lib/main.dart:78:13 • unused_local_variable
+   info • The value of the local variable 'user' isn't used • lib/main.dart:79:11 • unused_local_variable
+   info • Avoid `print` calls in production code • lib/main.dart:120:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/main.dart:131:7 • avoid_print
+   info • Avoid const keyword • lib/providers/common_provider.dart:14:20 • unnecessary_const
+   info • Unnecessary new keyword • lib/providers/common_provider.dart:18:13 • unnecessary_new
+   info • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/providers/individual_page_provider.dart:15:8 • unused_import
+   info • Use `lowercase_with_underscores` when specifying a library prefix • lib/providers/individual_page_provider.dart:16:60 • library_prefixes
+   info • Private field could be final • lib/providers/individual_page_provider.dart:23:20 • prefer_final_fields
+  error • The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null' • lib/providers/individual_page_provider.dart:73:31 • unchecked_use_of_nullable_value
+   info • Avoid `print` calls in production code • lib/providers/individual_page_provider.dart:94:7 • avoid_print
+   info • Avoid `print` calls in production code • lib/providers/individual_page_provider.dart:96:9 • avoid_print
+  error • The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null' • lib/providers/individual_page_provider.dart:99:35 • unchecked_use_of_nullable_value
+   info • Avoid `print` calls in production code • lib/providers/individual_page_provider.dart:112:5 • avoid_print
+   info • Avoid `print` calls in production code • lib/providers/individual_page_provider.dart:115:38 • avoid_print
+   info • Avoid `print` calls in production code • lib/providers/individual_page_provider.dart:116:32 • avoid_print
+   info • Name non-constant identifiers using lowerCamelCase • lib/providers/individual_page_provider.dart:176:14 • non_constant_identifier_names
+   info • Name non-constant identifiers using lowerCamelCase • lib/providers/individual_page_provider.dart:204:12 • non_constant_identifier_names
+   info • Unused import: 'package:flutter_ecrm/Model/ChatModel.dart' • lib/router.dart:1:8 • unused_import
+

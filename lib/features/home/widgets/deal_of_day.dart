@@ -125,7 +125,7 @@ class _DealOfDayState extends State<DealOfDay> {
                     ElevatedButton(
                       onPressed: navigateToDetailScreen,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orangeAccent,
+                        primary: Colors.orangeAccent,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

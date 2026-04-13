@@ -1,0 +1,373 @@
+ERROR|COMPILE_TIME_ERROR|ARGUMENT_TYPE_NOT_ASSIGNABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart|144|23|3|The argument type 'Object?' can't be assigned to the parameter type 'String'.
+ERROR|COMPILE_TIME_ERROR|ARGUMENT_TYPE_NOT_ASSIGNABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart|144|32|3|The argument type 'Object?' can't be assigned to the parameter type 'String'.
+ERROR|COMPILE_TIME_ERROR|ARGUMENT_TYPE_NOT_ASSIGNABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart|145|62|3|The argument type 'Object?' can't be assigned to the parameter type 'String'.
+ERROR|COMPILE_TIME_ERROR|ARGUMENT_TYPE_NOT_ASSIGNABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart|147|21|3|The argument type 'Object?' can't be assigned to the parameter type 'String'.
+ERROR|COMPILE_TIME_ERROR|ARGUMENT_TYPE_NOT_ASSIGNABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/shared_preferences_decorator.dart|217|44|7|The argument type 'Object?' can't be assigned to the parameter type 'String'.
+ERROR|SYNTACTIC_ERROR|EXPERIMENT_NOT_ENABLED|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/ui/shared_builder.dart|25|5|5|This requires the 'super-parameters' language feature to be enabled.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_NAMED_PARAMETER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/widgets/account_button.dart|32|13|15|The named parameter 'backgroundColor' isn't defined.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_NAMED_PARAMETER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|337|21|15|The named parameter 'backgroundColor' isn't defined.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_NAMED_PARAMETER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|342|21|15|The named parameter 'backgroundColor' isn't defined.
+ERROR|COMPILE_TIME_ERROR|UNCHECKED_USE_OF_NULLABLE_VALUE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/posts_screen.dart|80|31|20|The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|137|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|146|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|203|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|210|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|246|25|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|253|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|292|25|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|300|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|331|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|338|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|408|27|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|417|21|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|459|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|492|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|499|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|560|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|604|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|611|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|659|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|666|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|702|25|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|709|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|754|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|785|23|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_GETTER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|792|19|7|The getter 'mounted' isn't defined for the type 'BuildContext'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_NAMED_PARAMETER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/cart/screens/cart_screen.dart|165|21|15|The named parameter 'backgroundColor' isn't defined.
+ERROR|COMPILE_TIME_ERROR|UNCHECKED_USE_OF_NULLABLE_VALUE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/screens/category_deals_screen.dart|38|29|20|The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null'.
+ERROR|COMPILE_TIME_ERROR|UNDEFINED_NAMED_PARAMETER|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/deal_of_day.dart|128|25|15|The named parameter 'backgroundColor' isn't defined.
+ERROR|COMPILE_TIME_ERROR|UNCHECKED_USE_OF_NULLABLE_VALUE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|73|31|20|The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null'.
+ERROR|COMPILE_TIME_ERROR|UNCHECKED_USE_OF_NULLABLE_VALUE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|99|35|20|The method 'addPostFrameCallback' can't be unconditionally invoked because the receiver can be 'null'.
+WARNING|STATIC_WARNING|UNNECESSARY_NON_NULL_ASSERTION|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|500|72|1|The '!' will have no effect because the receiver can't be null.
+INFO|LINT|USE_KEY_IN_WIDGET_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/lib/src/ui/shared_builder.dart|24|3|13|Use key in widget constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/test/encrypted_shared_preferences_test.dart|1|8|11|Unused import: 'dart:math'.
+INFO|HINT|DEPRECATED_MEMBER_USE_FROM_SAME_PACKAGE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/encrypt_shared_preferences/test/encrypted_shared_preferences_test.dart|14|16|6|'listen' is deprecated and shouldn't be used. Use the observe() instead..
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|28|15|370|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|31|24|265|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|34|26|129|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|43|11|44|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/AvtarCard.dart|48|20|52|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ButtonCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ButtonCard.dart|18|26|17|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ButtonCard.dart|22|16|83|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|12|16|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|42|13|346|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|45|22|249|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|48|24|121|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|60|16|83|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|65|17|119|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ContactCard.dart|68|16|44|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|10|8|38|Unused import: 'package:flutter_svg/flutter_svg.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|14|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|27|10|21|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|76|22|101|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|83|17|20|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|84|17|55|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|107|28|123|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|120|11|156|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/CustomCard.dart|122|20|50|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|1|8|9|Unused import: 'dart:io'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|47|23|17|Prefer const with constant constructors.
+INFO|LINT|PREFER_IS_EMPTY|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|72|19|18|Use isNotEmpty instead of length
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|75|36|118|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnFileCard.dart|82|36|194|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnMessgaeCrad.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnMessgaeCrad.dart|21|19|49|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnMessgaeCrad.dart|51|21|63|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/OwnMessgaeCrad.dart|54|21|97|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyCard.dart|20|19|49|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyCard.dart|32|26|64|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|1|8|9|Unused import: 'dart:io'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|46|23|17|Prefer const with constant constructors.
+INFO|LINT|PREFER_IS_EMPTY|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|71|19|18|Use isNotEmpty instead of length
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|74|36|118|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/CustomUI/ReplyFileCard.dart|81|36|143|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Model/ChatModel.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Model/MessageModel.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/CameraPage.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/CameraPage.dart|2|8|43|Unused import: 'package:flutter_ecrm/Model/ChatModel.dart'.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/ChatPage.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/ChatPage.dart|4|8|46|Unused import: 'package:flutter_ecrm/Model/MessageModel.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS_IN_IMMUTABLES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/ChatPage.dart|15|3|8|Prefer declaring const constructors on `@immutable` classes.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/ChatPageServices.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Pages/ChatPageServices.dart|4|8|60|Unused import: 'package:flutter_ecrm/common/widgets/loading_show_able.dart'.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|5|8|43|Unused import: 'package:flutter_ecrm/Model/ChatModel.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS_IN_IMMUTABLES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|13|3|12|Prefer declaring const constructors on `@immutable` classes.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|42|7|5|Avoid `print` calls in production code.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|61|26|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|66|26|83|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|67|28|27|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|75|24|34|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|122|31|185|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|127|31|189|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|136|36|179|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|154|19|60|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|157|19|231|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraScreen.dart|159|28|75|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|30|21|82|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|36|21|94|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|42|21|76|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|48|21|75|Prefer const with constant constructors.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|55|13|9|SizedBox for whitespace.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|60|13|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|73|26|48|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|76|26|105|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|85|35|159|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|90|34|117|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/CameraView.dart|106|34|161|Prefer const with constant constructors.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|10|8|52|Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|13|8|30|Unused import: 'package:flutter_svg/svg.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|16|8|38|Unused import: 'package:rsa_encrypt/rsa_encrypt.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS_IN_IMMUTABLES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|20|3|14|Prefer declaring const constructors on `@immutable` classes.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|68|28|19|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|79|21|99|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|98|27|17|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|105|32|133|Prefer const with constant constructors.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|160|17|9|SizedBox for whitespace.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|249|28|9|SizedBox for whitespace.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|256|31|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|259|43|84|Prefer const with constant constructors.
+INFO|LINT|PREFER_IS_EMPTY|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|272|43|16|Use isNotEmpty instead of length
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|285|50|29|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|317|51|22|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|336|55|17|Prefer const with constant constructors.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|410|12|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|425|19|60|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|429|19|60|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|435|15|53|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|442|19|60|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|446|19|60|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|474|11|44|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|479|20|98|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|492|19|43|Prefer const with constant constructors.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualPage.dart|498|13|5|Avoid `print` calls in production code.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/IndividualServices.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|FILE_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|1|1|0|Name source files using `lowercase_with_underscores`.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|35|21|82|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|41|21|94|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|47|21|76|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|53|21|75|Prefer const with constant constructors.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|60|13|9|SizedBox for whitespace.
+INFO|LINT|SIZED_BOX_FOR_WHITESPACE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|65|13|9|SizedBox for whitespace.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|80|26|48|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|82|26|105|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|91|35|159|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|96|34|117|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/Screens/VideoView.dart|103|32|153|Prefer const with constant constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|1|8|43|Unused import: 'package:flutter_ecrm/Model/ChatModel.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|2|8|46|Unused import: 'package:flutter_ecrm/Model/MessageModel.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|4|8|50|Unused import: 'package:flutter_ecrm/Pages/ChatPageServices.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|10|8|83|Unused import: 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|11|8|52|Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/bottom_bar.dart|13|8|62|Unused import: 'package:flutter_ecrm/providers/individual_page_provider.dart'.
+INFO|LINT|CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|4|17|3|Prefer using lowerCamelCase for constant names.
+INFO|LINT|CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|4|22|6|Prefer using lowerCamelCase for constant names.
+INFO|LINT|CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|4|30|6|Prefer using lowerCamelCase for constant names.
+INFO|HINT|UNNECESSARY_NULL_COMPARISON|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|17|13|7|The operand can't be null, so the condition is always false.
+INFO|HINT|UNNECESSARY_NULL_COMPARISON|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|41|13|7|The operand can't be null, so the condition is always false.
+INFO|HINT|UNNECESSARY_NULL_COMPARISON|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/core_toast.dart|79|13|7|The operand can't be null, so the condition is always false.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/dialog_alert.dart|1|8|12|Unused import: 'dart:async'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/dialog_alert.dart|8|8|38|Unused import: 'package:one_context/one_context.dart'.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/dialog_alert.dart|32|34|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/common/widgets/dialog_alert.dart|71|38|9|The value of the local variable 'presenter' isn't used.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/constants/global_variables.dart|73|18|11|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/constants/global_variables.dart|74|17|9|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|PREFER_CONST_DECLARATIONS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/constants/utils.dart|70|3|65|Prefer const over final for declarations.
+INFO|LINT|CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/constants/utils.dart|86|11|14|Prefer using lowerCamelCase for constant names.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/constants/utils.dart|123|5|5|Avoid `print` calls in production code.
+INFO|LINT|IMPLEMENTATION_IMPORTS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|4|8|41|Don't import implementation files from another package.
+INFO|HINT|UNNECESSARY_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|4|8|41|The import of 'package:flutter/src/foundation/key.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart'.
+INFO|LINT|IMPLEMENTATION_IMPORTS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|5|8|44|Don't import implementation files from another package.
+INFO|HINT|UNNECESSARY_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|5|8|44|The import of 'package:flutter/src/widgets/framework.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart'.
+INFO|LINT|IMPLEMENTATION_IMPORTS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|6|8|46|Don't import implementation files from another package.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|6|8|46|Unused import: 'package:flutter/src/widgets/placeholder.dart'.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/screens/register_biometric_screen.dart|59|7|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/services/account_services.dart|15|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|PREFER_CONST_LITERALS_TO_CREATE_IMMUTABLES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/widgets/account_button.dart|22|22|153|Prefer const literals as parameters of constructors on @immutable classes.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/widgets/account_button.dart|23|13|126|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/account/widgets/account_button.dart|26|23|12|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|273|23|271|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|274|32|205|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|293|23|280|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|294|32|214|Prefer const with constant constructors.
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|312|23|25|'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples.
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_buy_now_screen.dart|322|23|25|'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|278|23|271|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|279|32|205|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|298|23|280|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|299|32|214|Prefer const with constant constructors.
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|317|23|25|'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples.
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/screens/address_screen.dart|327|23|25|'paymentConfigurationAsset' is deprecated and shouldn't be used. Prefer to use [paymentConfiguration]. Take a look at the readme to see examples.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|22|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|36|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|37|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|47|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|51|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|62|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|76|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|77|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|88|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|92|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|103|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|114|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|115|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|124|13|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|129|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|144|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|148|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|163|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|164|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|178|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|188|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|192|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|204|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|208|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|209|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|210|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|231|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|232|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|244|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|254|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|258|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|269|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|280|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|281|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|288|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|292|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|305|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|320|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|321|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|328|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|333|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|337|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|348|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|362|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|363|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/address/services/address_services.dart|371|7|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/admin_screen.dart|1|8|43|Unused import: 'package:flutter_ecrm/Model/ChatModel.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/admin_screen.dart|122|24|26|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/admin_screen.dart|125|24|146|Prefer const with constant constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|1|8|68|Unused import: 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|4|8|67|Unused import: 'package:flutter_ecrm/features/account/widgets/single_product.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|6|8|69|Unused import: 'package:flutter_ecrm/features/admin/screens/add_product_screen.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|8|8|70|Unused import: 'package:flutter_ecrm/features/admin/screens/edit_product_screen.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|10|8|67|Unused import: 'package:flutter_ecrm/features/admin/services/branch_services.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|12|8|42|Unused import: 'package:flutter_ecrm/models/product.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|14|8|58|Unused import: 'package:flutter_ecrm/providers/add_product_provider.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/manage_branch_screen.dart|18|8|52|Unused import: 'package:zoom_tap_animation/zoom_tap_animation.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/posts_screen.dart|1|8|14|Unused import: 'dart:convert'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/posts_screen.dart|2|8|56|Unused import: 'package:cached_network_image/cached_network_image.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/screens/setting_screen.dart|7|8|64|Unused import: 'package:flutter_ecrm/features/account/widgets/top_buttons.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|2|8|9|Unused import: 'dart:io'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|3|8|17|Unused import: 'dart:typed_data'.
+INFO|HINT|UNNECESSARY_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|21|8|33|The import of 'package:flutter/foundation.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart'.
+INFO|HINT|UNNECESSARY_TYPE_CHECK|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/admin_services.dart|395|21|18|Unnecessary type check; the result is always 'false'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/branch_services.dart|3|8|9|Unused import: 'dart:io'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/services/branch_services.dart|12|8|41|Unused import: 'package:flutter_ecrm/models/branch.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/branch_item.dart|2|8|68|Unused import: 'package:flutter_ecrm/common/widgets/popup_notification_custom.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/branch_item.dart|3|8|54|Unused import: 'package:flutter_ecrm/constants/global_variables.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/branch_item.dart|26|12|2886|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/branch_item.dart|100|14|17|Prefer const with constant constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/setting_item.dart|3|8|38|Unused import: 'package:flutter_svg/flutter_svg.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/setting_item.dart|29|17|49|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/setting_item.dart|50|29|25|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/setting_item.dart|60|29|33|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/admin/widgets/setting_item.dart|61|28|42|Prefer const with constant constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/screens/auth_screen.dart|13|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/screens/auth_screen.dart|110|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/screens/auth_screen.dart|111|5|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|2|8|16|Unused import: 'dart:developer'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|18|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|34|20|23|Name non-constant identifiers using lowerCamelCase.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|38|25|2|The value of the local variable 'pk' isn't used.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|43|14|21|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|48|14|21|Name non-constant identifiers using lowerCamelCase.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|48|14|21|The value of the local variable 'decrypted_private_key' isn't used.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|93|21|14|Name non-constant identifiers using lowerCamelCase.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|97|12|8|The value of the local variable 'deviceId' isn't used.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|105|9|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|271|11|8|The value of the local variable 'response' isn't used.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/auth/services/auth_service.dart|283|21|14|Name non-constant identifiers using lowerCamelCase.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/cart/screens/cart_screen.dart|2|8|56|Unused import: 'package:flutter_ecrm/common/widgets/custom_button.dart'.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/cart/screens/cart_screen.dart|228|11|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/cart/widgets/cart_product.dart|5|8|83|Unused import: 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart'.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/screens/home_screen.dart|190|11|5|Avoid `print` calls in production code.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|21|9|79|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|35|37|327|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_LITERALS_TO_CREATE_IMMUTABLES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|36|38|248|Prefer const literals as parameters of constructors on @immutable classes.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|37|29|190|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|40|39|12|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|57|42|86|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|65|42|83|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|81|35|20|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/carousel_image.dart|82|44|27|Prefer const with constant constructors.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/deal_of_day.dart|2|8|54|Unused import: 'package:flutter_ecrm/constants/global_variables.dart'.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/deal_of_day.dart|50|21|613|Prefer const with constant constructors.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/home/widgets/deal_of_day.dart|53|30|436|Prefer const with constant constructors.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/order_details/screens/order_details.dart|449|11|5|Avoid `print` calls in production code.
+INFO|LINT|PREFER_CONST_CONSTRUCTORS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/product_details/screens/product_details_screen.dart|418|16|68|Prefer const with constant constructors.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/product_details/screens/product_details_screen.dart|455|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/product_details/services/product_details_services.dart|41|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/product_details/services/product_details_services.dart|149|11|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/features/search/screens/search_screen.dart|206|11|5|Avoid `print` calls in production code.
+INFO|HINT|DUPLICATE_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|8|8|14|Duplicate import.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|9|8|11|Unused import: 'dart:math'.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|17|18|23|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|26|14|19|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|26|42|16|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|32|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|33|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|35|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|36|5|5|Avoid `print` calls in production code.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|41|14|19|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|41|42|21|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|50|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|51|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|52|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|53|5|5|Avoid `print` calls in production code.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|70|42|13|The value of the local variable 'futureKeyPair' isn't used.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|73|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|74|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|76|5|5|Avoid `print` calls in production code.
+INFO|LINT|UNNECESSARY_STRING_INTERPOLATIONS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|88|12|13|Unnecessary string interpolation.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|113|11|6|The value of the local variable 'header' isn't used.
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|123|50|1|'d' is deprecated and shouldn't be used. Use privateExponent..
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|126|25|1|'d' is deprecated and shouldn't be used. Use privateExponent..
+INFO|HINT|DEPRECATED_MEMBER_USE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|128|25|1|'d' is deprecated and shouldn't be used. Use privateExponent..
+INFO|LINT|UNNECESSARY_STRING_INTERPOLATIONS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|145|12|13|Unnecessary string interpolation.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/helper/encryption_helper.dart|159|11|6|The value of the local variable 'header' isn't used.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|2|8|14|Unused import: 'dart:convert'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|6|8|53|Unused import: 'package:flutter_ecrm/common/widgets/bottom_bar.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|9|8|70|Unused import: 'package:flutter_ecrm/features/account/services/account_services.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|10|8|63|Unused import: 'package:flutter_ecrm/features/admin/screens/admin_screen.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|14|8|52|Unused import: 'package:flutter_ecrm/helper/encryption_helper.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|18|8|62|Unused import: 'package:flutter_ecrm/providers/individual_page_provider.dart'.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|24|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|UNNECESSARY_NEW|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|65|19|15|Unnecessary new keyword.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|77|13|5|The value of the local variable 'token' isn't used.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|78|13|10|The value of the local variable 'userString' isn't used.
+INFO|HINT|UNUSED_LOCAL_VARIABLE|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|79|11|4|The value of the local variable 'user' isn't used.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|120|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/main.dart|131|7|5|Avoid `print` calls in production code.
+INFO|LINT|UNNECESSARY_CONST|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/common_provider.dart|14|20|26|Avoid const keyword.
+INFO|LINT|UNNECESSARY_NEW|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/common_provider.dart|18|13|250|Unnecessary new keyword.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|15|8|52|Unused import: 'package:shared_preferences/shared_preferences.dart'.
+INFO|LINT|LIBRARY_PREFIXES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|16|60|2|Use `lowercase_with_underscores` when specifying a library prefix.
+INFO|LINT|PREFER_FINAL_FIELDS|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|23|20|38|Private field could be final.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|94|7|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|96|9|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|112|5|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|115|38|5|Avoid `print` calls in production code.
+INFO|LINT|AVOID_PRINT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|116|32|5|Avoid `print` calls in production code.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|176|14|21|Name non-constant identifiers using lowerCamelCase.
+INFO|LINT|NON_CONSTANT_IDENTIFIER_NAMES|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/providers/individual_page_provider.dart|204|12|21|Name non-constant identifiers using lowerCamelCase.
+INFO|HINT|UNUSED_IMPORT|/Users/ngoxuantrong/FlutterProjects/flutter-ecrm/lib/router.dart|1|8|43|Unused import: 'package:flutter_ecrm/Model/ChatModel.dart'.

@@ -22,8 +22,8 @@ class SharedBuilder extends StatelessWidget {
   }
 
   SharedBuilder({
-    super.key,
+    Key? key,
     this.listenKeys,
     required this.builder,
-  });
+  }) : super(key: key);
 }

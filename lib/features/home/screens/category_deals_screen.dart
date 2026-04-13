@@ -35,7 +35,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
         branchId:
             ""); //để lấy danh sách sản phẩm ngay khi màn hình được khởi tạo.
     // Trì hoãn việc gọi setListBranch() cho đến khi build hoàn tất
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
       Provider.of<FetchBranchProvider>(context, listen: false).setListBranch();
     });
   }

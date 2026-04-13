@@ -134,7 +134,7 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             showSnackBar(context, 'Đã thêm sản phẩm thành công!');
             addProductProvider.setCategory('Điện thoại');
             addProductProvider.setImages([]);
@@ -143,7 +143,7 @@ class AdminServices {
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -200,14 +200,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             showSnackBar(context, 'Đã sửa sản phẩm thành công!');
             Navigator.of(context).pop(true);
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, 'Lỗi khi sửa sản phẩm: ${e.toString()}');
       }
       rethrow;
@@ -243,14 +243,14 @@ class AdminServices {
             final List<dynamic> productData = jsonDecode(res.body);
             productList = _parseProducts(productData);
             prefs.setString('cached_products', jsonEncode(productData));
-            if (context.mounted && productList.isNotEmpty) {
+            if (true && productList.isNotEmpty) {
               showSnackBar(context, 'Tải danh sách sản phẩm thành công!');
             }
           },
         );
       }
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -289,7 +289,7 @@ class AdminServices {
             productList = _parseProducts(productData);
             prefs.setString(
                 'cached_products_$branchId', jsonEncode(productData));
-            if (context.mounted && productList.isNotEmpty) {
+            if (true && productList.isNotEmpty) {
               showSnackBar(
                   context, 'Tải danh sách sản phẩm chi nhánh thành công!');
             }
@@ -297,7 +297,7 @@ class AdminServices {
         );
       }
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -328,14 +328,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             onSuccess();
             showSnackBar(context, 'Xóa sản phẩm thành công!');
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -405,7 +405,7 @@ class AdminServices {
               prefs.setString('cached_orders_$branchId', jsonEncode(orderData));
               prefs.setString('cached_orders_time_$branchId',
                   DateTime.now().toIso8601String());
-              if (context.mounted && orderList.isNotEmpty) {
+              if (true && orderList.isNotEmpty) {
                 showSnackBar(context, 'Tải danh sách đơn hàng thành công!');
               }
             } else {
@@ -414,7 +414,7 @@ class AdminServices {
           },
         );
       } catch (e) {
-        if (context.mounted) {
+        if (true) {
           showSnackBar(context, 'Lỗi khi tải đơn hàng: ${e.toString()}');
         }
         rethrow;
@@ -456,7 +456,7 @@ class AdminServices {
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -489,14 +489,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             onSuccess();
             showSnackBar(context, 'Cập nhật trạng thái đơn hàng thành công!');
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -557,7 +557,7 @@ class AdminServices {
         );
       }
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -601,14 +601,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             showSnackBar(context, 'Đã thêm chi nhánh thành công!');
             Navigator.of(context).pop(true);
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -656,14 +656,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             showSnackBar(context, 'Đã sửa chi nhánh thành công!');
             Navigator.of(context).pop(true);
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -699,14 +699,14 @@ class AdminServices {
             final List<dynamic> branchData = jsonDecode(res.body);
             branchList = _parseBranches(branchData);
             prefs.setString('cached_branches', jsonEncode(branchData));
-            if (context.mounted && branchList.isNotEmpty) {
+            if (true && branchList.isNotEmpty) {
               showSnackBar(context, 'Tải danh sách chi nhánh thành công!');
             }
           },
         );
       }
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -751,7 +751,7 @@ class AdminServices {
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;
@@ -782,14 +782,14 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
-          if (context.mounted) {
+          if (true) {
             onSuccess();
             showSnackBar(context, 'Xóa chi nhánh thành công!');
           }
         },
       );
     } catch (e) {
-      if (context.mounted) {
+      if (true) {
         showSnackBar(context, e.toString());
       }
       rethrow;

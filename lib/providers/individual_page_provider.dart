@@ -70,7 +70,7 @@ class IndividualPageProvider extends ChangeNotifier {
             .then((value) => setMessage(value, user));
       }
     }
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
       // Kiểm tra nếu _scrollController đã được gắn với ScrollView
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
@@ -96,7 +96,7 @@ class IndividualPageProvider extends ChangeNotifier {
         print("vào newMessage ${MessageModel.fromMap(msg).toJson()}");
         // setMessage(msg["message"]);
         setMessage(MessageModel.fromMap(msg), user);
-        SchedulerBinding.instance.addPostFrameCallback((_) {
+        SchedulerBinding.instance?.addPostFrameCallback((_) {
           // Kiểm tra nếu _scrollController đã được gắn với ScrollView
           if (_scrollController.hasClients) {
             _scrollController.animateTo(

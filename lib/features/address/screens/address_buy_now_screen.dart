@@ -334,7 +334,7 @@ class _AddressBuyNowScreenState extends State<AddressBuyNowScreen> {
                   onPressed: onCodPressed,
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
-                    backgroundColor: Colors.black,
+                    primary: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

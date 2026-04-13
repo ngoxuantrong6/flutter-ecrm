@@ -77,7 +77,7 @@ class _PostsScreenState extends State<PostsScreen> {
       if (user?.type == "admin") {
         await fetchAllBranches();
       }
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
         context.read<AddProductProvider>().setCategory('Điện thoại');
         context.read<AddProductProvider>().setImages([]);
       });

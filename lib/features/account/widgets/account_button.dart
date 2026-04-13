@@ -29,7 +29,7 @@ class AccountButton extends StatelessWidget {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
+            primary: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
               side: const BorderSide(color: Colors.black12, width: 1),

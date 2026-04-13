@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/DOAN/flutter-ecrm/windows"
+  "cmake.sourceDirectory": "D:/DOAN/flutter-ecrm/windows",
+  "dart.flutterSdkPath": ".fvm/versions/2.10.5"
 }

@@ -339,7 +339,7 @@ class _AddressScreenState extends State<AddressScreen> {
                   onPressed: onCodPressed,
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
-                    backgroundColor: Colors.black,
+                    primary: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

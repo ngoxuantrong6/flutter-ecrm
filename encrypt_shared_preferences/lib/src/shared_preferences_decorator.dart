@@ -140,8 +140,8 @@ class SharedPreferencesDecorator implements SharedPreferences {
       bool notifyEach = false,
       required Function(String key, String value) condition}) async {
     try {
-      await Future.forEach(getKeys(), (key) async {
-        if (condition(key, get(key)!)) {
+      await Future.forEach<String>(getKeys(), (key) async {
+        if (condition(key, getString(key)!)) {
           await _preferences.remove(_encryptor.encrypt(_key, key));
           if (notifyEach) {
             _notify(key, true);
@@ -213,9 +213,9 @@ class SharedPreferencesDecorator implements SharedPreferences {
   }
 
   Future<void> setMap(Map<String, dynamic> map, {bool notify = true}) async {
-    await Future.forEach(map.keys.toList(), (element) async {
+    await Future.forEach<String>(map.keys.toList(), (element) async {
       final key = _encryptor.encrypt(_key, element);
-      final value = _encryptor.encrypt(_key, map[element]);
+      final value = _encryptor.encrypt(_key, map[element].toString());
       await _preferences.setString(key, value);
     });
     _notify('', notify);
