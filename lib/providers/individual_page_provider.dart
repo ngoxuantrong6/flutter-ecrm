@@ -3,7 +3,7 @@ import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_ecrm/Model/MessageModel.dart';
-import 'package:flutter_ecrm/Screens/IndividualServices.dart';
+import 'package:flutter_ecrm/features/chat/services/IndividualServices.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';

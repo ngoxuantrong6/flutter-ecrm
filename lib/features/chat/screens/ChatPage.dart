@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/CustomUI/CustomCard.dart';
 import 'package:flutter_ecrm/Model/ChatModel.dart';
 import 'package:flutter_ecrm/Model/MessageModel.dart';
-import 'package:flutter_ecrm/Pages/ChatPageServices.dart';
+import 'package:flutter_ecrm/features/chat/services/ChatPageServices.dart';
 import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/account/widgets/below_app_bar.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_ecrm/Screens/SelectContact.dart';
+// import 'package:flutter_ecrm/features/SelectContact.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage({Key? key}) : super(key: key);

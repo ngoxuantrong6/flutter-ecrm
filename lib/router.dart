@@ -1,5 +1,5 @@
 import 'package:flutter_ecrm/Model/ChatModel.dart';
-import 'package:flutter_ecrm/Screens/IndividualPage.dart';
+import 'package:flutter_ecrm/features/chat/screens/IndividualPage.dart';
 import 'package:flutter_ecrm/common/widgets/bottom_bar.dart';
 import 'package:flutter_ecrm/features/account/screens/change_password_screen.dart';
 import 'package:flutter_ecrm/features/account/screens/my_orders_screen.dart';

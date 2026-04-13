@@ -1,7 +1,7 @@
 import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/Model/ChatModel.dart';
-import 'package:flutter_ecrm/Screens/IndividualPage.dart';
+import 'package:flutter_ecrm/features/chat/screens/IndividualPage.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/helper/encryption_helper.dart';

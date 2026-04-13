@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/Model/ChatModel.dart';
-import 'package:flutter_ecrm/Screens/CameraScreen.dart';
+import 'package:flutter_ecrm/features/camera/screens/CameraScreen.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/individual_page_provider.dart';
 

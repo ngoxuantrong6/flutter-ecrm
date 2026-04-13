@@ -1,5 +1,5 @@
 import 'package:flutter_ecrm/Model/ChatModel.dart';
-import 'package:flutter_ecrm/Pages/ChatPage.dart';
+import 'package:flutter_ecrm/features/chat/screens/ChatPage.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/screens/analtyics_screen.dart';

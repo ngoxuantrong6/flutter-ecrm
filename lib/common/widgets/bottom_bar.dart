@@ -1,7 +1,7 @@
 import 'package:flutter_ecrm/Model/ChatModel.dart';
 import 'package:flutter_ecrm/Model/MessageModel.dart';
-import 'package:flutter_ecrm/Pages/ChatPage.dart';
-import 'package:flutter_ecrm/Pages/ChatPageServices.dart';
+import 'package:flutter_ecrm/features/chat/screens/ChatPage.dart';
+import 'package:flutter_ecrm/features/chat/services/ChatPageServices.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/account/screens/account_screen.dart';

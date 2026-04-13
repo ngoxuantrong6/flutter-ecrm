@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_ecrm/Screens/IndividualPage.dart';
+import 'package:flutter_ecrm/features/chat/screens/IndividualPage.dart';
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/common/widgets/loader.dart';
 import 'package:flutter_ecrm/common/widgets/stars.dart';

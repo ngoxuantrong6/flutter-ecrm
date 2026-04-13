@@ -4,7 +4,7 @@ import 'package:flutter_ecrm/CustomUI/OwnFileCard.dart';
 import 'package:flutter_ecrm/CustomUI/OwnMessgaeCrad.dart';
 import 'package:flutter_ecrm/CustomUI/ReplyCard.dart';
 import 'package:flutter_ecrm/CustomUI/ReplyFileCard.dart';
-import 'package:flutter_ecrm/Pages/CameraPage.dart';
+import 'package:flutter_ecrm/features/camera/screens/CameraPage.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/product_details/screens/product_details_screen.dart';
 import 'package:flutter_ecrm/helper/encryption_helper.dart';
