@@ -92,12 +92,6 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
           title: Container(
             alignment: Alignment.topLeft,
-            // child: Image.asset(
-            //   'assets/images/amazon_in.png',
-            //   width: 120,
-            //   height: 45,
-            //   color: Colors.black,
-            // ),
             child: const Text(
               "ECRM PRO",
               style: TextStyle(
