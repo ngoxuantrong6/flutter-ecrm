@@ -30,8 +30,8 @@
         "merchantName": "Example Merchant Name"
       },
       "transactionInfo": {
-        "countryCode": "US",
-        "currencyCode": "USD"
+        "countryCode": "VN",
+        "currencyCode": "VND"
       }
     }
   }

@@ -43,9 +43,9 @@ class Product {
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       quantity: map['quantity']?.toInt() ?? 0,
-      images: List<String>.from(map['images']),
+      images: List<String>.from(map['images'] ?? []),
       category: map['category'] ?? '',
-      price: map['price']?.toInt() ?? 0.0,
+      price: map['price']?.toInt() ?? 0,
       id: map['_id'],
       rating: map['ratings'] != null
           ? List<Rating>.from(

@@ -36,20 +36,22 @@ class Order {
   }
 
   factory Order.fromMap(Map<String, dynamic> map) {
+    final productsData = map['products'] as List<dynamic>? ?? [];
     return Order(
       id: map['_id'] ?? '',
-      products: List<Product>.from(
-          map['products']?.map((x) => Product.fromMap(x['product']))),
-      quantity: List<int>.from(
-        map['products']?.map(
-          (x) => x['quantity'],
-        ),
-      ),
+      products: productsData
+          .where((x) => x != null && x['product'] != null)
+          .map((x) => Product.fromMap(x['product'] as Map<String, dynamic>))
+          .toList(),
+      quantity: productsData
+          .where((x) => x != null && x['product'] != null)
+          .map((x) => (x['quantity'] as num?)?.toInt() ?? 0)
+          .toList(),
       address: map['address'] ?? '',
       userId: map['userId'] ?? '',
       orderedAt: map['orderedAt']?.toInt() ?? 0,
       status: map['status']?.toInt() ?? 0,
-      totalPrice: map['totalPrice']?.toInt() ?? 0.0,
+      totalPrice: map['totalPrice']?.toInt() ?? 0,
     );
   }
 

@@ -5,8 +5,8 @@
       "displayName": "Sam's Fish",
       "merchantCapabilities": ["3DS", "debit", "credit"],
       "supportedNetworks": ["amex", "visa", "discover", "masterCard"],
-      "countryCode": "US",
-      "currencyCode": "USD",
+      "countryCode": "VN",
+      "currencyCode": "VND",
       "requiredBillingContactFields": ["post"],
       "requiredShippingContactFields": ["post", "phone", "email", "name"],
       "shippingMethods": [

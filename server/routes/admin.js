@@ -135,8 +135,10 @@ adminRouter.get("/admin/analytics/", admin, async (req, res) => {
 
     for (let i = 0; i < orders.length; i++) {
       for (let j = 0; j < orders[i].products.length; j++) {
-        totalEarnings +=
-          orders[i].products[j].quantity * orders[i].products[j].product.price;
+        if (orders[i].products[j].product) {
+          totalEarnings +=
+            orders[i].products[j].quantity * orders[i].products[j].product.price;
+        }
       }
     }
     // CATEGORY WISE ORDER FETCHING
@@ -177,7 +179,10 @@ async function fetchCategoryWiseProduct(category, branchId) {
 
   for (let i = 0; i < categoryOrders.length; i++) {
     for (let j = 0; j < categoryOrders[i].products.length; j++) {
-      if (categoryOrders[i].products[j].product.category == category) {
+      if (
+        categoryOrders[i].products[j].product &&
+        categoryOrders[i].products[j].product.category == category
+      ) {
         earnings +=
           categoryOrders[i].products[j].quantity *
           categoryOrders[i].products[j].product.price;

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:speech_to_text/speech_to_text_provider.dart';
 
-String uri = 'https://ecrm-server.onrender.com';
+// String uri = 'https://ecrm-server.onrender.com';
+String uri = 'http://172.16.1.202:3000'; // mang phuong dong
 // String uri = 'http://192.168.0.106:3000'; // mang cty
 
 // String uri = 'http://192.168.1.39:3000'; // mang cty
