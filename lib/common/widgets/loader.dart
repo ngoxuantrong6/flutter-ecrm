@@ -9,7 +9,7 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: LoadingAnimationWidget.hexagonDots(
-        color: GlobalVariables.secondaryColor,
+        color: GlobalVariables.primaryColor,
         size: 50,
       ),
     );

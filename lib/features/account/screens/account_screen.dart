@@ -3,6 +3,7 @@ import 'package:flutter_ecrm/features/account/widgets/below_app_bar.dart';
 import 'package:flutter_ecrm/features/account/widgets/orders.dart';
 import 'package:flutter_ecrm/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -18,34 +19,12 @@ class AccountScreen extends StatelessWidget {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "SHOP BE",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              // Container(
-              //   padding: const EdgeInsets.only(left: 15, right: 15),
-              //   child: Row(
-              //     children: const [
-              //       Padding(
-              //         padding: EdgeInsets.only(right: 15),
-              //         child: Icon(Icons.notifications_outlined),
-              //       ),
-              //       Icon(
-              //         Icons.search,
-              //       ),
-              //     ],
-              //   ),
-              // )
-            ],
+          title: Container(
+            alignment: Alignment.topLeft,
+            child: SvgPicture.asset(
+              'assets/icons/logo_app.svg',
+              height: 45,
+            ),
           ),
         ),
       ),

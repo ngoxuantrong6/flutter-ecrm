@@ -3,24 +3,24 @@ import 'package:flutter_ecrm/models/user.dart';
 import 'package:speech_to_text/speech_to_text_provider.dart';
 
 String uri = 'https://ecrm-server.onrender.com';
-// String uri = 'http://172.16.1.202:3000'; // mang phuong dong
+// String uri = 'http://192.168.250.4:3000'; // mang phuong dong
 // String uri = 'http://192.168.0.106:3000'; // mang cty
 
 // String uri = 'http://192.168.1.39:3000'; // mang cty
-// String uri = 'http://192.168.1.13:3000'; // mang o nha
+// String uri = 'http://192.168.68.105:3000'; // mang o nha
 
 class GlobalVariables {
   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 96, 158, 230),
-      Color.fromARGB(255, 204, 210, 218),
+      Color(0xFFFF9900), // Cam (Orange)
+      Color(0xFFFF3399), // Hồng (Pink)
     ],
     stops: [0.5, 1.0],
   );
 
-  static const primaryColor = Color.fromARGB(255, 96, 158, 230);
-  static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
+  static const primaryColor = Color(0xFFFF3399); // Hồng (Pink)
+  static const secondaryColor = Color(0xFFFF9900); // Cam (Orange)
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static const unselectedNavBarColor = Colors.black87;

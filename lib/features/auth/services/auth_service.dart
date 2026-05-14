@@ -144,14 +144,24 @@ class AuthService {
           await prefs.setStringList('hashedPassword',
               isFingerPrint ? hashedPassword : hashedPasswordArg);
           List<String>? passwordHashed = prefs.getStringList('hashedPassword');
+          
+          String privateKeyStr = jsonDecode(res.body)['privateKey'] ?? '';
+          String decryptedKey = '';
+          if (privateKeyStr.isNotEmpty) {
+            String keyToUse = encryption_key;
+            if (isFingerPrint && passwordHashed != null && passwordHashed.length > 1) {
+              keyToUse = passwordHashed[1];
+            }
+            try {
+              decryptedKey = EncryptionHelper.decryptPrivateKey(keyToUse, privateKeyStr);
+            } catch (e) {
+              debugPrint('Error decrypting privateKey: $e');
+            }
+          }
+
           User user = Provider.of<UserProvider>(context, listen: false)
               .user
-              .copyWith(
-                  privateKey: EncryptionHelper.decryptPrivateKey(
-                      isFingerPrint && passwordHashed != []
-                          ? passwordHashed![1]
-                          : encryption_key,
-                      jsonDecode(res.body)['privateKey']));
+              .copyWith(privateKey: decryptedKey);
           if (user.type == 'admin') {
             Navigator.pushNamedAndRemoveUntil(
               context,

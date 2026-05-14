@@ -57,7 +57,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               physics: const BouncingScrollPhysics(),
               itemCount: orders!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.75,
+              ),
               itemBuilder: (context, index) {
                 final orderData = orders![index];
                 return ZoomTapAnimation(
@@ -71,10 +73,9 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                     );
                   },
                   child: SizedBox(
-                    height: 140,
                     child: SingleProduct(
-                      image: orderData.products[0].images[
-                          0], // sản phẩm sẽ có hình sảnh sản phẩm đầu tiên từ danh sách của đơn hàng
+                      image: orderData.products[0].images[0], // sản phẩm sẽ có hình sảnh sản phẩm đầu tiên từ danh sách của đơn hàng
+                      order: orderData,
                     ),
                   ),
                 );

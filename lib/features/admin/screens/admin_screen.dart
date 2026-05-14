@@ -12,6 +12,7 @@ import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/fetch_branch_provider.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -92,12 +93,9 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
           title: Container(
             alignment: Alignment.topLeft,
-            child: const Text(
-              "ECRM PRO",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
+            child: SvgPicture.asset(
+              'assets/icons/logo_app.svg',
+              height: 45,
             ),
           ),
           actions: [
@@ -113,7 +111,7 @@ class _AdminScreenState extends State<AdminScreen> {
             //   icon: const Icon(Icons.logout),
             // ),
             Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: EdgeInsets.only(right: 10, top: 10),
               child: Text(
                 user?.type == "admin" ? "Admin" : "Chi nhánh",
                 style: TextStyle(

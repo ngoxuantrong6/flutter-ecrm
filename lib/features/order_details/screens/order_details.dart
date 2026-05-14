@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_ecrm/common/widgets/custom_button.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
+import 'package:flutter_ecrm/features/admin/services/admin_services.dart';
 import 'package:flutter_ecrm/features/admin/services/branch_services.dart';
 import 'package:flutter_ecrm/features/search/screens/search_screen.dart';
 import 'package:flutter_ecrm/models/order.dart';
@@ -29,8 +30,8 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   int currentStep = 0;
-  final BranchServices adminServices =
-      BranchServices(); //adminService = OOP gọi API cập nhật đơn hàng
+  final AdminServices adminServices = AdminServices();
+  final BranchServices branchServices = BranchServices();
   TextEditingController searchTextController =
       TextEditingController(); // searchTextController điều khiển ô tìm kiếm
   late StreamSubscription<SpeechRecognitionEvent> subscription;
@@ -58,16 +59,30 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   // !!! ONLY FOR ADMIN!!!
   void changeOrderStatus(int status) {
-    adminServices.changeOrderStatus(
-      context: context,
-      status: status + 1,
-      order: widget.order,
-      onSuccess: () {
-        setState(() {
-          currentStep += 1;
-        });
-      },
-    );
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    if (user.type == "admin") {
+      adminServices.changeOrderStatus(
+        context: context,
+        status: status + 1,
+        order: widget.order,
+        onSuccess: () {
+          setState(() {
+            currentStep += 1;
+          });
+        },
+      );
+    } else {
+      branchServices.changeOrderStatus(
+        context: context,
+        status: status + 1,
+        order: widget.order,
+        onSuccess: () {
+          setState(() {
+            currentStep += 1;
+          });
+        },
+      );
+    }
   }
 
   @override

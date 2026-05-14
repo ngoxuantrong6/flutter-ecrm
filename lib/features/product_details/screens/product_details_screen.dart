@@ -415,7 +415,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             );
           });
         },
-        child: Icon(
+        backgroundColor: GlobalVariables.primaryColor,
+        child: const Icon(
           Icons.chat,
           color: Colors.white,
         ),

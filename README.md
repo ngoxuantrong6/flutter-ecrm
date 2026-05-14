@@ -161,3 +161,13 @@ open -a Simulator
 - App: `1.0.0+1`
 - Flutter SDK: `2.10.5` (FVM)
 - Dart SDK: `>=2.16.2 <3.0.0`
+
+## Đẩy code server lên git
+cd server
+rm -rf .git
+git init
+git remote add origin https://github.com/ngoxuantrong6/ecrm-server.git
+git add .
+git commit -m "clean server repo"
+git branch -M master
+git push -u origin master --force

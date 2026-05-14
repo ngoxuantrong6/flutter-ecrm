@@ -4,7 +4,6 @@ const auth = require("../middlewares/auth");
 const Order = require("../models/order");
 const { Product } = require("../models/product");
 const { User } = require("../models/user");
-const bcryptjs = require("bcryptjs");
 
 userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
@@ -170,15 +169,15 @@ userRouter.patch("/api/update-profile", auth, async (req, res) => {
 userRouter.patch("/api/change-password", auth, async (req, res) => {
   try {
     let user = await User.findById(req.user);
-    const { oldPassword, newPassword } = req.body;
+    const { oldPassword, newPassword, privateKey } = req.body;
 
-    const isPasswordValid = await bcryptjs.compare(oldPassword, user.password);
+    const isPasswordValid = oldPassword === user.password;
 
     if (!isPasswordValid) {
       return res.status(400).json({ msg: 'Mật khẩu cũ không chính xác!' });
     }
-    const hashedPassword = await bcryptjs.hash(newPassword, 8);
-    user.password = hashedPassword;
+    user.password = newPassword;
+    user.privateKey = privateKey;
     user = await user.save();
     res.json(user);
   } catch (e) {

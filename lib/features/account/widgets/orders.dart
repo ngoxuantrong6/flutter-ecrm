@@ -70,7 +70,7 @@ class _OrdersState extends State<Orders> {
               ),
               // display orders
               Container(
-                height: 170,
+                height: 240,
                 padding: const EdgeInsets.only(
                   left: 10,
                   top: 20,
@@ -91,6 +91,7 @@ class _OrdersState extends State<Orders> {
                       },
                       child: SingleProduct(
                         image: orders![index].products[0].images[0],
+                        order: orders![index],
                       ),
                     );
                   },

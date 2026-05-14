@@ -51,6 +51,14 @@ const userSchema = mongoose.Schema({
   deviceId: {
     type: String,
   },
+  provinceId: {
+    type: Number,
+    default: null,
+  },
+  wardId: {
+    type: Number,
+    default: null,
+  },
 });
 
 const User = mongoose.model("User", userSchema);

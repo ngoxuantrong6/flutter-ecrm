@@ -197,7 +197,7 @@ async function fetchCategoryWiseProduct(category, branchId) {
 // Add branch
 adminRouter.post("/admin/add-branch", admin, async (req, res) => {
   try {
-    const { branchName, address, email, password } = req.body;
+    const { branchName, address, email, password, publicKey, privateKey } = req.body;
 
     // Kiểm tra xem email đã được sử dụng chưa
     const existingBranch = await User.findOne({ email });
@@ -206,14 +206,16 @@ adminRouter.post("/admin/add-branch", admin, async (req, res) => {
     }
 
     // Mã hóa mật khẩu
-    const hashedPassword = await bcryptjs.hash(password, 8);
+    // const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({
       name: branchName,
       email,
-      password: hashedPassword,
+      password: password,
       address,
-      type: "branch"
+      type: "branch",
+      publicKey: publicKey,
+      privateKey: privateKey,
     });
 
     user = await user.save();

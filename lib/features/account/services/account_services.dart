@@ -6,6 +6,7 @@ import 'package:flutter_ecrm/constants/error_handling.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/auth/screens/auth_screen.dart';
+import 'package:flutter_ecrm/helper/encryption_helper.dart';
 import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
@@ -53,6 +54,8 @@ class AccountServices {
     required BuildContext context,
     required String userName,
     required String address,
+    int? provinceId,
+    int? wardId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -70,6 +73,8 @@ class AccountServices {
         cart: userProvider.user.cart,
         publicKey: userProvider.user.publicKey,
         privateKey: userProvider.user.privateKey,
+        provinceId: provinceId,
+        wardId: wardId,
       );
 
       http.Response res = await http.patch(
@@ -85,11 +90,18 @@ class AccountServices {
         response: res,
         context: context,
         onSuccess: () {
-          User user = userProvider.user.copyWith(
-            name: jsonDecode(res.body)['name'],
-            address: jsonDecode(res.body)['address'],
+          final body = jsonDecode(res.body);
+          User updated = userProvider.user.copyWith(
+            name: body['name'],
+            address: body['address'],
+            provinceId: body['provinceId'] != null
+                ? (body['provinceId'] as num).toInt()
+                : null,
+            wardId: body['wardId'] != null
+                ? (body['wardId'] as num).toInt()
+                : null,
           );
-          userProvider.setUserFromModel(user);
+          userProvider.setUserFromModel(updated);
           showSnackBar(context, 'Cập nhật thông tin của bạn thành công!');
         },
       );
@@ -107,6 +119,18 @@ class AccountServices {
 
     try {
       LoadingShowAble.showLoading();
+      List<String> oldHashedPassword =
+          EncryptionHelper.hashPassword(oldPassword);
+      List<String> newHashedPassword =
+          EncryptionHelper.hashPassword(newPassword);
+      String plainPrivateKey = EncryptionHelper.decryptPrivateKey(
+        oldHashedPassword[1],
+        userProvider.user.privateKey,
+      );
+      String encryptedPrivateKey = EncryptionHelper.encryptPrivateKey(
+        newHashedPassword[1],
+        plainPrivateKey,
+      );
 
       http.Response res = await http.patch(
         Uri.parse('$uri/api/change-password'),
@@ -115,8 +139,9 @@ class AccountServices {
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({
-          'oldPassword': oldPassword,
-          'newPassword': newPassword,
+          'oldPassword': oldHashedPassword[0],
+          'newPassword': newHashedPassword[0],
+          'privateKey': encryptedPrivateKey,
         }),
       );
 
@@ -126,6 +151,7 @@ class AccountServices {
         onSuccess: () {
           User user = userProvider.user.copyWith(
             password: jsonDecode(res.body)['password'],
+            privateKey: jsonDecode(res.body)['privateKey'],
           );
           userProvider.setUserFromModel(user);
           PopupNotificationCustom.showMessgae(

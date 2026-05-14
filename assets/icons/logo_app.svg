@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="logoSvg" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Mẫu 1: Xe đẩy hàng E -->
+                <path d="M10 20h12l10 35h32" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M25 20h40l-5 18H29" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="36" cy="66" r="4.5" fill="white"/>
+                <circle cx="56" cy="66" r="4.5" fill="white"/>
+                <!-- Các nét tạo thành chữ E -->
+                <path d="M27 30h35" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                <path d="M22 20v18" stroke="white" stroke-width="6" stroke-linecap="round"/>
+            </svg>

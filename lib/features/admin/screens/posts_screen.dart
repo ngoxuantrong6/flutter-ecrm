@@ -125,7 +125,7 @@ class _PostsScreenState extends State<PostsScreen> {
 
   Future<void> fetchBranchProducts({required String branchId}) async {
     setState(() {
-      products = null;
+      isLoading = true;
     });
     try {
       products = await adminServices.fetchBranchProducts(
@@ -137,6 +137,10 @@ class _PostsScreenState extends State<PostsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Lỗi tải sản phẩm chi nhánh: $e')),
       );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
     if (mounted) setState(() {});
   }
@@ -189,42 +193,41 @@ class _PostsScreenState extends State<PostsScreen> {
   @override
   Widget build(BuildContext context) {
     final fetchBranchProvider = context.watch<FetchBranchProvider>();
-    return isLoading
-        ? const Loader()
-        : products == null
-            ? const Center(child: Text('Không có sản phẩm nào'))
-            : Scaffold(
-                body: Column(
-                  children: [
-                    if (user?.type == "admin") ...[
-                      const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: DropdownButton(
-                            value: fetchBranchProvider.branch,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items:
-                                fetchBranchProvider.listBranch.map((User item) {
-                              return DropdownMenuItem(
-                                value: item,
-                                child: Text(item.name),
-                              );
-                            }).toList(),
-                            onChanged: (User? newVal) {
-                              if (newVal != null) {
-                                fetchBranchProvider.setBranch(newVal);
-                                fetchBranchProducts(
-                                    branchId: fetchBranchProvider.branch.id);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                    Expanded(
-                      child: Padding(
+    return Scaffold(
+      body: Column(
+        children: [
+          if (user?.type == "admin") ...[
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: DropdownButton(
+                  value: fetchBranchProvider.branch,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: fetchBranchProvider.listBranch.map((User item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(item.name),
+                    );
+                  }).toList(),
+                  onChanged: (User? newVal) {
+                    if (newVal != null) {
+                      fetchBranchProvider.setBranch(newVal);
+                      fetchBranchProducts(
+                          branchId: fetchBranchProvider.branch.id);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+          Expanded(
+            child: isLoading
+                ? const Loader()
+                : products?.isEmpty == true
+                    ? const Center(child: Text('Không có sản phẩm nào'))
+                    : Padding(
                         padding: const EdgeInsets.all(
                             8.0), // Thêm padding xung quanh GridView
                         child: GridView.builder(
@@ -238,7 +241,7 @@ class _PostsScreenState extends State<PostsScreen> {
                             mainAxisSpacing:
                                 10.0, // Khoảng cách dọc giữa các item
                             childAspectRatio:
-                                0.75, // Tỷ lệ chiều cao/chiều rộng của item
+                                1.0, // Tỷ lệ chiều cao/chiều rộng của item
                           ),
                           itemBuilder: (context, index) {
                             final productData = products![index];
@@ -324,17 +327,16 @@ class _PostsScreenState extends State<PostsScreen> {
                           },
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                floatingActionButton: FloatingActionButton(
-                  child: const Icon(Icons.add),
-                  onPressed: navigateToAddProduct,
-                  tooltip: 'Thêm sản phẩm',
-                  backgroundColor: GlobalVariables.primaryColor,
-                ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerFloat,
-              );
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: navigateToAddProduct,
+        tooltip: 'Thêm sản phẩm',
+        backgroundColor: GlobalVariables.primaryColor,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }

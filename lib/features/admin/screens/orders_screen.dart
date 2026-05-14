@@ -91,7 +91,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
                       itemCount: orders!.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.75,
+                          ),
                       itemBuilder: (context, index) {
                         final orderData = orders![index];
                         return ZoomTapAnimation(
@@ -103,9 +105,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                             );
                           },
                           child: SizedBox(
-                            height: 140,
                             child: SingleProduct(
-                              image: orderData.products[0].images[0],
+                              image: (orderData.products.isNotEmpty &&
+                                      orderData.products[0].images.isNotEmpty)
+                                  ? orderData.products[0].images[0]
+                                  : 'https://free.vector6.com/wp-content/uploads/2020/09/Free-vector-000296-gio-hang-sieu-thi-mua-sam-voi-tuong-hinh-hang-tap-hoa.jpg', // Ảnh mặc định nếu lỗi
+                              order: orderData,
                             ),
                           ),
                         );

@@ -105,6 +105,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       data: earnings!,
                       domainFn: (Sales sales, _) => sales.label,
                       measureFn: (Sales sales, _) => sales.earning,
+                      colorFn: (Sales sales, _) => charts.ColorUtil.fromDartColor(GlobalVariables.primaryColor),
                     ),
                   ]),
                 )

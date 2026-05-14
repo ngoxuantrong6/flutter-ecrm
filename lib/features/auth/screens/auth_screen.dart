@@ -107,8 +107,11 @@ class _AuthScreenState extends State<AuthScreen> {
       hashedPassword = EncryptionHelper.hashPassword(_passwordController.text
           .trim()); // mã hóa mật khẩu người dùng bằng phương thức hashPassWord từ lớp EncrytionHelper
     }
-    print("hash password${hashedPassword[0]}");
-    print("hash password${hashedPassword[1]}");
+    
+    if (hashedPassword.isNotEmpty) {
+      print("hash password${hashedPassword[0]}");
+      print("hash password${hashedPassword[1]}");
+    }
 
     authService.signInUser(
       // gọi phương thức signInUser đến authenService để thực hiện đăng nhập
@@ -291,7 +294,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   leading: Radio(
-                    activeColor: GlobalVariables.secondaryColor,
+                    activeColor: GlobalVariables.primaryColor,
                     value: Auth.signup,
                     groupValue: _auth,
                     onChanged: (Auth? val) {
@@ -349,7 +352,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                   leading: Radio(
-                    activeColor: GlobalVariables.secondaryColor,
+                    activeColor: GlobalVariables.primaryColor,
                     value: Auth.signin,
                     groupValue: _auth,
                     onChanged: (Auth? val) {
@@ -414,7 +417,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     'assets/icons/fingerprint.svg',
                                     height: 40,
                                     width: 40,
-                                    color: GlobalVariables.secondaryColor,
+                                    color: GlobalVariables.primaryColor,
                                   ),
                                 ),
                               ),

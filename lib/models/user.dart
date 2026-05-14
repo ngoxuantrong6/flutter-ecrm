@@ -11,6 +11,8 @@ class User {
   final List<dynamic> cart;
   final String publicKey;
   final String privateKey;
+  final int? provinceId;
+  final int? wardId;
 
   User({
     required this.id,
@@ -23,6 +25,8 @@ class User {
     required this.cart,
     required this.publicKey,
     required this.privateKey,
+    this.provinceId,
+    this.wardId,
   });
 
   Map<String, dynamic> toMap() {
@@ -37,6 +41,8 @@ class User {
       'cart': cart,
       'publicKey': publicKey,
       'privateKey': privateKey,
+      'provinceId': provinceId,
+      'wardId': wardId,
     };
   }
 
@@ -56,6 +62,8 @@ class User {
       ),
       publicKey: map['publicKey'] ?? '',
       privateKey: map['privateKey'] ?? '',
+      provinceId: map['provinceId'] != null ? (map['provinceId'] as num).toInt() : null,
+      wardId: map['wardId'] != null ? (map['wardId'] as num).toInt() : null,
     );
   }
 
@@ -74,6 +82,8 @@ class User {
     List<dynamic>? cart,
     String? publicKey,
     String? privateKey,
+    int? provinceId,
+    int? wardId,
   }) {
     return User(
       id: id ?? this.id,
@@ -86,6 +96,8 @@ class User {
       cart: cart ?? this.cart,
       publicKey: publicKey ?? this.publicKey,
       privateKey: privateKey ?? this.privateKey,
+      provinceId: provinceId ?? this.provinceId,
+      wardId: wardId ?? this.wardId,
     );
   }
 }

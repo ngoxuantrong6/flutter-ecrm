@@ -6,6 +6,7 @@ import 'package:flutter_ecrm/constants/error_handling.dart';
 import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/constants/utils.dart';
 import 'package:flutter_ecrm/features/admin/models/sales.dart';
+import 'package:flutter_ecrm/helper/encryption_helper.dart';
 import 'package:flutter_ecrm/models/branch.dart';
 import 'package:flutter_ecrm/models/order.dart';
 import 'package:flutter_ecrm/models/product.dart';
@@ -19,6 +20,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pointycastle/api.dart' as encryption;
+import 'package:pointycastle/export.dart' as pointy;
 
 class AdminServices {
   // Hàm thực hiện yêu cầu HTTP với timeout
@@ -220,35 +223,35 @@ class AdminServices {
   Future<List<Product>> fetchAllProducts(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedProducts = prefs.getString('cached_products');
+    // final prefs = await SharedPreferences.getInstance();
+    // String? cachedProducts = prefs.getString('cached_products');
 
     try {
-      if (cachedProducts != null) {
-        productList = _parseProducts(jsonDecode(cachedProducts));
-      } else {
-        http.Response res = await _makeRequestWithTimeout(
-          Uri.parse('$uri/admin/get-products'),
-          {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          },
-          method: 'GET',
-        );
+      // if (cachedProducts != null) {
+      //   productList = _parseProducts(jsonDecode(cachedProducts));
+      // } else {
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/get-products'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        method: 'GET',
+      );
 
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            final List<dynamic> productData = jsonDecode(res.body);
-            productList = _parseProducts(productData);
-            prefs.setString('cached_products', jsonEncode(productData));
-            if (true && productList.isNotEmpty) {
-              showSnackBar(context, 'Tải danh sách sản phẩm thành công!');
-            }
-          },
-        );
-      }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          final List<dynamic> productData = jsonDecode(res.body);
+          productList = _parseProducts(productData);
+          // prefs.setString('cached_products', jsonEncode(productData));
+          // if (true && productList.isNotEmpty) {
+          //   showSnackBar(context, 'Tải danh sách sản phẩm thành công!');
+          // }
+        },
+      );
+      // }
     } catch (e) {
       if (true) {
         showSnackBar(context, e.toString());
@@ -265,37 +268,37 @@ class AdminServices {
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedProducts = prefs.getString('cached_products_$branchId');
+    // final prefs = await SharedPreferences.getInstance();
+    // String? cachedProducts = prefs.getString('cached_products_$branchId');
 
     try {
-      if (cachedProducts != null) {
-        productList = _parseProducts(jsonDecode(cachedProducts));
-      } else {
-        http.Response res = await _makeRequestWithTimeout(
-          Uri.parse('$uri/admin/get-products?branchId=$branchId'),
-          {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          },
-          method: 'GET',
-        );
+      // if (cachedProducts != null) {
+      //   productList = _parseProducts(jsonDecode(cachedProducts));
+      // } else {
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/get-products?branchId=$branchId'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        method: 'GET',
+      );
 
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            final List<dynamic> productData = jsonDecode(res.body);
-            productList = _parseProducts(productData);
-            prefs.setString(
-                'cached_products_$branchId', jsonEncode(productData));
-            if (true && productList.isNotEmpty) {
-              showSnackBar(
-                  context, 'Tải danh sách sản phẩm chi nhánh thành công!');
-            }
-          },
-        );
-      }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          final List<dynamic> productData = jsonDecode(res.body);
+          productList = _parseProducts(productData);
+          // prefs.setString(
+          //     'cached_products_$branchId', jsonEncode(productData));
+          // if (true && productList.isNotEmpty) {
+          //   showSnackBar(
+          //       context, 'Tải danh sách sản phẩm chi nhánh thành công!');
+          // }
+        },
+      );
+      // }
     } catch (e) {
       if (true) {
         showSnackBar(context, e.toString());
@@ -321,7 +324,7 @@ class AdminServices {
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({'id': product.id}),
-        method: 'DELETE', // Sử dụng DELETE
+        method: 'POST',
       );
 
       httpErrorHandle(
@@ -347,79 +350,79 @@ class AdminServices {
       BuildContext context, String branchId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedOrders = prefs.getString('cached_orders_$branchId');
-    DateTime? cacheTime =
-        prefs.getString('cached_orders_time_$branchId') != null
-            ? DateTime.parse(prefs.getString('cached_orders_time_$branchId')!)
-            : null;
+    // final prefs = await SharedPreferences.getInstance();
+    // String? cachedOrders = prefs.getString('cached_orders_$branchId');
+    // DateTime? cacheTime =
+    //     prefs.getString('cached_orders_time_$branchId') != null
+    //         ? DateTime.parse(prefs.getString('cached_orders_time_$branchId')!)
+    //         : null;
 
     // Kiểm tra cache
-    if (cachedOrders != null &&
-        cacheTime != null &&
-        DateTime.now().difference(cacheTime).inHours < 1) {
-      final cachedData = jsonDecode(cachedOrders);
-      if (cachedData is List) {
-        orderList = _parseOrders(cachedData);
-      } else {
-        throw Exception('Dữ liệu cache không phải là danh sách: $cachedData');
-      }
-    } else {
-      try {
-        http.Response res = await _makeRequestWithTimeout(
-          Uri.parse('$uri/admin/get-orders?branchId=$branchId'),
-          {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          },
-          method: 'GET',
-        );
+    // if (cachedOrders != null &&
+    //     cacheTime != null &&
+    //     DateTime.now().difference(cacheTime).inHours < 1) {
+    //   final cachedData = jsonDecode(cachedOrders);
+    //   if (cachedData is List) {
+    //     orderList = _parseOrders(cachedData);
+    //   } else {
+    //     throw Exception('Dữ liệu cache không phải là danh sách: $cachedData');
+    //   }
+    // } else {
+    try {
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/get-orders?branchId=$branchId'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        method: 'GET',
+      );
 
-        debugPrint('fetchAllOrders Response status: ${res.statusCode}');
-        debugPrint('fetchAllOrders Response body: ${res.body}');
+      debugPrint('fetchAllOrders Response status: ${res.statusCode}');
+      debugPrint('fetchAllOrders Response body: ${res.body}');
 
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            if (res.body.isNotEmpty) {
-              final dynamic responseData = jsonDecode(res.body);
-              List<dynamic> orderData;
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          if (res.body.isNotEmpty) {
+            final dynamic responseData = jsonDecode(res.body);
+            List<dynamic> orderData;
 
-              // Kiểm tra định dạng phản hồi
-              if (responseData is List) {
-                orderData = responseData;
-              } else if (responseData is Map<String, dynamic> &&
-                  responseData.containsKey('orders')) {
-                orderData = responseData['orders'];
-                if (orderData is! List) {
-                  throw Exception(
-                      'Dữ liệu orders trong phản hồi không phải là danh sách: $orderData');
-                }
-              } else {
+            // Kiểm tra định dạng phản hồi
+            if (responseData is List) {
+              orderData = responseData;
+            } else if (responseData is Map<String, dynamic> &&
+                responseData.containsKey('orders')) {
+              orderData = responseData['orders'];
+              if (orderData is! List) {
                 throw Exception(
-                    'Dữ liệu trả về không đúng định dạng: $responseData');
-              }
-
-              orderList = _parseOrders(orderData);
-              prefs.setString('cached_orders_$branchId', jsonEncode(orderData));
-              prefs.setString('cached_orders_time_$branchId',
-                  DateTime.now().toIso8601String());
-              if (true && orderList.isNotEmpty) {
-                showSnackBar(context, 'Tải danh sách đơn hàng thành công!');
+                    'Dữ liệu orders trong phản hồi không phải là danh sách: $orderData');
               }
             } else {
-              throw Exception('Phản hồi từ server trống');
+              throw Exception(
+                  'Dữ liệu trả về không đúng định dạng: $responseData');
             }
-          },
-        );
-      } catch (e) {
-        if (true) {
-          showSnackBar(context, 'Lỗi khi tải đơn hàng: ${e.toString()}');
-        }
-        rethrow;
+
+            orderList = _parseOrders(orderData);
+            // prefs.setString('cached_orders_$branchId', jsonEncode(orderData));
+            // prefs.setString('cached_orders_time_$branchId',
+            //     DateTime.now().toIso8601String());
+            // if (true && orderList.isNotEmpty) {
+            //   showSnackBar(context, 'Tải danh sách đơn hàng thành công!');
+            // }
+          } else {
+            throw Exception('Phản hồi từ server trống');
+          }
+        },
+      );
+    } catch (e) {
+      if (true) {
+        showSnackBar(context, 'Lỗi khi tải đơn hàng: ${e.toString()}');
       }
+      rethrow;
     }
+    // }
     return orderList;
   }
 
@@ -482,7 +485,6 @@ class AdminServices {
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({'id': order.id, 'status': status}),
-        method: 'PATCH', // Sử dụng PATCH
       );
 
       httpErrorHandle(
@@ -511,51 +513,51 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Sales> sales = [];
     int totalEarning = 0;
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedEarnings = prefs.getString('cached_earnings_$branchId');
+    // final prefs = await SharedPreferences.getInstance();
+    // String? cachedEarnings = prefs.getString('cached_earnings_$branchId');
 
     try {
-      if (cachedEarnings != null) {
-        final data = jsonDecode(cachedEarnings);
-        totalEarning = data['totalEarnings'];
-        sales = (data['sales'] as List)
-            .map((item) => Sales(item['label'], item['earning']))
-            .toList();
-      } else {
-        http.Response res = await _makeRequestWithTimeout(
-          Uri.parse('$uri/admin/analytics?branchId=$branchId'),
-          {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          },
-          method: 'GET',
-        );
+      // if (cachedEarnings != null) {
+      //   final data = jsonDecode(cachedEarnings);
+      //   totalEarning = data['totalEarnings'];
+      //   sales = (data['sales'] as List)
+      //       .map((item) => Sales(item['label'], item['earning']))
+      //       .toList();
+      // } else {
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/analytics?branchId=$branchId'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        method: 'GET',
+      );
 
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            var response = jsonDecode(res.body);
-            totalEarning = response['totalEarnings'];
-            sales = [
-              Sales('Điện thoại', response['mobileEarnings']),
-              Sales('Đ.thiết yếu', response['essentialEarnings']),
-              Sales('Đ.gia dụng', response['applianceEarnings']),
-              Sales('Sách', response['booksEarnings']),
-              Sales('Thời trang', response['fashionEarnings']),
-            ];
-            prefs.setString(
-              'cached_earnings_$branchId',
-              jsonEncode({
-                'totalEarnings': totalEarning,
-                'sales': sales
-                    .map((s) => {'label': s.label, 'earning': s.earning})
-                    .toList()
-              }),
-            );
-          },
-        );
-      }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          var response = jsonDecode(res.body);
+          totalEarning = response['totalEarnings'];
+          sales = [
+            Sales('Điện thoại', response['mobileEarnings']),
+            Sales('Đ.thiết yếu', response['essentialEarnings']),
+            Sales('Đ.gia dụng', response['applianceEarnings']),
+            Sales('Sách', response['booksEarnings']),
+            Sales('Thời trang', response['fashionEarnings']),
+          ];
+          // prefs.setString(
+          //   'cached_earnings_$branchId',
+          //   jsonEncode({
+          //     'totalEarnings': totalEarning,
+          //     'sales': sales
+          //         .map((s) => {'label': s.label, 'earning': s.earning})
+          //         .toList()
+          //   }),
+          // );
+        },
+      );
+      // }
     } catch (e) {
       if (true) {
         showSnackBar(context, e.toString());
@@ -575,16 +577,35 @@ class AdminServices {
     required String address,
     required String email,
     required String password,
+    int? provinceId,
+    int? wardId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
       LoadingShowAble.showLoading();
+      List<String> dividedHashedPassword =
+          EncryptionHelper.hashPassword(password);
+      encryption.AsymmetricKeyPair keyPair =
+          await EncryptionHelper.generateKeyPair();
+      String encryptedPrivateKey = EncryptionHelper.encryptPrivateKey(
+        dividedHashedPassword[1],
+        EncryptionHelper.convertPrivateKeyToString(
+          keyPair.privateKey as pointy.RSAPrivateKey,
+        ),
+      );
+
       Branch branch = Branch(
         branchName: branchName,
         address: address,
         email: email,
-        password: password,
+        password: dividedHashedPassword[0],
+        publicKey: EncryptionHelper.convertPublicKeyToString(
+          keyPair.publicKey as pointy.RSAPublicKey,
+        ),
+        privateKey: encryptedPrivateKey,
+        provinceId: provinceId,
+        wardId: wardId,
       );
 
       http.Response res = await _makeRequestWithTimeout(
@@ -624,6 +645,11 @@ class AdminServices {
     required String address,
     required String email,
     required String branchId,
+    required String password,
+    required String publicKey,
+    required String privateKey,
+    int? provinceId,
+    int? wardId,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -633,13 +659,15 @@ class AdminServices {
         id: branchId,
         name: branchName,
         email: email,
-        password: userProvider.user.password,
+        password: password,
         address: address,
         type: "branch",
         token: userProvider.user.token,
         cart: [],
-        publicKey: "",
-        privateKey: "",
+        publicKey: publicKey,
+        privateKey: privateKey,
+        provinceId: provinceId,
+        wardId: wardId,
       );
 
       http.Response res = await _makeRequestWithTimeout(
@@ -658,7 +686,7 @@ class AdminServices {
         onSuccess: () {
           if (true) {
             showSnackBar(context, 'Đã sửa chi nhánh thành công!');
-            Navigator.of(context).pop(true);
+            // Navigator.of(context).pop(true);
           }
         },
       );
@@ -676,35 +704,35 @@ class AdminServices {
   Future<List<User>> fetchAllBranches(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<User> branchList = [];
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedBranches = prefs.getString('cached_branches');
+    // final prefs = await SharedPreferences.getInstance();
+    // String? cachedBranches = prefs.getString('cached_branches');
 
     try {
-      if (cachedBranches != null) {
-        branchList = _parseBranches(jsonDecode(cachedBranches));
-      } else {
-        http.Response res = await _makeRequestWithTimeout(
-          Uri.parse('$uri/admin/get-branches'),
-          {
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': userProvider.user.token,
-          },
-          method: 'GET',
-        );
+      // if (cachedBranches != null) {
+      //   branchList = _parseBranches(jsonDecode(cachedBranches));
+      // } else {
+      http.Response res = await _makeRequestWithTimeout(
+        Uri.parse('$uri/admin/get-branches'),
+        {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        method: 'GET',
+      );
 
-        httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () {
-            final List<dynamic> branchData = jsonDecode(res.body);
-            branchList = _parseBranches(branchData);
-            prefs.setString('cached_branches', jsonEncode(branchData));
-            if (true && branchList.isNotEmpty) {
-              showSnackBar(context, 'Tải danh sách chi nhánh thành công!');
-            }
-          },
-        );
-      }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          final List<dynamic> branchData = jsonDecode(res.body);
+          branchList = _parseBranches(branchData);
+          // prefs.setString('cached_branches', jsonEncode(branchData));
+          // if (true && branchList.isNotEmpty) {
+          //   showSnackBar(context, 'Tải danh sách chi nhánh thành công!');
+          // }
+        },
+      );
+      // }
     } catch (e) {
       if (true) {
         showSnackBar(context, e.toString());
@@ -775,7 +803,7 @@ class AdminServices {
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({'id': branch.id}),
-        method: 'DELETE', // Sử dụng DELETE
+        method: 'POST',
       );
 
       httpErrorHandle(

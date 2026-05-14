@@ -8,6 +8,7 @@ import 'package:flutter_ecrm/constants/global_variables.dart';
 import 'package:flutter_ecrm/features/account/widgets/below_app_bar.dart';
 import 'package:flutter_ecrm/models/user.dart';
 import 'package:flutter_ecrm/providers/user_provider.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutter_ecrm/features/SelectContact.dart';
 
@@ -60,12 +61,9 @@ class _ChatPageState extends State<ChatPage> {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      child: const Text(
-                        "ECRM PRO",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: SvgPicture.asset(
+                        'assets/icons/logo_app.svg',
+                        height: 45,
                       ),
                     ),
                   ],
